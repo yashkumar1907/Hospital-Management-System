@@ -174,7 +174,7 @@ using Live Server or any local server.
 
 ---
 
-## 📸 Screenshots
+<!-- ## 📸 Screenshots
 
 ### Homepage
 
@@ -190,7 +190,7 @@ _Add admin dashboard screenshot here._
 
 ### Doctor Dashboard
 
-_Add doctor dashboard screenshot here._
+_Add doctor dashboard screenshot here._ -->
 
 ---
 
