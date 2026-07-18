@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="patient-login.css">
+    <title>Patient Login | CityCare Hospital</title>
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+
+    <main class="login-page">
+
+        <!-- LEFT SIDE -->
+        <section class="left-panel">
+
+            <div class="logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital" loading="lazy">
+                </a>
+            </div>
+
+            <div class="left-content">
+                <h1>
+                    Welcome Back,<br>
+                    <span>Patient!</span>
+                </h1>
+            
+                <p class="subtitle">
+                    Login to access your appointments, prescriptions, and healthcare records.
+                </p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Manage Appointments</h3>
+                        <p>View upcoming and past appointments.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Access Medical Records</h3>
+                        <p>View prescriptions and treatment history.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Health Updates</h3>
+                        <p>Receive appointment and prescription updates.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Secure & Private</h3>
+                        <p>Your healthcare data is fully protected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <section class="right-panel">
+            <div class="login-card">
+
+                <div class="login-header">
+                    <h2>Patient Login</h2>
+                    <p>Hospital Patient Portal</p>
+
+                    <div id="messageBox"></div>
+                </div>
+
+                <form id="patientLoginForm">
+                    <div class="form-group full-width">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" autocomplete="email" placeholder="Enter your email address" required>
+                    </div>
+        
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="password" autocomplete="current-password" placeholder="Enter your password" required>
+                                <i class="fa-solid fa-eye" id="togglePassword"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="../forgot-password/patient-forgot-password.html">
+                            Forgot Password?
+                        </a>
+                    </div>
+        
+                    <button type="submit" class="login-btn">
+                        Login to Dashboard
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="register-link">
+                    Don't have an account?
+                    <a href="../register/patient-register.html">
+                        Register Here
+                    </a>
+                </div>
+            
+            </div>
+            <div class="copyright">
+                © 2026 CityCare Hospital
+                <br>
+                Patient Portal
+            </div>
+        </section>
+    </main>
+
+    <script src="../../config.js"></script>
+    <script src="patient-login.js"></script>
+</body>
+</html>

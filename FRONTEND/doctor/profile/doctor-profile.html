@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile | CityCare Hospital</title>
+    <link rel="stylesheet" href="doctor-profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/doctor-dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../profile/doctor-profile.html" class="menu-item active">
+                    <i class="fa-regular fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="../appointments/doctor-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>MY PROFILE</h1>
+                    <div id="messageBox"></div>
+                </div>
+            
+                <div class="header-right">
+            
+                    <div class="profile-menu">
+                        <div class="profile-avatar" id="profileAvatar"></div>
+                        <span id="headerDoctorName">Doctor Name</span>
+                    </div>
+            
+                </div>
+            
+            </header>
+
+            <section class="profile-page">
+            
+                <div class="profile-card">
+            
+                    <div class="profile-left">
+            
+                        <img id="doctorProfileImage" src="../../../assets/default-doctor.png" alt="Doctor" class="profile-image">
+            
+                        <div class="profile-info">
+                            <h2 id="doctorName">
+                                Doctor Name
+                            </h2>
+            
+                            <p>
+                                <i class="fa-regular fa-envelope"></i>
+                                <span id="doctorEmail"></span>
+                            </p>
+            
+                            <p>
+                                <i class="fa-solid fa-phone"></i>
+                                <span id="doctorPhone"></span>
+                            </p>
+                        </div>
+            
+                    </div>
+            
+                    <button class="edit-profile-btn">
+                        Edit Profile
+                    </button>
+            
+                </div>
+            
+            </section>
+
+            <div class="info-card">
+
+                <h3>Personal Information</h3>
+            
+                <div class="info-grid">
+            
+                    <div class="info-item">
+                        <span>Full Name</span>
+                        <strong id="fullName"></strong>
+                    </div>
+            
+                    <div class="info-item">
+                        <span>Specialization</span>
+                        <strong id="specialization"></strong>
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+            <div class="info-card">
+
+                <h3>Professional Information</h3>
+            
+                <div class="info-grid">
+            
+                    <div class="info-item">
+                        <span>Hospital Name</span>
+                        <strong>CityCare Hospital</strong>
+                    </div>
+            
+                    <div class="info-item">
+                        <span>Department</span>
+                        <strong id="department"></strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>Experience</span>
+                        <strong id="experience"></strong>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span>Consultation Fee</span>
+                        <strong id="consultationFee"></strong>
+                    </div>
+                    
+                    <div class="info-item">
+                        <span>Availability</span>
+                        <strong id="availability"></strong>
+                    </div>
+            
+                    <div class="info-item">
+                        <span>Phone Number</span>
+                        <strong id="professionalPhone"></strong>
+                    </div>
+            
+                </div>
+            
+            </div>
+
+
+            <div class="info-card">
+                <h3>Account Information</h3>  
+
+                <div class="info-grid">
+            
+                    <div class="info-item">
+                        <span>Email Address</span>
+                        <strong id="accountEmail"></strong>
+                    </div>
+            
+                    <div class="info-item">
+                        <span>Password</span>
+                        <strong>********</strong>
+                    </div>
+            
+                </div>
+            
+            </div>
+
+            
+
+        </main>
+    </div>
+    
+    <script src="../../config.js"></script>
+    <script src="doctor-profile.js"></script>
+</body>
+</html>

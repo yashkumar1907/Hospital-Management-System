@@ -1,0 +1,227 @@
+/* ===========================
+   Terms and Conditions
+===========================*/
+.tc-title{
+    padding:70px 20px 30px;
+    background:#ffffff;
+}
+
+.tc-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.tc-title h1{
+    font-size:46px;
+    margin-bottom:15px;
+    color:#0f172a;
+}
+
+.tc-title p{
+    max-width:720px;
+    color:#64748b;
+    line-height:1.8;
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+.updated-date{
+    display:inline-flex;
+    align-items:center;
+    padding:10px 18px;
+    background:#eff6ff;
+    color:#2563eb;
+    border-radius:50px;
+    font-weight:600;
+    font-size:15px;
+}
+
+
+/* ===========================
+   Terms and Conditions Content
+===========================*/
+.tc-content{
+    background:#f8fafc;
+    padding:20px 20px 80px;
+}
+
+.tc-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px 35px;
+    margin-bottom:22px;
+    border:1px solid #e8eef6;
+    border-left:5px solid #2563eb;
+    box-shadow:0 8px 25px rgba(15,23,42,.05);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.tc-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(37,99,235,.12);
+}
+
+.tc-heading{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.tc-icon{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.tc-icon i{
+    color:white;
+    font-size:20px;
+}
+
+.tc-heading h2{
+    font-size:28px;
+    color:#0f172a;
+}
+
+.tc-card p{
+    color:#64748b;
+    font-size:17px;
+    line-height:1.9;
+}
+
+
+/* ===========================
+   Footer (Legal Pages)
+=========================== */
+.footer-container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.footer-col:first-child{
+    flex: 1;
+}
+
+.footer-col:last-child{
+    margin-left:auto;
+    min-width:220px;
+}
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+/* Tablet */
+@media (max-width:992px){
+    .tc-title{
+        padding:60px 20px 25px;
+    }
+    .tc-title h1{
+        font-size:38px;
+    }
+    .tc-card{
+        padding:25px;
+    }
+    .tc-heading h2{
+        font-size:24px;
+    }
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .tc-title{
+        padding:50px 18px 20px;
+    }
+    .tc-title h1{
+        font-size:32px;
+    }
+    .tc-title p{
+        font-size:16px;
+    }
+    .updated-date{
+        font-size:14px;
+    }
+    .tc-content{
+        padding:20px 15px 60px;
+    }
+    .tc-card{
+        padding:22px;
+    }
+    .tc-heading{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+    .tc-heading h2{
+        font-size:22px;
+    }
+    .tc-card p{
+        font-size:15px;
+    }
+    .footer-container{
+        gap:35px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width:480px){
+    .tc-container{
+        width:100%;
+    }
+    .tc-title h1{
+        font-size:28px;
+    }
+    .tc-content{
+        padding:20px 12px 50px;
+    }
+    .tc-card{
+        padding:18px 16px;
+    }
+    .tc-heading{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    .tc-icon{
+        width:46px;
+        height:46px;
+    }
+    .tc-icon i{
+        font-size:18px;
+    }
+    .tc-heading h2{
+        font-size:20px;
+        line-height:1.3;
+    }
+    .tc-card p{
+        font-size:15px;
+        line-height:1.8;
+    }
+    .footer-container{
+        flex-direction:column;
+        gap:30px;
+    }
+    .footer-col{
+        width:100%;
+    }
+    .footer-col:last-child{
+        margin-left:0;
+        min-width:unset;
+    }
+    .footer-social{
+        flex-wrap:wrap;
+    }
+}

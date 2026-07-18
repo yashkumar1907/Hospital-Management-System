@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Appointments</title>
+    <link rel="stylesheet" href="admin-appointments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/admin-dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../doctors/admin-doctor.html" class="menu-item">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Doctors</span>
+                </a>
+
+                <a href="../patients/admin-patient.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Patients</span>
+                </a>
+
+                <a href="admin-appointments.html" class="menu-item active">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>APPOINTMENTS</h1>
+                    <p id="appointmentCount"></p>
+                </div>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <div class="profile-avatar" id="profileAvatar"></div>
+                        <span id="adminName">Admin User</span>
+                    </div>
+                </div>
+            
+            </header>
+
+            <section class="appointment-management">
+
+                <div class="doctor-toolbar">
+            
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchAppointment" placeholder="Search Appointment...">
+                    </div>
+            
+                    <div class="toolbar-actions">
+                    </div>
+            
+                </div>
+            
+                <div class="doctor-table-card">
+            
+                    <table class="doctor-table">
+            
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+            
+                        <tbody id="appointmentTableBody">
+
+                        </tbody>
+            
+                    </table>
+            
+                </div>
+            
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../../config.js"></script>
+    <script src="admin-appointments.js"></script>
+</body>
+</html>

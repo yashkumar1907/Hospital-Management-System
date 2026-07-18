@@ -1,0 +1,128 @@
+/* ===============================
+   CONFIRM OVERLAY
+=============================== */
+#confirmOverlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+    z-index: 9999;
+    animation: confirmFadeIn 0.25s ease;
+}
+
+
+/* ===============================
+   CONFIRM BOX
+=============================== */
+.confirm-box {
+    width: 420px;
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    padding: 28px;
+    animation: confirmZoomIn 0.25s ease;
+}
+
+
+/* ===============================
+   TITLE
+=============================== */
+.confirm-box h2 {
+    margin: 0 0 15px;
+    color: #ff6b00;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+/* ===============================
+   MESSAGE
+=============================== */
+.confirm-box p {
+    margin: 0;
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+
+/* ===============================
+   BUTTONS
+=============================== */
+.confirm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+
+/* ===============================
+   CANCEL BUTTON
+=============================== */
+.confirm-cancel-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #e5e7eb;
+    color: #374151;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+
+.confirm-cancel-btn:hover {
+    background: #d1d5db;
+}
+
+/* ===============================
+   OK BUTTON
+=============================== */
+.confirm-ok-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #dc2626;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+
+.confirm-ok-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* ===============================
+   ANIMATIONS
+=============================== */
+@keyframes confirmFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes confirmZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,275 @@
+/* ===========================
+   Privacy Policy
+===========================*/
+.policy-title{
+    padding:70px 20px 30px;
+    background:#ffffff;
+}
+
+.policy-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.policy-title h1{
+    font-size:46px;
+    margin-bottom:15px;
+    color:#0f172a;
+}
+
+.policy-title p{
+    max-width:720px;
+    color:#64748b;
+    line-height:1.8;
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+.updated-date{
+    display:inline-flex;
+    align-items:center;
+    padding:10px 18px;
+    background:#eff6ff;
+    color:#2563eb;
+    border-radius:50px;
+    font-weight:600;
+    font-size:15px;
+}
+
+
+/* ===========================
+   Policy Content
+===========================*/
+.policy-content{
+    background:#f8fafc;
+    padding:20px 20px 80px;
+}
+
+.policy-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:30px 35px;
+    margin-bottom:22px;
+    border:1px solid #e8eef6;
+    border-left:5px solid #2563eb;
+    box-shadow:0 8px 25px rgba(15,23,42,.05);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.policy-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(37,99,235,.12);
+}
+
+.policy-heading{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.policy-icon{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.policy-icon i{
+    color:white;
+    font-size:20px;
+}
+
+.policy-heading h2{
+    font-size:28px;
+    color:#0f172a;
+}
+
+.policy-card p{
+    color:#64748b;
+    font-size:17px;
+    line-height:1.9;
+}
+
+
+/* ===========================
+   Footer (Legal Pages)
+=========================== */
+.footer-container{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.footer-col:first-child{
+    flex: 1;
+}
+
+.footer-col:last-child{
+    margin-left:auto;
+    min-width:220px;
+}
+
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+/* Tablet */
+@media (max-width: 992px){
+
+    .policy-title{
+        padding:60px 20px 25px;
+    }
+
+    .policy-title h1{
+        font-size:38px;
+    }
+
+    .policy-card{
+        padding:25px;
+    }
+
+    .policy-heading h2{
+        font-size:24px;
+    }
+
+}
+
+/* Mobile */
+@media (max-width: 768px){
+
+    .policy-title{
+        padding:50px 18px 20px;
+    }
+
+    .policy-title h1{
+        font-size:32px;
+    }
+
+    .policy-title p{
+        font-size:16px;
+    }
+
+    .updated-date{
+        font-size:14px;
+    }
+
+    .policy-content{
+        padding:20px 15px 60px;
+    }
+
+    .policy-card{
+        padding:22px;
+    }
+
+    .policy-heading{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:12px;
+    }
+
+    .policy-heading h2{
+        font-size:22px;
+    }
+
+    .policy-card p{
+        font-size:15px;
+    }
+
+    .footer-container{
+        gap:35px;
+    }
+
+}
+
+/* Small Mobile */
+@media (max-width: 480px){
+
+    .policy-title h1{
+        font-size:28px;
+    }
+
+    .policy-card{
+        padding:18px;
+    }
+
+    .policy-icon{
+        width:46px;
+        height:46px;
+    }
+
+    .policy-icon i{
+        font-size:18px;
+    }
+
+    .policy-heading h2{
+        font-size:20px;
+    }
+
+}
+
+/* ===========================
+   EXTRA SMALL DEVICES
+=========================== */
+@media (max-width:480px){
+
+    .policy-container{
+        width:100%;
+    }
+
+    .policy-content{
+        padding:20px 12px 50px;
+    }
+
+    .policy-card{
+        padding:18px 16px;
+    }
+
+    .policy-heading{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .policy-heading h2{
+        font-size:20px;
+        line-height:1.3;
+    }
+
+    .policy-card p{
+        font-size:15px;
+        line-height:1.8;
+    }
+
+    /* Footer Fix */
+    .footer-container{
+        flex-direction:column;
+        gap:30px;
+    }
+
+    .footer-col{
+        width:100%;
+    }
+
+    .footer-col:last-child{
+        margin-left:0;
+        min-width:unset;
+    }
+
+    .footer-social{
+        flex-wrap:wrap;
+    }
+
+}

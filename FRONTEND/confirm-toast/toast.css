@@ -1,0 +1,115 @@
+/* ===============================
+   TOAST CONTAINER
+=============================== */
+
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ===============================
+   TOAST
+=============================== */
+
+.toast {
+    min-width: 300px;
+    max-width: 420px;
+
+    padding: 14px 18px;
+
+    border-radius: 8px;
+
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    animation: slideIn 0.35s ease;
+}
+
+/* ===============================
+   SUCCESS
+=============================== */
+
+.toast.success {
+    background: #28a745;
+}
+
+/* ===============================
+   ERROR
+=============================== */
+
+.toast.error {
+    background: #dc3545;
+}
+
+/* ===============================
+   WARNING
+=============================== */
+
+.toast.warning {
+    background: #ffc107;
+    color: #222;
+}
+
+/* ===============================
+   INFO
+=============================== */
+
+.toast.info {
+    background: #007bff;
+}
+
+/* ===============================
+   CLOSE BUTTON
+=============================== */
+
+.toast-close {
+    margin-left: 15px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ===============================
+   ANIMATIONS
+=============================== */
+
+@keyframes slideIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes fadeOut {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+
+}

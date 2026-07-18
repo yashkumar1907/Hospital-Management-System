@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard | CityCare Hospital</title>
+    <link rel="stylesheet" href="doctor-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="doctor-dashboard.html" class="menu-item active">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../profile/doctor-profile.html" class="menu-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="../appointments/doctor-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-plus"></i>
+                    <span>Appointments</span>
+                </a>
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>DASHBOARD</h1>
+                    <p id="todayDate"></p>
+                </div>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <div class="profile-avatar" id="profileAvatar"></div>
+                        <span id="doctorName">
+                            Doctor Name
+                        </span>
+                    </div>
+            
+                </div>
+            
+            </header>
+
+            <section class="stats-grid">
+
+                <!-- Card 1 -->
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Today's Appointments</h4>
+                        <h2 id="todayAppointments">0</h2>
+                        <p>View appointments</p>
+                    </div>
+                </div>
+            
+                <!-- Card 2 -->
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Total Appointments</h4>
+                        <h2 id="totalAppointments">0</h2>
+                        <p>View all appointments</p>
+                    </div>
+                </div>
+            
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-check-double"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Completed Appointments</h4>
+                        <h2 id="completedAppointments">0</h2>
+                        <p>Completed consultations</p>
+                    </div>
+                </div>
+
+
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-user-clock"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Confirmed Appointments</h4>
+                        <h2 id="confirmedAppointments">0</h2>
+                        <p>Awaiting consultation</p>
+                    </div>
+                </div>
+            
+            </section>
+
+            <section class="dashboard-content">
+
+                <div class="today-appointments-card">
+
+                    <div class="section-header">
+                        <h3>Today's Appointments</h3>
+                    </div>
+                
+                    <div id="appointmentsContainer">
+
+                        <div style="padding:40px;text-align:center;color:#64748b;">
+                            Loading appointments...
+                        </div>
+                    
+                    </div>
+                
+                </div>
+
+                <div class="recent-prescriptions-card">
+
+                    <div class="section-header">
+                        <h3>Appointment Summary</h3>
+                    </div>
+                
+                    <div id="appointmentSummary">
+                
+                    </div>
+                
+                </div>
+            
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../../config.js"></script>
+    <script src="doctor-dashboard.js"></script>
+</body>
+</html>

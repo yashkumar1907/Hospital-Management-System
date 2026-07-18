@@ -1,0 +1,322 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f8fafc;
+    color:#0f172a;
+}
+
+a{
+    text-decoration:none;
+}
+
+/* =========================
+   PAGE LAYOUT
+========================= */
+.dashboard-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.main-content{
+    flex:1;
+    padding:24px 30px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar{
+    width:250px;
+    min-height:100vh;
+    background:#ffffff;
+    border-right:1px solid #e2e8f0;
+    display:flex;
+    flex-direction:column;
+    padding:16px 20px;
+}
+.sidebar-logo{
+    margin-bottom:20px;
+}
+.sidebar-logo img{
+    width:160px;
+}
+
+.sidebar-menu{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:12px 16px;
+    border-radius:12px;
+    color:#334155;
+    font-size:16px;
+    font-weight:500;
+    transition:0.3s;
+    margin: 0;
+}
+.menu-item i{
+    font-size:18px;
+}
+.menu-item:hover{
+    background:#f1f5f9;
+}
+.menu-item.active{
+    background:#eff6ff;
+    color:#2563eb;
+}
+
+.sidebar-divider{
+    margin:25px 0;
+    border-top:1px solid #e2e8f0;
+}
+.sidebar-logout{
+    margin-bottom:12px;
+    margin-top: 0;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+.dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:16px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+
+.profile-menu{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.profile-avatar-img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* =========================
+   PROFILE BREADCRUMB
+========================= */
+
+.profile-breadcrumb h1{
+    font-size:36px;
+    margin-bottom:10px;
+    color:#0f172a;
+}
+
+.breadcrumb{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom:25px;
+}
+.breadcrumb a{
+    color:#2563eb;
+    text-decoration:none;
+}
+
+
+/* =========================
+   BOOK APPOINTMENT
+========================= */
+.appointment-card{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:20px;
+    padding:24px;
+}
+
+.appointment-status-info{
+    margin-top:15px;
+    padding:12px 16px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    border-radius:12px;
+    color:#1e40af;
+    margin-bottom: 20px;
+}
+
+.appointment-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.appointment-icon{
+    width:75px;
+    height:75px;
+    border-radius:18px;
+    background:#eff6ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.appointment-icon i{
+    font-size:36px;
+}
+
+.appointment-header-text h2{
+    font-size:24px;
+    font-weight:700;
+    color:#0f172a;
+    margin-bottom:8px;
+}
+
+.appointment-header-text p{
+    font-size:16px;
+    color:#64748b;
+}
+
+.appointment-divider{
+    height:1px;
+    background:#e2e8f0;
+    margin:24px 0;
+}
+
+.appointment-form{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 30px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.form-group label{
+    font-size:16px;
+    font-weight:600;
+    color:#334155;
+}
+
+.input-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    height:60px;
+    padding:0 18px;
+    border:1px solid #dbe3ef;
+    border-radius:16px;
+    background:#fff;
+}
+
+.input-box i{
+    color:#2563eb;
+    font-size:20px;
+}
+
+.input-box select,
+.input-box input{
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:16px;
+    color:#0f172a;
+    background:transparent;
+}
+
+.notes-group textarea{
+    width:100%;
+    height:100px;
+    padding:18px;
+    border:1px solid #dbe3ef;
+    border-radius:16px;
+    resize:none;
+    outline:none;
+    font-size:16px;
+    font-family:inherit;
+}
+
+.appointment-btn-container{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.book-btn{
+    border:none;
+    background:#2563eb;
+    color:white;
+    padding:14px 24px;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.book-btn:hover{
+    background:#1d4ed8;
+    transition:0.3s;
+}
+
+
+/* Message */
+#messageBox{
+    display:none;
+    margin-top:15px;
+    padding:12px 16px;
+    border-radius:10px;
+    font-size:14px;
+    font-weight:500;
+}
+
+.success-message{
+    display:block !important;
+    background:#dcfce7;
+    color:#166534;
+    border:1px solid #86efac;
+}
+
+.error-message{
+    display:block !important;
+    background:#fee2e2;
+    color:#991b1b;
+    border:1px solid #fca5a5;
+}
+
+#doctorAvailability{
+    margin-top:10px;
+    font-weight:600;
+    color:#16a34a;
+}
+.book-btn:disabled{
+    background:#94a3b8;
+    cursor:not-allowed;
+}

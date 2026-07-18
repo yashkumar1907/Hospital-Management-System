@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="admin-dashboard.html" class="menu-item active">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="../doctors/admin-doctor.html" class="menu-item">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Doctors</span>
+                </a>
+                
+                <a href="../patients/admin-patient.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Patients</span>
+                </a>
+                
+                <a href="../appointments/admin-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>DASHBOARD</h1>
+                    <p id="todayDate"></p>
+                </div>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <div class="profile-avatar" id="profileAvatar"></div>
+                        <span id="adminName">Admin User</span>
+                    </div>
+                </div>
+            
+            </header>
+
+            <section class="stats-grid">
+
+                <!-- Card 1 -->
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Total Appointments</h4>
+                        <h2 id="totalAppointments">0</h2>
+                    </div>
+                </div>
+            
+                <!-- Card 2 -->
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Total Patients</h4>
+                        <h2 id="totalPatients">0</h2>
+                    </div>
+                </div>
+            
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Total Doctors</h4>
+                        <h2 id="totalDoctors">0</h2>
+                    </div>
+                </div>
+
+
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+                    
+                    <div class="stat-info">
+                        <h4>Pending Appointments</h4>
+                        <h2 id="pendingAppointments">0</h2>
+                        <p>Require action</p>
+                    </div>
+                </div>
+            
+            </section>
+
+            <section class="dashboard-content">
+
+                <!-- Recent Appointments -->
+                <div class="recent-appointments-card">
+            
+                    <div class="section-header">
+                        <h3>Latest Appointments</h3>
+                        <a href="../appointments/admin-appointments.html">View All</a>
+                    </div>
+            
+                    <div id="recentAppointments">
+
+                        <div style="padding:40px;text-align:center;color:#64748b;">
+                            Loading appointments...
+                        </div>
+                    
+                    </div>
+            
+                </div>
+            
+                <!-- Appointments Overview -->
+                <div class="appointments-overview-card">
+            
+                    <div class="section-header">
+                        <h3>Hospital Overview</h3>
+                        <a href="#">This Month</a>
+                    </div>
+            
+                    <div class="chart-container">
+                        <canvas id="appointmentsChart"></canvas>
+                    </div>
+            
+                </div>
+            
+            </section>
+
+
+        </main>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../config.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

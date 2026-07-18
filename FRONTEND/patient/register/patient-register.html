@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="patient-register.css">
+    <title>Patient Registration | CityCare Hospital</title>
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+
+    <main class="register-page">
+
+        <!-- LEFT SIDE -->
+        <section class="left-panel">
+
+            <div class="logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital" loading="lazy">
+                </a>
+            </div>
+
+            <div class="left-content">
+                <h1>
+                    Create Your Account<br>
+                    for <span>Better Healthcare</span>
+                </h1>
+            
+                <p class="subtitle">
+                    Register to book appointments, access your health records, and get personalized healthcare.
+                </p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Book Appointments</h3>
+                        <p>Easily schedule appointments with your preferred doctors.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-notes-medical"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Access Health Records</h3>
+                        <p>View your medical history, test reports, and prescriptions securely.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Medication Reminders</h3>
+                        <p>Get timely reminders for your medicines and check-ups.</p>
+                    </div>
+                </div>
+            
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Secure & Private</h3>
+                        <p>Your data is encrypted and 100% confidential.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- RIGHT SIDE -->
+        <section class="right-panel">
+            <div class="register-card">
+
+                <div class="register-header">
+                    <h2>Patient Registration</h2>
+                    <p>Fill in your details to create your account</p>
+
+                    <div id="messageBox"></div>
+                </div>
+            
+                <form id="patientRegisterForm">
+                    <div class="photo-upload-section">
+                        <img src="../../../assets/default-patient.jpg" alt="Patient" loading="lazy" id="photoPreview" class="patient-photo-preview">
+                    
+                        <div class="photo-upload-content">
+                            <label for="patientPhoto" class="upload-photo-btn">
+                                Upload Photo
+                            </label>
+                        </div>
+                    
+                        <input type="file" id="patientPhoto" accept="image/*" hidden>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="fullName" autocomplete="name" placeholder="Enter your full name" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender" required>
+                                <option value="" selected disabled>Select your gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label>Blood Group</label>
+                            <select id="bloodGroup" required>
+                                <option value="" selected disabled>Select blood group</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                            </select>
+                        </div>
+                    
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Email Address</label>
+                        <input type="email" id="email" autocomplete="email" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Mobile Number</label>
+                        <input type="tel" id="phone" autocomplete="tel" maxlength="10" inputmode="numeric" placeholder="Enter mobile number" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Password</label>
+                        
+                            <div class="password-wrapper">
+                                <input type="password" id="password" autocomplete="new-password" placeholder="Create a password" required>
+                                <i class="fa-solid fa-eye" id="togglePassword"></i>
+                            </div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmPassword" autocomplete="new-password" placeholder="Confirm your password" required>
+                                <i class="fa-solid fa-eye" id="toggleConfirmPassword"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="terms-row">
+                        <input type="checkbox" id="terms">
+                        <label for="terms">I agree to the 
+                            <a href="../../policy&TC/terms-and-conditions.html" target="_blank">
+                                Terms & Conditions
+                            </a>    
+                            and
+                            <a href="../../policy&TC/privacy-policy.html" target="_blank">
+                                Privacy Policy
+                            </a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="register-btn">Create Account</button>
+                </form>  
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="login-link">
+                    Already have an account?
+                    <a href="../login/patient-login.html">
+                        Login Here
+                    </a>
+                </div>             
+            </div>
+
+            <div class="copyright">
+                © 2026 CityCare Hospital<br>Patient Registration Portal
+            </div>
+        </section>
+    </main>
+
+
+    <script src="../../config.js"></script>
+    <script src="patient-register.js"></script>
+</body>
+</html>

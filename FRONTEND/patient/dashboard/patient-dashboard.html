@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard | CityCare Hospital</title>
+    <link rel="stylesheet" href="patient-dashboard.css">
+    <link rel="stylesheet" href="../../confirm-toast/confirm.css">
+    <link rel="stylesheet" href="../../confirm-toast/toast.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital" loading="lazy">
+                </a>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/patient-dashboard.html" class="menu-item active">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../profile/patient-profile.html" class="menu-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="../appointment/patient-book-appointment.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="../my-appointments/patient-my-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="profile-breadcrumb">
+                    <h1>Patient Dashboard</h1>
+                    <p id="todayDate"></p>
+                </div>
+
+                <button class="menu-toggle" aria-label="Toggle Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <img id="profileAvatar" class="profile-avatar-img" src="../../../assets/default-patient.jpg" alt="Patient Profile">
+                        <span id="patientName">Patient Name</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+
+                <!-- Card 1 -->
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Upcoming Appointments</h4>
+                        <h2 id="upcomingAppointments">0</h2>
+                        <p>View your upcoming schedule</p>
+                    </div>
+                </div>
+            
+                <!-- Card 2 -->
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+            
+                    <div class="stat-info">
+                        <h4>Completed Appointments</h4>
+                        <h2 id="completedAppointments">0</h2>
+                        <p>View your appointment history</p>
+                    </div>
+                </div>
+            
+                <!-- Card 3 -->
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+                
+                    <div class="stat-info">
+                        <h4>Total Appointments</h4>
+                        <h2 id="totalAppointments">0</h2>
+                        <p>All your appointments</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                
+                    <div class="stat-info">
+                        <h4>Pending Appointments</h4>
+                        <h2 id="pendingAppointments">0</h2>
+                        <p>Waiting for approval</p>
+                    </div>
+                
+                </div>
+            
+            </section>
+
+            <section class="dashboard-middle">
+                <div class="appointment-card">
+                    <div class="card-header">
+                        <h3>Latest Appointment</h3>
+                        <a href="../my-appointments/patient-my-appointments.html" class="view-all">
+                            View All
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                
+                    <div id="latestAppointment">
+                        <div class="loading-state">
+                            Loading latest appointment...
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../confirm-toast/confirm.js"></script>
+    <script src="../../confirm-toast/toast.js"></script>
+    <script src="../../config.js"></script>
+    <script src="patient-dashboard.js"></script>
+</body>
+</html>

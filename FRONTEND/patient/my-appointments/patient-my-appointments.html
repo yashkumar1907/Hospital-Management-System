@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments | CityCare Hospital</title>
+    <link rel="stylesheet" href="patient-my-appointments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/patient-dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../profile/patient-profile.html" class="menu-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="../appointment/patient-book-appointment.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="../my-appointments/patient-my-appointments.html" class="menu-item active">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>MY APPOINTMENTS</h1>
+                    <p id="appointmentCount"></p>
+                </div>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <img id="profileAvatar" class="profile-avatar-img" src="../../../assets/default-patient.jpg" alt="Patient">
+                        <span id="patientName">Patient Name</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="appointments-card">
+                <div class="appointment-list" id="appointmentList"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../config.js"></script>
+    <script src="patient-my-appointments.js"></script>
+</body>
+</html>

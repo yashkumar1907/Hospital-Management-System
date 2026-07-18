@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | CityCare Hospital</title>
+    <link rel="stylesheet" href="patient-book-appointment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/patient-dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="../profile/patient-profile.html" class="menu-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+
+                <a href="../appointment/patient-book-appointment.html" class="menu-item active">
+                    <i class="fa-regular fa-calendar-plus"></i>
+                    <span>Book Appointment</span>
+                </a>
+
+                <a href="../my-appointments/patient-my-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>My Appointments</span>
+                </a>
+
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>BOOK APPOINTMENT</h1>
+                </div>
+            
+                <div class="header-right">
+            
+                    <div class="profile-menu">
+                        <img id="profileAvatar" class="profile-avatar-img" src="../../../assets/default-patient.jpg" alt="Patient">
+                        <span id="patientName">Patient Name</span>
+                    </div>
+            
+                </div>
+            
+            </header>
+
+            <section class="appointment-card">
+
+                <div class="appointment-status-info">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Every appointment is initially marked as <strong>Pending</strong> and requires admin approval before confirmation.
+                </div>
+
+                <div class="appointment-header">
+            
+                    <div class="appointment-icon">
+                        <i class="fa-regular fa-calendar-check"></i>
+                    </div>
+            
+                    <div class="appointment-header-text">
+                        <h2>Book Appointment</h2>
+                        <p>Select your preferred date and time to book an appointment.</p>
+
+                        <div id="messageBox"></div>
+                    </div>
+            
+                </div>
+            
+                <div class="appointment-divider"></div>
+            
+                <form class="appointment-form" id="appointmentForm">
+            
+                    <div class="form-grid">
+            
+                        <div class="form-group">
+                            <label>Select Specialization</label>
+            
+                            <div class="input-box">
+                                <i class="fa-solid fa-stethoscope"></i>
+            
+                                <select id="department">
+                                    <option value="" selected disabled>
+                                        Select Department
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label>Select Doctor</label>
+            
+                            <div class="input-box">
+                                <i class="fa-solid fa-user-doctor"></i>
+            
+                                <select id="doctor">
+                                    <option value="" selected disabled>
+                                        Select Doctor
+                                    </option>
+                                </select>
+                            </div>
+                            <div id="doctorAvailability"></div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label>Select Date</label>
+            
+                            <div class="input-box">
+                                <i class="fa-regular fa-calendar"></i>
+            
+                                <input type="date" id="appointmentDate">
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label>Select Time Slot</label>
+            
+                            <div class="input-box">
+                                <i class="fa-regular fa-clock"></i>
+            
+                                <select id="appointmentTime">
+                                    <option value="" selected disabled>
+                                        Select Time Slot
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+            
+                    </div>
+            
+                    <div class="form-group notes-group">
+            
+                        <label>Additional Notes (Optional)</label>
+            
+                        <textarea
+                            id="notes"
+                            placeholder="Enter any additional notes..."
+                            maxlength="200"
+                        ></textarea>
+            
+                    </div>
+            
+                    <div class="appointment-btn-container">
+            
+                        <button type="submit" class="book-btn">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            Book Appointment
+                        </button>
+            
+                    </div>
+            
+                </form>
+            
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../../config.js"></script>
+    <script src="patient-book-appointment.js"></script>
+</body>
+</html>

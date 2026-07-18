@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Doctors</title>
+    <link rel="stylesheet" href="admin-doctor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../../assets/favicon.jpg">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <a href="../../homepage/homepage.html">
+                    <img src="../../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-menu">
+
+                <a href="../dashboard/admin-dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-table-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <a href="admin-doctor.html" class="menu-item active">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Doctors</span>
+                </a>
+                
+                <a href="../patients/admin-patient.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Patients</span>
+                </a>
+                
+                <a href="../appointments/admin-appointments.html" class="menu-item">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+
+            </nav>
+
+            <!-- Divider -->
+            <div class="sidebar-divider"></div>
+
+            <!-- Logout -->
+            <div class="sidebar-logout">
+                <a href="#" id="logoutBtn" class="menu-item">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+
+        <main class="main-content">
+            <header class="dashboard-header">
+
+                <div class="profile-breadcrumb">
+                    <h1>DOCTORS</h1>
+                </div>
+            
+                <div class="header-right">
+                    <div class="profile-menu">
+                        <div class="profile-avatar" id="profileAvatar"></div>
+                        <span id="adminName">Admin User</span>
+                    </div>
+                </div>
+            
+            </header>
+
+            <section class="doctor-management">
+
+                <div class="doctor-toolbar">
+            
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchDoctor" placeholder="Search doctor...">
+                    </div>
+            
+                    <div class="toolbar-actions">
+            
+                        <button class="add-btn" id="addDoctorBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Doctor
+                        </button>
+            
+                    </div>
+            
+                </div>
+            
+                <div class="doctor-table-card">
+                    <div class="table-responsive">
+            
+                        <table class="doctor-table">
+                
+                            <thead>
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>Specialization</th>
+                                    <th>Qualification</th>
+                                    <th>Experience</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                
+                            <tbody id="doctorTableBody">
+                            </tbody>
+                
+                        </table>
+                    </div>
+            
+                </div>
+            
+            </section>
+
+        </main>
+    </div>
+
+
+
+
+    <!-- ADD DOCTOR MODAL -->
+
+    <div class="modal-overlay" id="doctorModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Add Doctor</h2>
+
+                <button id="closeModalBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Doctor Photo</label>
+                    <div class="upload-box">
+                        <input type="file" id="doctorPhoto" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="doctorName">
+                </div>
+
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <select id="doctorSpecialization">
+                        <option value="">Select Specialization</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="doctorEmail">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="doctorPhone">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="doctorPassword">
+                </div>
+
+                <div class="form-group">
+                    <label>Qualification</label>
+                    <input type="text" id="doctorQualification">
+                </div>
+                
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <div class="form-group">
+                        <label>Consultation Fee (₹)</label>
+                        <input type="number" id="doctorConsultationFee" min="0">
+                    </div>
+                    <input type="number" id="doctorExperience" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Availability</label>
+                
+                    <select id="doctorAvailability">
+                        <option value="true">Available</option>
+                        <option value="false">Unavailable</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>About</label>
+                    <textarea id="doctorAbout" rows="4"></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="saveDoctorBtn">
+                    Add Doctor
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EDIT DOCTOR MODAL -->
+
+    <div class="modal-overlay" id="editDoctorModal">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Edit Doctor</h2>
+
+                <button id="closeEditModalBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>Doctor Photo</label>
+                
+                    <div class="upload-box">
+                        <input type="file" id="editDoctorPhoto" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="editDoctorName">
+                </div>
+
+                <div class="form-group">
+                    <label>Specialization</label>
+                    <select id="editDoctorSpecialization">
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="editDoctorEmail">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" id="editDoctorPhone">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="editDoctorPassword">
+                </div>
+
+                <div class="form-group">
+                    <label>Qualification</label>
+                    <input type="text" id="editDoctorQualification">
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label>Experience (Years)</label>
+                    <div class="form-group">
+                        <label>Consultation Fee (₹)</label>
+                        <input type="number" id="editDoctorConsultationFee" min="0">
+                    </div>
+                    <input type="number" id="editDoctorExperience" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label>Availability</label>
+                
+                    <select id="editDoctorAvailability">
+                        <option value="true">Available</option>
+                        <option value="false">Unavailable</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>About</label>
+                    <textarea id="editDoctorAbout" rows="4"></textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button id="updateDoctorBtn">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+<script src="../../config.js"></script>
+    <script src="admin-doctor.js"></script>
+</body>
+</html>

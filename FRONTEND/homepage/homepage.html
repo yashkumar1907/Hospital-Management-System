@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CityCare Hospital | Hospital Management System</title>
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.jpg">
+</head>
+<body>
+    
+    <!-- HEADER SECTION -->
+    <header class="header">
+        <div class="logo">
+            <img src="../../assets/Hospital-logo.jpg" alt="CityCare Hospital">
+        </div>
+        <button class="menu-toggle" aria-label="Toggle Navigation">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#doctors">Our Doctors</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+        <div class="header-right">
+            <a href="#portal" class="login-btn">
+                Login
+            </a>
+        </div>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-tag">Your Health, Our Priority</div>
+            <h1>Compassionate Care,<br>Better Health</h1>
+            <p>We provide trusted healthcare services with advanced technology and a team of expert doctors.</p>
+            <div class="hero-buttons">
+                <a href="../patient/login/patient-login.html" class="primary-btn">
+                    <i class="fa-regular fa-calendar"></i>
+                    Book Appointment
+                </a>
+    
+                <a href="#about" class="secondary-btn">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </div>
+
+                <div class="feature-content">
+                    <h4>Quality Care</h4>
+                    <p>We ensure the highest quality healthcare for you and your family.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+
+                <div class="feature-content">
+                    <h4>Expert Doctors</h4>
+                    <p>Our experienced doctors provide the best treatment.</p>
+                </div>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <div class="feature-content">
+                    <h4>24/7 Support</h4>
+                    <p>We are here for you round the clock for any medical assistance.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+
+                <div class="feature-content">
+                    <h4>Advanced Technology</h4>
+                    <p>We use modern technology for accurate diagnosis and treatment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <div class="about-container">
+            
+            <!-- Left Image -->
+            <div class="about-image">
+                <img src="../../assets/about-hospital.jpg" alt="Hospital Reception" loading="lazy">
+            </div>
+
+            <!-- Right Content -->
+            <div class="about-content">
+                <span class="section-tag">ABOUT US</span>
+                <h2>About CityCare Hospital</h2>
+
+                <p class="about-description">
+                    CityCare Hospital is a modern healthcare management platform designed to streamline appointments, patient records, and doctor consultations. We are committed to providing exceptional healthcare services with compassion and innovation.
+                </p>
+
+                <div class="mission-vision">
+                    <div class="info-box">
+                        <div class="info-icon">
+                            <i class="fa-solid fa-bullseye"></i>
+                        </div>
+                        <div>
+                            <h4>Our Mission</h4>
+                            <p>To provide accessible, high-quality healthcare services to improve lives.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-icon">
+                            <i class="fa-regular fa-eye"></i>
+                        </div>
+                        <div>
+                            <h4>Our Vision</h4>
+                            <p>To become a trusted digital healthcare platform for a healthier tomorrow.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="50">0</h3>
+                    <p>Doctors</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="1000">0</h3>
+                    <p>Patients</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="5000">0</h3>
+                    <p>Appointments</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fa-solid fa-hospital"></i>
+                </div>
+                <div class="stat-content">
+                    <h3 class="counter" data-target="10">0</h3>
+                    <p>Departments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="services-section">
+        <div class="section-heading">
+            <span class="section-tag-center">SERVICES</span>
+            <h2>Our Healthcare Services</h2>
+        </div>
+
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+
+                <h4>Cardiology</h4>
+                <p>Heart-related treatments and consultations.</p>
+                <a href="#" class="service-details-btn" data-service="cardiology">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                
+                <h4>Neurology</h4>
+                <p>Brain and nervous system treatments.</p>
+                <a href="#" class="service-details-btn" data-service="neurology">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-bone"></i>
+                </div>
+                
+                <h4>Orthopedics</h4>
+                <p>Bone, joint and muscle care.</p>
+
+                <a href="#" class="service-details-btn" data-service="orthopedics">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-bandage"></i>
+                </div>
+
+                <h4>Dermatology</h4>
+                <p>Skin, hair and nail care treatments.</p>
+
+                <a href="#" class="service-details-btn" data-service="dermatology">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-baby"></i>
+                </div>
+
+                <h4>Pediatrics</h4>
+                <p>Complete healthcare for children.</p>
+
+                <a href="#" class="service-details-btn" data-service="pediatrics">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fa-solid fa-stethoscope"></i>
+                </div>
+
+                <h4>General Medicine</h4>
+                <p>General health checkups and consultations.</p>
+                <a href="#" class="service-details-btn" data-service="generalMedicine">
+                    Learn More
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- DOCTORS SECTION -->
+    <section id="doctors" class="doctors-section">
+        <div class="section-heading">
+            <span class="section-tag-center">OUR DOCTORS</span>
+            <h2>Meet Our Specialists</h2>
+        </div>
+
+        <div class="doctors-wrapper">
+            <button class="doctor-nav prev" aria-label="Previous Doctor">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="doctors-container" id="doctorsContainer"></div>
+
+            <button class="doctor-nav next" aria-label="Next Doctor">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+
+    <!-- WHY CHOOSE US SECTION -->
+    <section class="why-section">
+        <div class="section-heading">
+            <span class="section-tag-center">WHY CHOOSE US</span>
+            <h2>We Care for Your Health</h2>
+        </div>
+        
+        <div class="why-container">
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                
+                <div class="why-content">
+                    <h4>Experienced Doctors</h4>
+                    <p>Our doctors are highly qualified and experienced in their respective fields.</p>
+                </div>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+
+                <div class="why-content">
+                    <h4>Easy Appointment</h4>
+                    <p>Book appointments online easily and hassle-free.</p>
+                </div>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-regular fa-file-lines"></i>
+                </div>
+
+                <div class="why-content">
+                    <h4>Secure Records</h4>
+                    <p>Your medical records are safe and securely managed.</p>
+                </div>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-regular fa-comments"></i>
+                </div>
+
+                <div class="why-content">
+                    <h4>24/7 Support</h4>
+                    <p>We are available 24/7 to assist you with your health needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- GET STARTED SECTION -->
+    <section id="portal" class="portal-section">
+        <div class="section-title">
+            <span>GET STARTED</span>
+            <h2>Choose Your Portal</h2>
+        </div>
+
+        <div class="portal-grid">
+
+            <!-- Patient -->
+            <div class="portal-card patient-card">
+                <div class="portal-icon">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <h3>Patient Login</h3>
+                <p>Book appointments, view prescriptions and manage your health records.</p>
+                <a href="../patient/login/patient-login.html" class="portal-btn patient-btn">
+                    Login as Patient
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Doctor -->
+            <div class="portal-card doctor-portal-card">
+                <div class="portal-icon">
+                    <i class="fa-solid fa-stethoscope"></i>
+                </div>
+                <h3>Doctor Login</h3>
+                <p>Manage appointments, prescriptions and patient records.</p>
+                <a href="../doctor/login/doctor-login.html" class="portal-btn doctor-btn">
+                    Login as Doctor
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Admin -->
+            <div class="portal-card admin-card">
+                <div class="portal-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Admin Login</h3>
+                <p>Manage doctors, patients, appointments and system settings.</p>
+                <a href="../admin/login/admin-login.html" class="portal-btn admin-btn">
+                    Login as Admin
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT US SECTION -->
+    <section id="contact" class="contact-section">
+        <div class="section-heading">
+            <span class="section-tag-center">CONTACT US</span>
+            <h2>We'd Love to Hear From You</h2>
+        </div>
+    
+        <div class="contact-container">
+    
+            <!-- Left -->
+            <div class="contact-info">
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>CityCare Hospital</h4>
+                        <p>Near City Center, Hisar, Haryana - 125001</p>
+                    </div>
+                </div>
+    
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>+91 98765 43210</h4>
+                    </div>
+                </div>
+    
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>support@citycare.com</h4>
+                    </div>
+                </div>
+    
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Mon - Sat : 9:00 AM - 6:00 PM</h4>
+                        <p>Sunday : Closed</p>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Center -->
+            <form class="contact-form" id="contactForm">
+                <div class="form-row">
+                    <input type="text" id="contactName" placeholder="Your Name" autocomplete="name" required>
+                
+                    <input type="email" id="contactEmail" placeholder="Your Email" autocomplete="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <input type="tel" id="contactPhone" placeholder="Phone Number" autocomplete="tel" required>
+                    <select id="contactCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="Appointment"> Appointment</option>
+                        <option value="Medical Inquiry">Medical Inquiry</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Feedback">Feedback</option>
+                        <option value="Billing">Billing</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                </div>
+                
+                <input type="text" id="contactSubject" placeholder="Subject" required>
+                <textarea id="contactMessage" placeholder="Message" required></textarea>
+    
+                <button type="submit">
+                    Send Message
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+
+                <div id="messageBox"></div>
+            </form>
+    
+            <!-- Right -->
+            <div class="contact-map">
+                <iframe
+                    src="https://maps.google.com/maps?q=hisar&t=&z=13&ie=UTF8&iwloc=&output=embed">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="../../assets/Hospital-logo.jpg" alt="CityCare" loading="lazy">
+                </div>
+    
+                <p>Providing quality healthcare services with compassion, innovation and excellence.</p>
+
+                <div class="footer-social">
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Linkedin"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+    
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#doctors">Doctors</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Our Services</h4>
+    
+                <a href="#services">Cardiology</a>
+                <a href="#services">Neurology</a>
+                <a href="#services">Orthopedics</a>
+                <a href="#services">Dermatology</a>
+                <a href="#services">Pediatrics</a>
+                <a href="#services">General Medicine</a>
+            </div>
+    
+            <div class="footer-col">
+                <h4>Support</h4>
+    
+                <a href="#contact">Help Center</a>
+                <a href="../policy&TC/privacy-policy.html">Privacy Policy</a>
+                <a href="../policy&TC/terms-and-conditions.html">Terms & Conditions</a>
+            </div>
+    
+        </div>
+    
+        <div class="footer-bottom">
+            &copy; 2026 CityCare Hospital. All rights reserved.
+        </div>
+    </footer>
+
+
+
+    <!-- DOCTOR PROFILE MODAL -->
+    <div class="doctor-profile-modal" id="doctorProfileModal">
+        <div class="doctor-profile-content">
+            <span class="close-doctor-modal" id="closeDoctorModal">
+                &times;
+            </span>
+    
+            <img id="modalDoctorPhoto" src="" alt="Doctor Photo">
+            <h2 id="modalDoctorName"></h2>
+            <h4 id="modalDoctorSpecialization"></h4>
+
+            <div class="doctor-fee">
+                <div id="modalDoctorAvailability"></div>
+
+                <div class="doctor-fee">
+                    Consultation Fee : ₹<span id="modalDoctorFee"></span>
+                </div>
+            </div>
+    
+            <div class="doctor-profile-info">
+                <div>
+                    <strong>Qualification</strong>
+                    <p id="modalDoctorQualification"></p>
+                </div>
+    
+                <div>
+                    <strong>Experience</strong>
+                    <p id="modalDoctorExperience"></p>
+                </div>
+    
+                <div>
+                    <strong>About</strong>
+                    <p id="modalDoctorAbout"></p>
+                </div>
+    
+                <div>
+                    <strong>Email</strong>
+                    <p id="modalDoctorEmail"></p>
+                </div>
+    
+                <div>
+                    <strong>Phone</strong>
+                    <p id="modalDoctorPhone"></p>
+                </div>
+    
+            </div>
+    
+            <button id="bookAppointmentFromModal">
+                Book Appointment
+            </button>
+        </div>
+    </div>
+
+    <!-- SERVICE MODEL -->
+    <div class="service-modal" id="serviceModal">
+        <div class="service-modal-content">
+    
+            <span class="close-service-modal" id="closeServiceModal">
+                &times;
+            </span>
+    
+            <div class="service-modal-icon">
+                <i id="serviceModalIcon"></i>
+            </div>
+    
+            <h2 id="serviceModalTitle"></h2>
+            <p id="serviceModalDescription"></p>
+            <h3>Services Offered</h3>
+            <ul id="serviceModalList"></ul>
+    
+            <button id="serviceBookAppointment">
+                Book Appointment
+            </button>
+        </div>
+    </div>
+
+    <button id="backToTop">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="../config.js"></script>
+    <script src="homepage.js"></script>
+</body>
+</html>
