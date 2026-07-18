@@ -271,18 +271,30 @@ function renderAppointmentsChart(appointments){
     });
 }
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    if(confirm("Are you sure you want to logout?")){
-        localStorage.clear();
-        window.location.href = "../login/admin-login.html";
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    const confirmed = await showConfirm({
+        title: "Logout",
+        message: "Are you sure you want to logout?",
+        confirmText: "Logout",
+        cancelText: "Cancel"
+    });
+
+    if(!confirmed){
+        return;
     }
+
+    localStorage.clear();
+
+    showToast("success", "Logged out successfully.");
+
+    setTimeout(() => {
+        window.location.href = "../login/admin-login.html";
+    }, 700);
 });
 
 
 loadDashboard();
 
 window.addEventListener("focus",()=>{
-
     loadDashboard();
-
 });

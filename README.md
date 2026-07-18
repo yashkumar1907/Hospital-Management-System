@@ -39,6 +39,34 @@ A full-stack **Hospital Management System** developed using **HTML, CSS, JavaScr
 
 ---
 
+---
+
+## 📸 Screenshots
+
+### 🏠 Homepage
+
+![Homepage](screenshots/homepage.png)
+
+---
+
+### 👤 Patient Dashboard
+
+![Patient Dashboard](screenshots/patientDashboard.png)
+
+---
+
+### 👨‍⚕️ Doctor Dashboard
+
+![Doctor Dashboard](screenshots/doctorDashboard.png)
+
+---
+
+### 🛡️ Admin Dashboard
+
+![Admin Dashboard](screenshots/adminDashboard.png)
+
+---
+
 ## ✨ Additional Features
 
 - Role-Based Authentication

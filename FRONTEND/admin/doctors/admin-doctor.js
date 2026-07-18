@@ -84,7 +84,7 @@ async function loadDoctors() {
                         ? doctor.photo
                         : `${CONFIG.API_BASE_URL}${doctor.photo}`
                 )
-                : "../../../assets/default-doctor.png";
+                : "../../../assets/default-patient.jpg";
 
             doctorTableBody.innerHTML += `
                 <tr>
@@ -125,7 +125,7 @@ async function loadDoctors() {
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 
@@ -149,7 +149,7 @@ closeModalBtn.addEventListener("click", () => {
 
 document.getElementById("saveDoctorBtn").addEventListener("click", addDoctor);
 
-async function addDoctor() {.
+async function addDoctor() {
     const name = document.getElementById("doctorName").value.trim();
     const specialization = document.getElementById("doctorSpecialization").value.trim();
     const email = document.getElementById("doctorEmail").value.trim();
@@ -177,7 +177,7 @@ async function addDoctor() {.
     }
 
     if(!name || !specialization || !email || !phone || !password || !qualification || !experience || !about){
-        alert("Please fill all fields");
+        showToast("error", "Please fill all fields");
         return;
     }
 
@@ -233,20 +233,28 @@ async function addDoctor() {.
         if (!response.ok) {
             throw new Error(data.message);
         }
-        alert(data.message);
+        showToast("success", data.message);
         doctorModal.classList.remove("active");
         loadDoctors();
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 
 
 async function deleteDoctor(id) {
-    const confirmDelete = confirm("Are you sure you want to delete this doctor?");
-    if(!confirmDelete) return;
+    const confirmed = await showConfirm({
+        title: "Delete Doctor",
+        message: "Are you sure you want to delete this doctor?",
+        confirmText: "Delete",
+        cancelText: "Cancel"
+    });
+    
+    if(!confirmed){
+        return;
+    }
 
     try {
         const response =
@@ -270,12 +278,12 @@ async function deleteDoctor(id) {
         if (!response.ok) {
             throw new Error(data.message);
         }
-        alert(data.message);
+        showToast("success", data.message);
         loadDoctors();
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 
@@ -344,14 +352,14 @@ async function updateDoctor(){
         if (!response.ok) {
             throw new Error(data.message);
         }
-        alert(data.message);
+        showToast("success", data.message);
 
         editDoctorModal.classList.remove("active");
         loadDoctors();
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 

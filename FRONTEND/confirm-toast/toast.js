@@ -2,6 +2,12 @@
 // SHOW TOAST
 // ===============================
 function showToast(type, message) {
+    const validTypes = ["success", "error", "warning", "info"];
+
+    if(!validTypes.includes(type)){
+        type = "info";
+    }
+    
     let container = document.getElementById("toastContainer");
 
     if (!container) {

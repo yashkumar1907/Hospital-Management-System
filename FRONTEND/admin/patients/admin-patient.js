@@ -106,14 +106,20 @@ async function loadPatients(){
     catch(error){
         console.error(error);
         document.getElementById("patientCount").textContent = "";
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 
 
 async function deletePatient(id){
-    const confirmDelete = confirm("Are you sure you want to delete this patient?");
-    if(!confirmDelete) {
+    const confirmed = await showConfirm({
+        title: "Delete Patient",
+        message: "Are you sure you want to delete this patient?",
+        confirmText: "Delete",
+        cancelText: "Cancel"
+    });
+    
+    if(!confirmed){
         return;
     }
 
@@ -144,7 +150,7 @@ async function deletePatient(id){
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 

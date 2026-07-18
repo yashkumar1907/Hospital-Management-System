@@ -11,6 +11,7 @@ const patientRoutes = require("./routes/patientRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const doctorSlotRoutes = require("./routes/doctorSlotRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 dotenv.config();
 
@@ -39,12 +40,23 @@ app.use("/api/patients", patientRoutes);
 app.use("/api/doctors", doctorRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/doctor-slots", doctorSlotRoutes);
+app.use("/api/admin", adminRoutes);
+
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
     res.send("HMS Backend Running");
 });
+
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "API route not found."
+    });
+});
+
+
 
 const PORT = process.env.PORT || 5000;
 

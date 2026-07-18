@@ -116,12 +116,19 @@ async function loadAppointments(){
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 
 async function confirmAppointment(id){
-    if(!confirm("Are you sure you want to confirm this appointment?")){
+    const confirmed = await showConfirm({
+        title: "Confirm Appointment",
+        message: "Are you sure you want to confirm this appointment?",
+        confirmText: "Confirm",
+        cancelText: "Cancel"
+    });
+    
+    if(!confirmed){
         return;
     }
     try{
@@ -153,13 +160,13 @@ async function confirmAppointment(id){
         }
 
         if(data.success){
-            alert("Appointment confirmed");
+            showToast("success", "Appointment confirmed successfully.");
             loadAppointments();
         }
     }
     catch(error){
         console.error(error);
-        alert(error.message);
+        showToast("error", error.message);
     }
 }
 

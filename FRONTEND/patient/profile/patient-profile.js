@@ -184,7 +184,6 @@ saveProfileBtn.addEventListener("click", async () => {
             return;            
         }
 
-
         const data = await response.json();
 
         if(!response.ok){
@@ -221,14 +220,12 @@ saveProfileBtn.addEventListener("click", async () => {
 });
 
 
-
 document.getElementById("logoutBtn").addEventListener("click", () => {
     if(confirm("Are you sure you want to logout?")){
         localStorage.clear();
         window.location.href = "../login/patient-login.html";
     }
 });
-
 
 
 const editPatientPhoto = document.getElementById("editPatientPhoto");

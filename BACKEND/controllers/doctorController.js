@@ -208,7 +208,7 @@ exports.updateDoctor = async (req, res) => {
         const qualification = req.body.qualification?.trim();
         const about = req.body.about?.trim();
 
-        const {password, experience, availability, consultationFee} = req.body;
+        let {password, experience, availability, consultationFee} = req.body;
 
         const existingDoctor = await Doctor.findOne({
             _id: { $ne: req.user.id },
@@ -217,6 +217,10 @@ exports.updateDoctor = async (req, res) => {
                 { phone }
             ]
         });
+
+        if (password) {
+            password = await bcrypt.hash(password, 10);
+        }
 
         if (existingDoctor) {
             return res.status(400).json({
@@ -232,7 +236,7 @@ exports.updateDoctor = async (req, res) => {
                 specialization,
                 email,
                 phone,
-                password,
+                ...(password && { password }),
                 qualification,
                 experience,
                 about,
