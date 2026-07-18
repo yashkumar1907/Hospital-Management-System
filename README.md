@@ -174,25 +174,6 @@ using Live Server or any local server.
 
 ---
 
-<!-- ## 📸 Screenshots
-
-### Homepage
-
-_Add homepage screenshot here._
-
-### Patient Dashboard
-
-_Add patient dashboard screenshot here._
-
-### Admin Dashboard
-
-_Add admin dashboard screenshot here._
-
-### Doctor Dashboard
-
-_Add doctor dashboard screenshot here._ -->
-
----
 
 ## 📌 Future Enhancements
 
