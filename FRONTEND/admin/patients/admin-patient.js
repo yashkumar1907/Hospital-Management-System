@@ -75,13 +75,13 @@ async function loadPatients(){
                         ? patient.photo
                         : `${CONFIG.API_BASE_URL}${patient.photo}`
                 )
-                : "../../../assets/default-patient.png";
+                : "../../assets/default-patient.png";
             patientTableBody.innerHTML += `
                 <tr>
                     <td>
                         <div class="doctor-info">
                             <div class="profile-avatar">
-                                <img src="${patientPhoto}" class="patient-photo" onerror="this.src='../../../assets/default-patient.png'">
+                                <img src="${patientPhoto}" class="patient-photo" onerror="this.src='../../assets/default-patient.png'">
                             </div>
                             <div>
                                 <h4>${patient.name}</h4>

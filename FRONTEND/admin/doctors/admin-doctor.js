@@ -84,7 +84,7 @@ async function loadDoctors() {
                         ? doctor.photo
                         : `${CONFIG.API_BASE_URL}${doctor.photo}`
                 )
-                : "../../../assets/default-patient.jpg";
+                : "../../assets/default-patient.jpg";
 
             doctorTableBody.innerHTML += `
                 <tr>

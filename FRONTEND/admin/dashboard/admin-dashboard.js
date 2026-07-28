@@ -197,7 +197,7 @@ function loadRecentAppointments(appointments){
                     ? appointment.patientPhoto
                     : `${CONFIG.API_BASE_URL}${appointment.patientPhoto}`
             )
-            : "../../../assets/default-patient.jpg";
+            : "../../assets/default-patient.jpg";
 
         return `
             <div class="appointment-row">

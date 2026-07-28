@@ -13,7 +13,7 @@ const profilePhoto = patient.photo
     ? (patient.photo.startsWith("http") || patient.photo.startsWith("data:")
         ? patient.photo
         : `${CONFIG.API_BASE_URL}${patient.photo}`)
-    : "../../../assets/default-patient.jpg";
+    : "../../assets/default-patient.jpg";
 
 document.getElementById("profileAvatar").src = profilePhoto;
 

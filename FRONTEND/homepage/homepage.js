@@ -183,7 +183,7 @@ async function loadDoctors(){
             doctorsContainer.innerHTML += `
                 <div class="doctor-card">
         
-                    <img src="${ doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../../assets/default-doctor.png"}" alt="${doctor.name}" loading="lazy">
+                    <img src="${ doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../assets/default-doctor.png"}" alt="${doctor.name}" loading="lazy">
                     <h4>${doctor.name}</h4>
                     <span>${doctor.specialization}</span>
                     <p>${doctor.experience} Years Exp.</p>
@@ -234,7 +234,7 @@ function openDoctorModal(index){
 
     appointmentButton.textContent = doctor.availability ? "Book Appointment" : "Doctor Unavailable";
 
-    document.getElementById("modalDoctorPhoto").src = doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../../assets/default-doctor.png";
+    document.getElementById("modalDoctorPhoto").src = doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../assets/default-doctor.png";
 
     document.getElementById("modalDoctorName").textContent = doctor.name;
     document.getElementById("modalDoctorSpecialization").textContent = doctor.specialization;

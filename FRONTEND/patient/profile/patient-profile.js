@@ -26,7 +26,7 @@ const profileImage = patient.photo
     ? (patient.photo.startsWith("http") || patient.photo.startsWith("data:")
         ? patient.photo
         : `${CONFIG.API_BASE_URL}${patient.photo}`)
-    : "../../../assets/default-patient.jpg";
+    : "../../assets/default-patient.jpg";
 
 document.getElementById("profileImage").src = profileImage;
 document.getElementById("profileAvatar").src = profileImage;
@@ -79,7 +79,7 @@ editProfileBtn.addEventListener("click", () => {
                     ? patient.photo
                     : `${CONFIG.API_BASE_URL}${patient.photo}`
             )
-            : "../../../assets/default-patient.jpg";
+            : "../../assets/default-patient.jpg";
 
     document.getElementById("editPhotoPreview").src = profileImage;
     document.getElementById("editName").value = patient.name;

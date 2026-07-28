@@ -160,7 +160,7 @@ patientRegisterForm.addEventListener("submit", async (e) => {
         showMessage("Registration successful. Redirecting to login...", "success");
         patientRegisterForm.reset();
         document.getElementById("fullName").focus();
-        photoPreview.src = "../../../assets/default-patient.jpg";
+        photoPreview.src = "../../assets/default-patient.jpg";
 
         registerBtn.disabled = false;
         registerBtn.innerHTML = "Create Account";

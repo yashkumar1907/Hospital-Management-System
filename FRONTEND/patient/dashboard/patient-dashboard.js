@@ -26,7 +26,7 @@ function initializeDashboard(){
             : `${CONFIG.API_BASE_URL}${patient.photo}`;
     }
     else{
-        avatar.src = "../../../assets/default-patient.jpg";
+        avatar.src = "../../assets/default-patient.jpg";
     }
     
     document.getElementById("patientName").textContent = `Welcome back, ${patient.name}`;
@@ -135,7 +135,7 @@ async function loadDashboardData(){
                 `${CONFIG.API_BASE_URL}${latest.doctorPhoto}`
                 )
                 :
-                "../../../assets/default-patient.jpg";
+                "../../assets/default-patient.jpg";
 
             let statusClass = "";
 

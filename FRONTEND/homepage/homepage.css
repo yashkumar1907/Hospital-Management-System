@@ -124,7 +124,7 @@ img{
     position:relative;
     min-height:620px;
     background:
-    url("../../assets/hero-hospital.jpg")
+    url("../assets/hero-hospital.jpg")
     center center/cover no-repeat;
 }
 .hero-overlay{

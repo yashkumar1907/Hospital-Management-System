@@ -10,7 +10,7 @@ const profilePhoto = patient.photo
     ? (patient.photo.startsWith("http") || patient.photo.startsWith("data:")
         ? patient.photo
         : `${CONFIG.API_BASE_URL}${patient.photo}`)
-    : "../../../assets/default-patient.jpg";
+    : "../../assets/default-patient.jpg";
 
 document.getElementById("profileAvatar").src = profilePhoto;
 
@@ -130,7 +130,7 @@ async function loadAppointments(){
                                 `${CONFIG.API_BASE_URL}${appointment.doctorPhoto}`
                                 )
                                 :
-                                '../../../assets/default-patient.jpg'
+                                '../../assets/default-patient.jpg'
                                 }">
                             <div>
                                 <h3>${appointment.doctorName}</h3>
