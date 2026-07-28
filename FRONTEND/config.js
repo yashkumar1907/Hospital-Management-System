@@ -1,3 +1,3 @@
 const CONFIG = Object.freeze({
-    API_BASE_URL: "http://localhost:5000"
+    API_BASE_URL: "https://hospital-management-system-backend-ls3k.onrender.com"
 });
