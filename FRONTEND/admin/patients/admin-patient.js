@@ -1,19 +1,20 @@
 const admin = JSON.parse(localStorage.getItem("admin"));
 const token = localStorage.getItem("token");
 
-if(!admin || !token){
+if (!admin || !token || admin.role !== "admin") {
     localStorage.clear();
     window.location.href = "../login/admin-login.html";
 }
 
 if(admin){
-    document.getElementById("adminName").textContent = admin.name;
+    const adminName = admin.name || "Admin";
 
-    const initials =
-        admin.name
+    document.getElementById("adminName").textContent = adminName;
+
+    const initials = adminName
         .split(" ")
-        .slice(0,2)
-        .map(word=>word[0])
+        .slice(0, 2)
+        .map(word => word[0])
         .join("")
         .toUpperCase();
 
@@ -46,7 +47,7 @@ async function loadPatients(){
         const data = await response.json();
 
         if(!response.ok){
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to load patients.");
         }
 
         patients = data.patients;
@@ -76,22 +77,48 @@ async function loadPatients(){
                         : `${CONFIG.API_BASE_URL}${patient.photo}`
                 )
                 : "../../assets/default-patient.png";
-            patientTableBody.innerHTML += `
-                <tr>
+
+            const patientName = (patient.name || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const gender = (patient.gender || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const bloodGroup = (patient.bloodGroup || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const phone = (patient.phone || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const email = (patient.email || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
                     <td>
                         <div class="doctor-info">
                             <div class="profile-avatar">
-                                <img src="${patientPhoto}" class="patient-photo" onerror="this.src='../../assets/default-patient.png'">
+                                <img src="${patientPhoto}" alt="${patientName}" class="patient-photo" onerror="this.src='../../assets/default-patient.png'">
                             </div>
                             <div>
-                                <h4>${patient.name}</h4>
+                                <h4>${patientName}</h4>
                             </div>
                         </div>
                     </td>
-                    <td>${patient.gender}</td>
-                    <td>${patient.bloodGroup}</td>
-                    <td>${patient.phone}</td>
-                    <td>${patient.email}</td>
+                    <td>${gender}</td>
+                    <td>${bloodGroup}</td>
+                    <td>${phone}</td>
+                    <td>${email}</td>
                     <td>
                         <div class="action-buttons">
                             <button class="delete-btn" onclick="deletePatient('${patient._id}')">
@@ -101,6 +128,7 @@ async function loadPatients(){
                     </td>
                 </tr>
             `;
+            patientTableBody.appendChild(row);
         });
     }
     catch(error){
@@ -124,7 +152,7 @@ async function deletePatient(id){
     }
 
     try{
-        await fetch(
+        const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/patients/${id}`,
             {
                 method:"DELETE",
@@ -143,9 +171,9 @@ async function deletePatient(id){
         const data = await response.json();
 
         if(!response.ok){
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to delete patient.");
         }
-        alert(data.message);
+        showToast("success", data.message);
         loadPatients();
     }
     catch(error){
@@ -155,11 +183,27 @@ async function deletePatient(id){
 }
 
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    if(confirm("Are you sure you want to logout?")){
-        localStorage.clear();
-        window.location.href = "../login/admin-login.html";
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+    const confirmed = await showConfirm({
+        title: "Logout",
+        message: "Are you sure you want to logout?",
+        confirmText: "Logout",
+        cancelText: "Cancel"
+    });
+
+    if (!confirmed) {
+        return;
     }
+
+    localStorage.clear();
+
+    showToast("success", "Logged out successfully.");
+
+    setTimeout(() => {
+        window.location.href = "../login/admin-login.html";
+    }, 700);
+
 });
 
 
@@ -175,4 +219,4 @@ document.getElementById("searchPatient").addEventListener("input", () => {
 
 loadPatients();
 
-window.addEventListener("focus", loadPatients);
+window.addEventListener("pageshow", loadPatients);

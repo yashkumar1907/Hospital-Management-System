@@ -1,9 +1,9 @@
 const doctor = JSON.parse(localStorage.getItem("doctor"));
 const token = localStorage.getItem("token");
 
-if(!doctor || !token){
+if (!doctor || !token || doctor.role !== "doctor") {
     localStorage.clear();
-    window.location.href="../login/doctor-login.html";
+    window.location.href = "../login/doctor-login.html";
 }
 
 
@@ -32,6 +32,10 @@ loadAppointments();
 
 async function loadAppointments() {
     try {
+        messageBox.className = "";
+        messageBox.textContent = "";
+        messageBox.style.display = "none";
+
         const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/doctors/appointments`,
             {
@@ -50,7 +54,7 @@ async function loadAppointments() {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to load appointments.");
         }
 
         const table = document.getElementById("appointmentsTable");
@@ -104,9 +108,19 @@ async function loadAppointments() {
             return;
         }
 
+
+        
+
         appointments.forEach(
             appointment => {
                 let statusClass = appointment.status.toLowerCase();
+
+                const notes = appointment.notes
+                    ? appointment.notes
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                    : "-";
 
                 html += `
                 <div class="appointment-row">
@@ -128,7 +142,7 @@ async function loadAppointments() {
                         </div>
                     </div>
 
-                    <div class="appointment-notes">${appointment.notes || "-"}</div>
+                    <div class="appointment-notes">${notes}</div>
 
                     <div>
                         <span class="status-badge ${statusClass}">
@@ -138,7 +152,7 @@ async function loadAppointments() {
 
                     <div class="action-menu">
                         ${appointment.status === "Confirmed" ?
-                            `<button class="complete-btn" onclick="markCompleted('${appointment._id}')">Complete</button>`
+                            `<button class="complete-btn" onclick="markCompleted('${appointment._id}', this)">Complete</button>`
                             :
                             "-"
                         }
@@ -162,8 +176,10 @@ async function loadAppointments() {
 }
 
 
-async function markCompleted(id) {
+async function markCompleted(id, button) {
     try {
+        button.disabled = true;
+        button.textContent = "Updating...";
         const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/doctors/appointments/status/${id}`,
             {
@@ -187,7 +203,7 @@ async function markCompleted(id) {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to update appointment.");
         }
 
 
@@ -197,6 +213,8 @@ async function markCompleted(id) {
         }
     }
     catch(error){
+        button.disabled = false;
+        button.textContent = "Complete";
         console.error("Doctor Appointments Error:");
         console.error(error);
         showMessage("Unable to update appointment.","error");

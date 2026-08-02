@@ -5,19 +5,21 @@
 const admin = JSON.parse(localStorage.getItem("admin"));
 const token = localStorage.getItem("token");
 
-if(!admin || !token){
+if (!admin || !token || admin.role !== "admin") {
     localStorage.clear();
     window.location.href = "../login/admin-login.html";
 }
 
 
 if(admin){
-    document.getElementById("adminName").textContent = admin.name;
+    const adminName = admin.name || "Admin";
 
-    const initials = admin.name
+    document.getElementById("adminName").textContent = adminName;
+
+    const initials = adminName
         .split(" ")
-        .slice(0,2)
-        .map(word=>word[0])
+        .slice(0, 2)
+        .map(word => word[0])
         .join("")
         .toUpperCase();
 
@@ -48,7 +50,7 @@ async function loadAppointments(){
 
 
         if(!response.ok){
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to load appointments.");
         }
 
         document.getElementById("appointmentCount").textContent = `Total Appointments : ${data.appointments.length}`;
@@ -87,30 +89,46 @@ async function loadAppointments(){
             appointment => {
                 const appointmentDate = new Date(appointment.appointmentDate);
 
-                appointmentTableBody.innerHTML += `
-                    <tr>
-                        <td>${appointment.patientName}</td>
-                        <td>${appointment.doctorName}</td>
-                        <td>${appointment.department}</td>
-                        <td>${appointmentDate.toLocaleDateString("en-GB")}</td>
-                        <td>${appointment.appointmentTime}</td>
-                        <td>
-                            <span class="status ${appointment.status.toLowerCase()}">${appointment.status}</span>
-                        </td>
-                        <td>
-                            ${appointment.status === "Pending"
-                                ?
-                                `<button class="confirm-btn" onclick="confirmAppointment('${appointment._id}')">
-                                    Confirm
-                                </button>`
-                                :
-                                `<span style="font-weight:600;">
-                                    ${appointment.status}
-                                </span>`
-                            }
-                        </td>
-                    </tr>
+
+                const patientName = (appointment.patientName || "-")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                const doctorName = (appointment.doctorName || "-")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                const department = (appointment.department || "-")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${patientName}</td>
+                    <td>${doctorName}</td>
+                    <td>${department}</td>
+                    <td>${appointmentDate.toLocaleDateString("en-GB")}</td>
+                    <td>${appointment.appointmentTime}</td>
+                    <td>
+                        <span class="status ${appointment.status.toLowerCase()}">${appointment.status}</span>
+                    </td>
+                    <td>
+                        ${appointment.status === "Pending"
+                            ?
+                            `<button class="confirm-btn" onclick="confirmAppointment('${appointment._id}', this)">
+                                Confirm
+                            </button>`
+                            :
+                            `<span style="font-weight:600;">
+                                ${appointment.status}
+                            </span>`
+                        }
+                    </td>
                 `;
+                appointmentTableBody.appendChild(row);
             }
         );
     }
@@ -120,7 +138,7 @@ async function loadAppointments(){
     }
 }
 
-async function confirmAppointment(id){
+async function confirmAppointment(id, button){
     const confirmed = await showConfirm({
         title: "Confirm Appointment",
         message: "Are you sure you want to confirm this appointment?",
@@ -132,6 +150,8 @@ async function confirmAppointment(id){
         return;
     }
     try{
+        button.disabled = true;
+        button.textContent = "Confirming...";
         const response =
             await fetch(
                 `${CONFIG.API_BASE_URL}/api/doctors/appointments/status/${id}`,
@@ -156,7 +176,7 @@ async function confirmAppointment(id){
         const data = await response.json();
 
         if(!response.ok){
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to update appointment.");
         }
 
         if(data.success){
@@ -165,17 +185,31 @@ async function confirmAppointment(id){
         }
     }
     catch(error){
+        button.disabled = false;
+        button.textContent = "Confirm";
         console.error(error);
         showToast("error", error.message);
     }
 }
 
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    if(confirm("Are you sure you want to logout?")){
-        localStorage.clear();
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    const confirmed = await showConfirm({
+        title: "Logout",
+        message: "Are you sure you want to logout?",
+        confirmText: "Logout",
+        cancelText: "Cancel"
+    });
+    
+    if (!confirmed) return;
+    
+    localStorage.clear();
+    
+    showToast("success", "Logged out successfully.");
+    
+    setTimeout(() => {
         window.location.href = "../login/admin-login.html";
-    }
+    }, 700);
 });
 
 
@@ -192,4 +226,4 @@ document.getElementById("searchAppointment").addEventListener("input",(e)=>{
 
 loadAppointments();
 
-window.addEventListener("focus", loadAppointments);
+window.addEventListener("pageshow", loadAppointments);

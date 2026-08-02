@@ -320,3 +320,49 @@ a{
     background:#94a3b8;
     cursor:not-allowed;
 }
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .appointment-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .appointment-icon {
+        margin: 0 auto;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-btn-container {
+        justify-content: stretch;
+    }
+
+    .book-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -179,11 +179,20 @@ async function loadDoctors(){
         doctorsData = data.doctors;
         doctorsContainer.innerHTML = "";
 
+        
+
         data.doctors.forEach((doctor,index)=>{
+            const doctorPhoto = doctor.photo
+                ? (doctor.photo.startsWith("http")
+                    ? doctor.photo
+                    : `${CONFIG.API_BASE_URL}${doctor.photo}`)
+                : "../assets/default-doctor.png";
+
+
             doctorsContainer.innerHTML += `
                 <div class="doctor-card">
         
-                    <img src="${ doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../assets/default-doctor.png"}" alt="${doctor.name}" loading="lazy">
+                    <img src="${doctorPhoto}" alt="${doctor.name}" loading="lazy">
                     <h4>${doctor.name}</h4>
                     <span>${doctor.specialization}</span>
                     <p>${doctor.experience} Years Exp.</p>
@@ -234,7 +243,15 @@ function openDoctorModal(index){
 
     appointmentButton.textContent = doctor.availability ? "Book Appointment" : "Doctor Unavailable";
 
-    document.getElementById("modalDoctorPhoto").src = doctor.photo ? `${CONFIG.API_BASE_URL}${doctor.photo}` : "../assets/default-doctor.png";
+
+    const doctorPhoto = doctor.photo
+    ? (doctor.photo.startsWith("http")
+        ? doctor.photo
+        : `${CONFIG.API_BASE_URL}${doctor.photo}`)
+    : "../assets/default-doctor.png";
+
+
+    document.getElementById("modalDoctorPhoto").src = doctorPhoto;
 
     document.getElementById("modalDoctorName").textContent = doctor.name;
     document.getElementById("modalDoctorSpecialization").textContent = doctor.specialization;
@@ -418,12 +435,21 @@ doctorsContainer.addEventListener("mouseenter",()=>{
     clearInterval(autoSlide);
 });
 
-doctorsContainer.addEventListener("mouseleave",()=>{
-    autoSlide = setInterval(()=>{
-        if(window.innerWidth > 768){
+doctorsContainer.addEventListener("mouseleave", () => {
+    clearInterval(autoSlide);
+
+    autoSlide = setInterval(() => {
+        if (window.innerWidth > 768) {
             moveDoctorSlider(1);
         }
-    },5000);
+    }, 5000);
+});
+
+
+contactForm.addEventListener("input", () => {
+    messageBox.style.display = "none";
+    messageBox.className = "";
+    messageBox.textContent = "";
 });
 
 

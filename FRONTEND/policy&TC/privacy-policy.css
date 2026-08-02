@@ -202,10 +202,6 @@
         font-size:28px;
     }
 
-    .policy-card{
-        padding:18px;
-    }
-
     .policy-icon{
         width:46px;
         height:46px;
@@ -214,17 +210,6 @@
     .policy-icon i{
         font-size:18px;
     }
-
-    .policy-heading h2{
-        font-size:20px;
-    }
-
-}
-
-/* ===========================
-   EXTRA SMALL DEVICES
-=========================== */
-@media (max-width:480px){
 
     .policy-container{
         width:100%;

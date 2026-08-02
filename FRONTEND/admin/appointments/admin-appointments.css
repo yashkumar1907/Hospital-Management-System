@@ -104,27 +104,6 @@ a{
     gap:20px;
 }
 
-
-.notification{
-    position:relative;
-    font-size:22px;
-    color:#475569;
-}
-.notification span{
-    position:absolute;
-    top:-8px;
-    right:-8px;
-    width:18px;
-    height:18px;
-    background:#ef4444;
-    color:white;
-    border-radius:50%;
-    font-size:11px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
 .profile-menu{
     display:flex;
     align-items:center;
@@ -150,17 +129,6 @@ a{
     font-size:36px;
     margin-bottom:10px;
     color:#0f172a;
-}
-
-.breadcrumb{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    margin-bottom:25px;
-}
-.breadcrumb a{
-    color:#2563eb;
-    text-decoration:none;
 }
 
 
@@ -215,27 +183,6 @@ a{
 .toolbar-actions{
     display:flex;
     gap:15px;
-}
-
-.filter-btn,
-.add-btn{
-    border:none;
-    border-radius:12px;
-    padding:14px 20px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
-}
-
-.filter-btn{
-    background:#ffffff;
-    border:1px solid #e2e8f0;
-    color:#475569;
-}
-
-.add-btn{
-    background:#2563eb;
-    color:white;
 }
 
 .doctor-table-card{
@@ -293,62 +240,6 @@ a{
     font-size:14px;
 }
 
-.action-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.edit-btn,
-.delete-btn{
-    width:42px;
-    height:42px;
-    border:1px solid #e2e8f0;
-    background:#ffffff;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.edit-btn{
-    color:#2563eb;
-}
-
-.delete-btn{
-    color:#ef4444;
-}
-
-
-
-
-
-
-
-
-/* =========================
-   APPOINTMENT TABS
-========================= */
-
-.appointment-tabs{
-    display:flex;
-    gap:40px;
-    margin-bottom:24px;
-    border-bottom:1px solid #e2e8f0;
-}
-
-.tab{
-    border:none;
-    background:none;
-    padding:0 0 16px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    color:#475569;
-}
-
-.tab.active{
-    color:#2563eb;
-    border-bottom:3px solid #2563eb;
-}
-
 /* =========================
    APPOINTMENT TABLE
 ========================= */
@@ -379,16 +270,6 @@ a{
 
 .date-time i{
     color:#64748b;
-}
-
-.view-btn{
-    width:42px;
-    height:42px;
-    border:1px solid #e2e8f0;
-    background:#fff;
-    border-radius:10px;
-    color:#2563eb;
-    cursor:pointer;
 }
 
 .upcoming{
@@ -448,4 +329,46 @@ a{
 
     font-size:15px;
 
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .doctor-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .doctor-table-card {
+        overflow-x: auto;
+    }
+
+    .doctor-table {
+        min-width: 900px;
+    }
 }

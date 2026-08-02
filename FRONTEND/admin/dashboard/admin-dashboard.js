@@ -4,19 +4,20 @@
 const admin = JSON.parse(localStorage.getItem("admin"));
 const token = localStorage.getItem("token");
 
-if(!admin || !token){
+if (!admin || !token || admin.role !== "admin") {
     localStorage.clear();
     window.location.href = "../login/admin-login.html";
 }
 
 if(admin){
-    document.getElementById("adminName").textContent = admin.name;
+    const adminName = admin.name || "Admin";
 
-    const initials =
-        admin.name
+    document.getElementById("adminName").textContent = adminName;
+
+    const initials = adminName
         .split(" ")
-        .slice(0,2)
-        .map(word=>word[0])
+        .slice(0, 2)
+        .map(word => word[0])
         .join("")
         .toUpperCase();
 
@@ -64,7 +65,7 @@ async function loadDashboard(){
         const doctorsData = await doctorsRes.json();
 
         if(!doctorsRes.ok){
-            throw new Error(doctorsData.message);
+            throw new Error(doctorsData.message || "Unable to load doctors.");
         }
 
         const patientsRes = await fetch(
@@ -85,7 +86,7 @@ async function loadDashboard(){
         const patientsData = await patientsRes.json();
 
         if(!patientsRes.ok){
-            throw new Error(patientsData.message);
+            throw new Error(patientsData.message || "Unable to load patients.");
         }
 
         const appointmentsRes = await fetch(
@@ -106,7 +107,7 @@ async function loadDashboard(){
         const appointmentsData = await appointmentsRes.json();
 
         if(!appointmentsRes.ok){
-            throw new Error(appointmentsData.message);
+            throw new Error(appointmentsData.message || "Unable to load appointments.");
         }
 
         const doctors = doctorsData.doctors || [];
@@ -125,6 +126,7 @@ async function loadDashboard(){
         renderAppointmentsChart(appointments);
     }
     catch(error){
+        showToast("error", error.message);
         document.getElementById("totalDoctors").textContent = "-";
         document.getElementById("totalPatients").textContent = "-";
         document.getElementById("totalAppointments").textContent = "-";
@@ -199,14 +201,24 @@ function loadRecentAppointments(appointments){
             )
             : "../../assets/default-patient.jpg";
 
+        const patientName = (appointment.patientName || "-")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        
+        const department = (appointment.department || "-")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
         return `
             <div class="appointment-row">
                 <div class="appointment-user">
-                    <img src="${patientPhoto}">
+                    <img src="${patientPhoto}" alt="${patientName}">
 
                     <div>
-                        <h4>${appointment.patientName}</h4>
-                        <p>${appointment.department}</p>
+                        <h4>${patientName}</h4>
+                        <p>${department}</p>
                     </div>
                 </div>
 
@@ -295,6 +307,4 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 
 loadDashboard();
 
-window.addEventListener("focus",()=>{
-    loadDashboard();
-});
+window.addEventListener("pageshow", loadDashboard);

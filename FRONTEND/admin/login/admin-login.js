@@ -1,7 +1,7 @@
 const admin = JSON.parse(localStorage.getItem("admin"));
 const token = localStorage.getItem("token");
 
-if (admin && token) {
+if (admin && token && admin.role === "admin") {
     window.location.href = "../dashboard/admin-dashboard.html";
 }
 
@@ -40,11 +40,15 @@ adminLoginForm.addEventListener("submit", async (e) => {
 
     if(!email || !password){
         showMessage("Please fill all fields", "error");
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = "Login to Dashboard";
         return;
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if(!emailPattern.test(email)){
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = "Login to Dashboard";
         showMessage("Please enter a valid email address", "error");
         return;
     }
@@ -70,7 +74,10 @@ adminLoginForm.addEventListener("submit", async (e) => {
             loginBtn.disabled = false;
             loginBtn.innerHTML = "Login to Dashboard";
     
-            showMessage(data.message,"error");
+            showMessage(data.message || "Invalid email or password.", "error");
+
+            document.getElementById("password").focus();
+            document.getElementById("password").select();
             return;
         }
     
@@ -97,6 +104,18 @@ adminLoginForm.addEventListener("submit", async (e) => {
 })
 
 
+document.getElementById("email").addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
+});
+
+document.getElementById("password").addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
+});
+
 
 const passwordInput = document.getElementById("password");
 const togglePassword = document.getElementById("togglePassword");
@@ -118,3 +137,6 @@ adminLoginForm.addEventListener("keydown",(e)=>{
         adminLoginForm.requestSubmit();
     }
 });
+
+
+document.getElementById("email").focus();

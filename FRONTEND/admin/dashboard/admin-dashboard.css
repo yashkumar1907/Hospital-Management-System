@@ -104,25 +104,6 @@ a{
     gap:20px;
 }
 
-.notification{
-    position:relative;
-    font-size:22px;
-    color:#475569;
-}
-.notification span{
-    position:absolute;
-    top:-8px;
-    right:-8px;
-    width:18px;
-    height:18px;
-    background:#ef4444;
-    color:white;
-    border-radius:50%;
-    font-size:11px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
 
 .profile-menu{
     display:flex;
@@ -150,18 +131,6 @@ a{
     margin-bottom:10px;
     color:#0f172a;
 }
-
-.breadcrumb{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    margin-bottom:25px;
-}
-.breadcrumb a{
-    color:#2563eb;
-    text-decoration:none;
-}
-
 
 /* =========================
    STATUS BADGES
@@ -287,10 +256,6 @@ a{
     color:#64748b;
     line-height:1.5;
 }
-.stat-info span{
-    color: rgb(0, 255, 0);
-}
-
 
 /* =========================
    DASHBOARD CONTENT LAYOUT
@@ -404,4 +369,48 @@ a{
 
     font-size:15px;
 
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .appointment-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
 }

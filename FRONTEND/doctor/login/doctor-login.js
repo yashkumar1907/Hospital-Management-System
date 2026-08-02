@@ -1,7 +1,7 @@
 const token = localStorage.getItem("token");
 const doctor = JSON.parse(localStorage.getItem("doctor"));
 
-if(token && doctor){
+if (token && doctor && doctor.role === "doctor") {
     window.location.href = "../dashboard/doctor-dashboard.html";
 }
 
@@ -70,13 +70,15 @@ doctorLoginForm.addEventListener("submit", async (e) => {
             loginBtn.disabled = false;
             loginBtn.innerHTML = "Login to Dashboard";
             showMessage(data.message || "Invalid email or password", "error");
-            document.getElementById("email").focus();
+            document.getElementById("password").focus();
+            document.getElementById("password").select();
             return;
         }
 
         localStorage.setItem("doctor", JSON.stringify(data.doctor));
         localStorage.setItem("token", data.token);
         showMessage("Login Successful. Redirecting...", "success");
+        loginBtn.disabled = true;
 
         setTimeout(() => {
             window.location.href = "../dashboard/doctor-dashboard.html";
@@ -89,6 +91,12 @@ doctorLoginForm.addEventListener("submit", async (e) => {
         console.error(error);
         showMessage("Unable to connect to server", "error");
     }
+});
+
+doctorLoginForm.addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
 });
 
 const togglePassword = document.getElementById("togglePassword");

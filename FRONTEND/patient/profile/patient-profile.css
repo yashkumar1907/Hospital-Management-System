@@ -414,3 +414,47 @@ a{
     color:#dc2626;
 
 }
+
+
+
+@media (max-width: 768px) {
+    .modal-box {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-form {
+        grid-template-columns: 1fr;
+    }
+
+    .photo-group {
+        grid-column: auto;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .profile-left {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .edit-profile-btn {
+        width: 100%;
+    }
+
+    .info-row {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+}

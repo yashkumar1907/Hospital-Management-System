@@ -87,47 +87,6 @@ a{
     margin-top: 0;
 }
 
-.support-card{
-    /* margin-top:20px; */
-    background:#eff6ff;
-    border-radius:18px;
-    padding:18px 16px;
-    text-align:center;
-}
-.support-icon{
-    width:48px;
-    height:48px;
-    background:#2563eb;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 15px;
-}
-.support-icon i{
-    font-size:22px;
-}
-.support-card h4{
-    font-size:16px;
-    margin-bottom:8px;
-}
-.support-card p{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.6;
-    margin-bottom:12px;
-}
-.support-card button{
-    border:none;
-    background:white;
-    color:#2563eb;
-    padding:10px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
 /* =========================
    HEADER
 ========================= */
@@ -312,4 +271,51 @@ a{
     color:#64748b;
     font-size:15px;
 
+}
+
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .appointment-item {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .doctor-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .appointment-details {
+        border-left: none;
+        border-top: 1px solid #e2e8f0;
+        padding-left: 0;
+        padding-top: 20px;
+    }
+
+    .status-badge {
+        justify-self: flex-start;
+    }
 }

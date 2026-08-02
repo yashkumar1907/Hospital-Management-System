@@ -155,12 +155,12 @@
 
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" id="doctorName">
+                    <input type="text" id="doctorName" required>
                 </div>
 
                 <div class="form-group">
                     <label>Specialization</label>
-                    <select id="doctorSpecialization">
+                    <select id="doctorSpecialization" required>
                         <option value="">Select Specialization</option>
                         <option value="Cardiology">Cardiology</option>
                         <option value="Neurology">Neurology</option>
@@ -172,31 +172,32 @@
 
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="doctorEmail">
+                    <input type="email" id="doctorEmail" required>
                 </div>
 
                 <div class="form-group">
                     <label>Phone</label>
-                    <input type="text" id="doctorPhone">
+                    <input type="text" id="doctorPhone" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="doctorPassword">
+                    <input type="password" id="doctorPassword" placeholder="Enter password" required>
                 </div>
 
                 <div class="form-group">
                     <label>Qualification</label>
-                    <input type="text" id="doctorQualification">
+                    <input type="text" id="doctorQualification" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Experience (Years)</label>
-                    <div class="form-group">
-                        <label>Consultation Fee (₹)</label>
-                        <input type="number" id="doctorConsultationFee" min="0">
-                    </div>
-                    <input type="number" id="doctorExperience" min="0">
+                    <input type="number" id="doctorExperience" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Consultation Fee (₹)</label>
+                    <input type="number" id="doctorConsultationFee" min="0" required>
                 </div>
 
                 <div class="form-group">
@@ -278,7 +279,7 @@
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="editDoctorPassword">
+                    <input type="password" id="editDoctorPassword" placeholder="Leave blank to keep current password">
                 </div>
 
                 <div class="form-group">
@@ -287,15 +288,14 @@
                 </div>
 
 
-
-
                 <div class="form-group">
                     <label>Experience (Years)</label>
-                    <div class="form-group">
-                        <label>Consultation Fee (₹)</label>
-                        <input type="number" id="editDoctorConsultationFee" min="0">
-                    </div>
                     <input type="number" id="editDoctorExperience" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label>Consultation Fee (₹)</label>
+                    <input type="number" id="editDoctorConsultationFee" min="0">
                 </div>
 
                 <div class="form-group">

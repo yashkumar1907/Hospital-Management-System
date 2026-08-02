@@ -1,7 +1,7 @@
 const doctor = JSON.parse(localStorage.getItem("doctor"));
 const token = localStorage.getItem("token");
 
-if(!doctor || !token){
+if (!doctor || !token || doctor.role !== "doctor") {
     localStorage.clear();
     window.location.href = "../login/doctor-login.html";
 }
@@ -31,7 +31,7 @@ async function loadDashboardData(){
 
         const data = await response.json();
         if(!response.ok){
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to load dashboard.");
         }
 
         const appointments = data.appointments;
@@ -60,10 +60,13 @@ async function loadDashboardData(){
 
         const today = new Date().toISOString().split("T")[0];
 
-        const todayAppointments =
-            appointments.filter(
-                appointment => new Date(appointment.appointmentDate).toISOString().split("T")[0] === today
-            ).length;
+        const todayAppointments = appointments.filter(
+            appointment =>
+                new Date(appointment.appointmentDate)
+                    .toISOString()
+                    .split("T")[0] === today &&
+                appointment.status !== "Cancelled"
+        ).length;
 
         document.getElementById("todayAppointments").textContent = todayAppointments;
         loadTodayAppointments(appointments);
@@ -91,10 +94,16 @@ async function loadDashboardData(){
 }
 
 
-const initials = doctor.name.split(" ").map(word => word[0]).join("").toUpperCase();
+const doctorName = doctor.name || "Doctor";
+
+const initials = doctorName
+    .split(" ")
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
 
 document.getElementById("profileAvatar").textContent = initials;
-document.getElementById("doctorName").textContent = doctor.name;
+document.getElementById("doctorName").textContent = doctorName;
 
 const today = new Date();
 
@@ -135,19 +144,19 @@ function loadTodayAppointments(appointments){
 
     const today = new Date().toISOString().split("T")[0];
 
-    const todayList =
-        appointments
+    const todayList = appointments
         .filter(
             appointment =>
                 new Date(appointment.appointmentDate)
                     .toISOString()
-                    .split("T")[0] === today
+                    .split("T")[0] === today &&
+                appointment.status !== "Cancelled"
         )
         .sort(
-            (a,b)=>
-            a.appointmentTime.localeCompare(
-                b.appointmentTime
-            )
+            (a, b) =>
+                a.appointmentTime.localeCompare(
+                    b.appointmentTime
+                )
         );
 
     if(todayList.length === 0){
@@ -163,6 +172,11 @@ function loadTodayAppointments(appointments){
     container.innerHTML = todayList.map(appointment => {
 
         let statusClass = "";
+
+        const patientName = appointment.patientName
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
 
         switch(appointment.status){
 
@@ -187,7 +201,7 @@ function loadTodayAppointments(appointments){
             <div class="appointment-item">
 
                 <div class="patient-info">
-                    <h4>${appointment.patientName}</h4>
+                    <h4>${patientName}</h4>
                     <p>${appointment.appointmentTime}</p>
                 </div>
 

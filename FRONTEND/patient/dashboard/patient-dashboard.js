@@ -2,7 +2,7 @@
    DOM ELEMENTS
 ========================= */
 const avatar = document.getElementById("profileAvatar");
-
+const logoutBtn = document.getElementById("logoutBtn");
 
 /* =========================
    AUTH CHECK
@@ -10,9 +10,9 @@ const avatar = document.getElementById("profileAvatar");
 const patient = JSON.parse(localStorage.getItem("patient"));
 const token = localStorage.getItem("token");
 
-if(!patient || !token){
+if (!patient || !token || patient.role !== "patient") {
     localStorage.clear();
-    window.location.href="../login/patient-login.html";
+    window.location.href = "../login/patient-login.html";
 }
 
 

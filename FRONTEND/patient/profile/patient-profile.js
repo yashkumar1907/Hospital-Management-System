@@ -1,9 +1,9 @@
 const patient = JSON.parse(localStorage.getItem("patient"));
 const token = localStorage.getItem("token");
 
-if(!patient || !token){
+if (!patient || !token || patient.role !== "patient") {
     localStorage.clear();
-    window.location.href="../login/patient-login.html";
+    window.location.href = "../login/patient-login.html";
 }
 
 
@@ -30,15 +30,6 @@ const profileImage = patient.photo
 
 document.getElementById("profileImage").src = profileImage;
 document.getElementById("profileAvatar").src = profileImage;
-
-function convertToBase64(file){
-    return new Promise((resolve,reject)=>{
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
 
 document.getElementById("headerPatientName").textContent = patient.name;
 document.getElementById("profileName").textContent = patient.name;
@@ -109,7 +100,6 @@ cancelBtn.addEventListener("click",
 
 saveProfileBtn.addEventListener("click", async () => {
     try {
-        let updatedPhoto = patient.photo;
         const email = document.getElementById("editEmail").value.trim();
         const phone = document.getElementById("editPhone").value.trim();
         const emergencyContact = document.getElementById("editEmergencyContact").value.trim();
@@ -139,14 +129,6 @@ saveProfileBtn.addEventListener("click", async () => {
             return;
         }
 
-        const newPhotoFile = document.getElementById("editPatientPhoto").files[0];
-        if(newPhotoFile){
-            updatedPhoto = await convertToBase64(newPhotoFile);
-        }
-
-        saveProfileBtn.disabled = true;
-        saveProfileBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
-
         const name = document.getElementById("editName").value.trim();
 
         if (!name) {
@@ -154,29 +136,44 @@ saveProfileBtn.addEventListener("click", async () => {
             return;
         }
 
-        const response =
-            await fetch(
-                `${CONFIG.API_BASE_URL}/api/patients/profile`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization:`Bearer ${token}`
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        dob: document.getElementById("editDob").value,
-                        gender: document.getElementById("editGender").value,
-                        bloodGroup: document.getElementById("editBloodGroup").value,
-                        email: document.getElementById("editEmail").value.trim(),
-                        phone: document.getElementById("editPhone").value.trim(),
-                        photo: updatedPhoto,
-                        emergencyContact: document.getElementById("editEmergencyContact").value.trim(),
-                        allergies: document.getElementById("editAllergies").value.trim(),
-                        medicalHistory: document.getElementById("editMedicalHistory").value.trim(),
-                    })
-                }
-            );
+        saveProfileBtn.disabled = true;
+        saveProfileBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+
+
+        const newPhotoFile = document.getElementById("editPatientPhoto").files[0];
+
+        const formData = new FormData();
+
+        formData.append("name", name);
+        formData.append("dob", document.getElementById("editDob").value);
+        formData.append("gender", document.getElementById("editGender").value);
+        formData.append("bloodGroup", document.getElementById("editBloodGroup").value);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("emergencyContact", emergencyContact);
+        formData.append(
+            "allergies",
+            document.getElementById("editAllergies").value.trim()
+        );
+        formData.append(
+            "medicalHistory",
+            document.getElementById("editMedicalHistory").value.trim()
+        );
+
+        if(newPhotoFile){
+            formData.append("photo", newPhotoFile);
+        }
+
+        const response = await fetch(
+            `${CONFIG.API_BASE_URL}/api/patients/profile`,
+            {
+                method:"PUT",
+                headers:{
+                    Authorization:`Bearer ${token}`
+                },
+                body:formData
+            }
+        );
 
         if(response.status === 401){
             localStorage.clear();
@@ -220,11 +217,27 @@ saveProfileBtn.addEventListener("click", async () => {
 });
 
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    if(confirm("Are you sure you want to logout?")){
-        localStorage.clear();
-        window.location.href = "../login/patient-login.html";
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+    const confirmed = await showConfirm({
+        title:"Logout",
+        message:"Are you sure you want to logout?",
+        confirmText:"Logout",
+        cancelText:"Cancel"
+    });
+
+    if(!confirmed){
+        return;
     }
+
+    localStorage.clear();
+
+    showToast("success","Logged out successfully.");
+
+    setTimeout(()=>{
+        window.location.href="../login/patient-login.html";
+    },700);
+
 });
 
 
@@ -239,12 +252,14 @@ editPatientPhoto.addEventListener("change",(e)=>{
     if(!file.type.startsWith("image/")){
         showMessage("Please select a valid image.", "error");
         editPatientPhoto.value = "";
+        document.getElementById("editPhotoPreview").src = profileImage;
         return;
     }
     
     if(file.size > 2 * 1024 * 1024){
         showMessage("Image size should be less than 2 MB.", "error");
         editPatientPhoto.value = "";
+        document.getElementById("editPhotoPreview").src = profileImage;
         return;
     }
 

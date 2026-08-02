@@ -34,7 +34,7 @@ function showMessage(message, type){
 const token = localStorage.getItem("token");
 const patient = JSON.parse(localStorage.getItem("patient"));
 
-if(token && patient){
+if (token && patient && patient.role === "patient") {
     window.location.href = "../dashboard/patient-dashboard.html";
 }
 
@@ -105,6 +105,13 @@ patientLoginForm.addEventListener("submit", async (e) => {
         showMessage("Unable to connect to server", "error");
         document.getElementById("email").focus();
     }
+});
+
+
+patientLoginForm.addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
 });
 
 /* ===========================

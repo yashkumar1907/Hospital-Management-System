@@ -14,6 +14,19 @@ exports.generateSlots = async (req, res) => {
             });
         }
 
+        const selectedDate = new Date(date);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+            return res.status(400).json({
+                success: false,
+                message: "Cannot generate slots for a past date."
+            });
+        }
+
         const doctor = await Doctor.findById(doctorId);
 
         if (!doctor) {
@@ -104,8 +117,11 @@ exports.getAvailableSlots = async (req, res) => {
 
 exports.blockSlot = async (req, res) => {
     try {
-        const slot = await DoctorSlot.findByIdAndUpdate(
-            req.params.slotId,
+        const slot = await DoctorSlot.findOneAndUpdate(
+            {
+                _id: req.params.slotId,
+                doctorId: req.user.id
+            },
             {
                 status: "Blocked"
             },
@@ -138,8 +154,11 @@ exports.blockSlot = async (req, res) => {
 
 exports.unblockSlot = async (req, res) => {
     try {
-        const slot = await DoctorSlot.findByIdAndUpdate(
-            req.params.slotId,
+        const slot = await DoctorSlot.findOneAndUpdate(
+            {
+                _id: req.params.slotId,
+                doctorId: req.user.id
+            },
             {
                 status: "Available"
             },

@@ -105,25 +105,6 @@ a{
     gap:20px;
 }
 
-.notification{
-    position:relative;
-    font-size:22px;
-    color:#475569;
-}
-.notification span{
-    position:absolute;
-    top:-8px;
-    right:-8px;
-    width:18px;
-    height:18px;
-    background:#ef4444;
-    color:white;
-    border-radius:50%;
-    font-size:11px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
 
 .profile-menu{
     display:flex;
@@ -152,16 +133,6 @@ a{
     color:#0f172a;
 }
 
-.breadcrumb{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    margin-bottom:25px;
-}
-.breadcrumb a{
-    color:#2563eb;
-    text-decoration:none;
-}
 
 
 /* =========================
@@ -217,25 +188,19 @@ a{
     gap:15px;
 }
 
-.filter-btn,
-.add-btn{
-    border:none;
-    border-radius:12px;
-    padding:14px 20px;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
+.add-btn {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
 }
 
-.filter-btn{
-    background:#ffffff;
-    border:1px solid #e2e8f0;
-    color:#475569;
-}
-
-.add-btn{
-    background:#2563eb;
-    color:white;
+.add-btn:hover{
+    background:#1d4ed8;
 }
 
 .doctor-table-card{
@@ -429,6 +394,9 @@ a{
 #doctorPhoto{
     cursor:pointer;
 }
+#editDoctorPhoto{
+    cursor:pointer;
+}
 
 .modal-footer{
     margin-top:20px;
@@ -470,6 +438,49 @@ a{
         transform:scale(1);
         opacity:1;
 
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .modal{
+        width:95%;
+        margin:20px;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .main-content{
+        padding:20px;
+    }
+
+    .dashboard-header{
+        flex-direction:column;
+        gap:16px;
+        align-items:flex-start;
+    }
+
+    .header-right{
+        width:100%;
+        justify-content:flex-start;
+    }
+
+    .doctor-toolbar{
+        flex-direction:column;
+        align-items:stretch;
+        gap:16px;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .doctor-table{
+        min-width:1100px;
     }
 
 }

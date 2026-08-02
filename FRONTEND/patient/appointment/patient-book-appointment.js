@@ -1,9 +1,9 @@
 const patient = JSON.parse(localStorage.getItem("patient"));
 const token = localStorage.getItem("token");
 
-if(!patient || !token){
+if (!patient || !token || patient.role !== "patient") {
     localStorage.clear();
-    window.location.href="../login/patient-login.html";
+    window.location.href = "../login/patient-login.html";
 }
 
 document.getElementById("appointmentDate").min = new Date().toISOString().split("T")[0];
@@ -20,7 +20,6 @@ document.getElementById("profileAvatar").src = profilePhoto;
 document.getElementById("patientName").textContent = patient.name;
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
-
     const confirmed = await showConfirm({
         title: "Logout",
         message: "Are you sure you want to logout?",
@@ -33,13 +32,10 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     }
 
     localStorage.clear();
-
     showToast("success", "Logged out successfully.");
-
     setTimeout(() => {
         window.location.href = "../login/patient-login.html";
     }, 700);
-
 });
 
 const messageBox = document.getElementById("messageBox");
@@ -111,43 +107,33 @@ async function loadDoctors(){
 }
 
 async function loadAvailableSlots(){
-
-
-    appointmentTime.innerHTML =
-        `
-            <option selected disabled>
-                Loading...
-            </option>
-        `;
+    appointmentTime.innerHTML = `
+        <option selected disabled>
+            Loading...
+        </option>
+    `;
 
     const doctorId = doctorSelect.value;
     const date = document.getElementById("appointmentDate").value;
 
     if(!doctorId || !date){
-
-        appointmentTime.innerHTML =
-            `
-                <option selected disabled>
-                    Select Time Slot
-                </option>
-            `;
+        appointmentTime.innerHTML = `
+            <option selected disabled>
+                Select Time Slot
+            </option>
+        `;
 
         return;
-
     }
 
     try{
-
-        const response =
-        await fetch(
-        `${CONFIG.API_BASE_URL}/api/doctor-slots/available/${doctorId}/${date}`
-        );
-
-        const data =
-        await response.json();
+        const response = await fetch(`${CONFIG.API_BASE_URL}/api/doctor-slots/available/${doctorId}/${date}`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.message || "Unable to load available slots.");
+        }
 
         if(data.slots.length === 0){
-
             appointmentTime.innerHTML = `
                 <option selected disabled>
                     No Slot Available
@@ -157,33 +143,30 @@ async function loadAvailableSlots(){
             return;
         }
 
-        appointmentTime.innerHTML =
-        `
-        <option value="" selected disabled>
-        Select Time Slot
-        </option>
+        appointmentTime.innerHTML = `
+            <option value="" selected disabled>
+                Select Time Slot
+            </option>
         `;
 
         data.slots.forEach(slot=>{
+            const option = document.createElement("option");
+            option.value = slot._id;
 
-            const option =
-            document.createElement("option");
-
-            option.value =
-            slot._id;
-
-            option.textContent =
-            `${slot.startTime} - ${slot.endTime}`;
-
+            option.textContent = `${slot.startTime} - ${slot.endTime}`;
             appointmentTime.appendChild(option);
-
         });
-
     }
-    catch(error){
-
+    catch (error) {
         console.error(error);
-
+    
+        appointmentTime.innerHTML = `
+            <option selected disabled>
+                Unable to load slots
+            </option>
+        `;
+    
+        showMessage("Unable to load available slots.", "error");
     }
 
 }
@@ -310,6 +293,8 @@ appointmentForm.addEventListener("submit", async (e) => {
         
         appointmentForm.reset();
 
+        document.getElementById("appointmentDate").min = new Date().toISOString().split("T")[0];
+
         doctorAvailability.textContent = "";
 
         appointmentTime.innerHTML = `
@@ -338,6 +323,13 @@ appointmentForm.addEventListener("submit", async (e) => {
             Book Appointment
         `;
     }
+});
+
+
+appointmentForm.addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
 });
 
 

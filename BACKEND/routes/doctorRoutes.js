@@ -35,7 +35,7 @@ router.post("/login", loginDoctor);
 router.get("/all", getAllDoctors);
 router.get("/appointments", authMiddleware, roleMiddleware("doctor"), getDoctorAppointments);
 router.patch("/appointments/status/:id",authMiddleware, roleMiddleware("doctor"), updateAppointmentStatus);
-router.put("/profile", authMiddleware, roleMiddleware("doctor"), updateDoctor);
+router.put("/profile", authMiddleware, roleMiddleware("doctor"), upload.single("photo"), updateDoctor);
 router.delete("/:id", authMiddleware, roleMiddleware("admin"), deleteDoctor);
 
 

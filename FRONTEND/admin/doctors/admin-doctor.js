@@ -4,19 +4,21 @@
 const admin = JSON.parse(localStorage.getItem("admin"));
 const token = localStorage.getItem("token");
 
-if(!admin || !token){
+if (!admin || !token || admin.role !== "admin") {
     localStorage.clear();
-    window.location.href="../login/admin-login.html";
+    window.location.href = "../login/admin-login.html";
 }
 
 
 if(admin){
-    document.getElementById("adminName").textContent = admin.name;
-    const initials =
-        admin.name
+    const adminName = admin.name || "Admin";
+
+    document.getElementById("adminName").textContent = adminName;
+
+    const initials = adminName
         .split(" ")
-        .slice(0,2)
-        .map(word=>word[0])
+        .slice(0, 2)
+        .map(word => word[0])
         .join("")
         .toUpperCase();
 
@@ -55,7 +57,7 @@ async function loadDoctors() {
         
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to load doctors.");
         }
 
         doctorTableBody.innerHTML = "";
@@ -63,14 +65,13 @@ async function loadDoctors() {
         doctors = data.doctors;
 
         if(doctors.length === 0){
-            doctorTableBody.innerHTML = `
-                <tr>
-                    <td colspan="5"
-                        style="text-align:center;padding:40px;">
-                        No doctors found
-                    </td>
-                </tr>
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td colspan="5" style="text-align:center;padding:40px;">
+                    No doctors found
+                </td>
             `;
+            doctorTableBody.appendChild(row);
             return;
         }
 
@@ -86,23 +87,49 @@ async function loadDoctors() {
                 )
                 : "../../assets/default-patient.jpg";
 
-            doctorTableBody.innerHTML += `
-                <tr>
+            const doctorName = (doctor.name || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            const doctorEmail = (doctor.email || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const specialization = (doctor.specialization || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const qualification = (doctor.qualification || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const phone = (doctor.phone || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+                
+            const row = document.createElement("tr");
+            
+            row.innerHTML = `
                     <td>
                         <div class="doctor-info">
-                            <img src="${doctorPhoto}">
+                            <img src="${doctorPhoto}" alt="${doctorName}">
                             <div>
-                                <h4>${doctor.name}</h4>
-                                <p>${doctor.email}</p>
+                                <h4>${doctorName}</h4>
+                                <p>${doctorEmail}</p>
                             </div>
                         </div>
                     </td>
 
-                    <td>${doctor.specialization}</td>
-                    <td>${doctor.qualification || "-"}</td>
+                    <td>${specialization}</td>
+                    <td>${qualification || "-"}</td>
                     <td>${doctor.experience ? doctor.experience + " Years" : "-"}</td>
-                    <td>${doctor.phone}</td>
-                    <td>${doctor.email}</td>
+                    <td>${phone}</td>
+                    <td>${doctorEmail}</td>
                     <td>
                         <span class="status 
                             ${doctor.availability ? "confirmed" : "pending"}">
@@ -119,8 +146,9 @@ async function loadDoctors() {
                             </button>
                         </div>
                     </td>
-                </tr>
             `;
+                
+            doctorTableBody.appendChild(row);
         });
     }
     catch(error){
@@ -165,18 +193,18 @@ async function addDoctor() {
     if(photo){
 
         if(!photo.type.startsWith("image/")){
-            alert("Please select a valid image.");
+            showToast("error", "Please select a valid image.");
             return;
         }
     
         if(photo.size > 2 * 1024 * 1024){
-            alert("Image size should be less than 2 MB.");
+            showToast("error", "Image size should be less than 2 MB.");
             return;
         }
     
     }
 
-    if(!name || !specialization || !email || !phone || !password || !qualification || !experience || !about){
+    if(!name || !specialization || !email || !phone || !password || !qualification || !experience || !about || !consultationFee){
         showToast("error", "Please fill all fields");
         return;
     }
@@ -184,12 +212,12 @@ async function addDoctor() {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if(!emailPattern.test(email)){
-        showMessage("Please enter a valid email.", "error");
+        showToast("error", "Please enter a valid email.");
         return;
     }
     
     if(!/^[6-9]\d{9}$/.test(phone)){
-        showMessage("Please enter a valid phone number.", "error");
+        showToast("error", "Please enter a valid phone number.");
         return;
     }
 
@@ -231,10 +259,24 @@ async function addDoctor() {
         
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to add doctor.");
         }
         showToast("success", data.message);
+
+        document.getElementById("doctorPhoto").value = "";
+        document.getElementById("doctorName").value = "";
+        document.getElementById("doctorSpecialization").value = "";
+        document.getElementById("doctorEmail").value = "";
+        document.getElementById("doctorPhone").value = "";
+        document.getElementById("doctorPassword").value = "";
+        document.getElementById("doctorQualification").value = "";
+        document.getElementById("doctorExperience").value = "";
+        document.getElementById("doctorConsultationFee").value = "";
+        document.getElementById("doctorAvailability").value = "true";
+        document.getElementById("doctorAbout").value = "";
+
         doctorModal.classList.remove("active");
+
         loadDoctors();
     }
     catch(error){
@@ -276,7 +318,7 @@ async function deleteDoctor(id) {
 
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to delete doctor.");
         }
         showToast("success", data.message);
         loadDoctors();
@@ -350,7 +392,7 @@ async function updateDoctor(){
 
         const data = await response.json();
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.message || "Unable to update doctor.");
         }
         showToast("success", data.message);
 
@@ -376,14 +418,30 @@ function searchDoctor(){
     });
 }
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    if(confirm("Are you sure you want to logout?")){
-        localStorage.clear();
-        window.location.href = "../login/admin-login.html";
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+    const confirmed = await showConfirm({
+        title: "Logout",
+        message: "Are you sure you want to logout?",
+        confirmText: "Logout",
+        cancelText: "Cancel"
+    });
+
+    if (!confirmed) {
+        return;
     }
+
+    localStorage.clear();
+
+    showToast("success", "Logged out successfully.");
+
+    setTimeout(() => {
+        window.location.href = "../login/admin-login.html";
+    }, 700);
+
 });
 
 
 loadDoctors();
 
-window.addEventListener("focus", loadDoctors);
+window.addEventListener("pageshow", loadDoctors);

@@ -13,6 +13,13 @@ exports.addDoctor = async (req, res) => {
         const email = req.body.email?.trim().toLowerCase();
         const photo = req.file ? `/uploads/doctors/${req.file.filename}` : "";
 
+        if (!name || !email || !phone || !specialization || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all required fields."
+            });
+        }
+
         const existingDoctor = await Doctor.findOne({
             $or: [
                 { email },
@@ -24,13 +31,6 @@ exports.addDoctor = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "Doctor with this email or phone already exists."
-            });
-        }
-
-        if (!password) {
-            return res.status(400).json({
-                success: false,
-                message: "Password is required."
             });
         }
         
@@ -207,6 +207,7 @@ exports.updateDoctor = async (req, res) => {
         const phone = req.body.phone?.trim();
         const qualification = req.body.qualification?.trim();
         const about = req.body.about?.trim();
+        const photo = req.file ? `/uploads/doctors/${req.file.filename}` : undefined;
 
         let {password, experience, availability, consultationFee} = req.body;
 
@@ -237,6 +238,7 @@ exports.updateDoctor = async (req, res) => {
                 email,
                 phone,
                 ...(password && { password }),
+                ...(photo && { photo }),
                 qualification,
                 experience,
                 about,
@@ -246,7 +248,7 @@ exports.updateDoctor = async (req, res) => {
             {
                 new: true
             }
-        );
+        ).select("-password");
 
         if (!doctor) {
             return res.status(404).json({

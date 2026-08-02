@@ -1,7 +1,7 @@
 const patient = JSON.parse(localStorage.getItem("patient"));
 const token = localStorage.getItem("token");
 
-if(!patient || !token){
+if (!patient || !token || patient.role !== "patient") {
     localStorage.clear();
     window.location.href = "../login/patient-login.html";
 }
@@ -115,9 +115,15 @@ async function loadAppointments(){
                     default:
                         statusClass="pending";
                 }
-        
-                appointmentList.innerHTML += `
-                    <div class="appointment-item">
+
+
+                const appointmentCard = document.createElement("div");
+                appointmentCard.className = "appointment-item";
+
+
+                const notes = appointment.notes ? appointment.notes.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "-";
+
+                appointmentCard.innerHTML += `
                         <div class="doctor-info">
                             <img src="${
                                 appointment.doctorPhoto
@@ -161,13 +167,10 @@ async function loadAppointments(){
                             <div class="detail-row">
                                 <i class="fa-regular fa-note-sticky"></i>
 
+
                                 <div>
                                     <span>Notes</span>
-                                    <p>${appointment.notes
-                                        ?
-                                        appointment.notes
-                                        :
-                                        "-"}</p>
+                                    <p>${notes}</p>
                                 </div>
                             </div>
                         </div>
@@ -175,8 +178,9 @@ async function loadAppointments(){
                         <div class="status-badge ${statusClass}">
                             ${appointment.status}
                         </div>
-                    </div>
                 `;
+
+                appointmentList.appendChild(appointmentCard);
             }
         );
     }
@@ -196,4 +200,4 @@ async function loadAppointments(){
 
 loadAppointments();
 
-window.addEventListener("focus",loadAppointments);
+window.addEventListener("pageshow",loadAppointments);

@@ -18,6 +18,13 @@ exports.registerPatient = async (req, res) => {
 
         const {dob, photo, password, emergencyContact, allergies, medicalHistory} = req.body;
 
+        if (!name || !dob || !gender || !bloodGroup || !email || !phone || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all required fields."
+            });
+        }
+
         const existingPatient = await Patient.findOne({
             $or: [
                 { email },
@@ -29,13 +36,6 @@ exports.registerPatient = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "Patient with this email or phone already exists."
-            });
-        }
-
-        if (!password) {
-            return res.status(400).json({
-                success: false,
-                message: "Password is required."
             });
         }
 
@@ -169,7 +169,11 @@ exports.bookAppointment = async (req, res) => {
             });
         }
 
-        const slot = await DoctorSlot.findById(slotId);
+        const slot = await DoctorSlot.findOne({
+            _id: slotId,
+            doctorId
+        });
+        
         if (!slot) {
             return res.status(404).json({
                 success: false,
@@ -249,7 +253,11 @@ exports.updateProfile = async (req, res) => {
         const gender = req.body.gender?.trim();
         const bloodGroup = req.body.bloodGroup?.trim();
 
-        const {dob, photo, emergencyContact, allergies, medicalHistory} = req.body;
+        const { dob, emergencyContact, allergies, medicalHistory } = req.body;
+
+        const photo = req.file
+            ? `/uploads/patients/${req.file.filename}`
+            : undefined;
 
         const existingPatient = await Patient.findOne({
             _id: { $ne: req.user.id },
@@ -268,11 +276,11 @@ exports.updateProfile = async (req, res) => {
 
         const patient = await Patient.findByIdAndUpdate(
             req.user.id,
-            {name, dob, gender, bloodGroup, email, phone, photo, emergencyContact, allergies, medicalHistory},
+            {name, dob, gender, bloodGroup, email, phone, ...(photo && { photo }), emergencyContact, allergies, medicalHistory},
             {
                 new: true
             }
-        );
+        ).select("-password");
 
         if (!patient) {
             return res.status(404).json({

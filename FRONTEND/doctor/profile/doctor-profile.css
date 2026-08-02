@@ -87,47 +87,6 @@ a{
     margin-top: 0;
 }
 
-.support-card{
-    /* margin-top:20px; */
-    background:#eff6ff;
-    border-radius:18px;
-    padding:18px 16px;
-    text-align:center;
-}
-.support-icon{
-    width:48px;
-    height:48px;
-    background:#2563eb;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:0 auto 15px;
-}
-.support-icon i{
-    font-size:22px;
-}
-.support-card h4{
-    font-size:16px;
-    margin-bottom:8px;
-}
-.support-card p{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.6;
-    margin-bottom:12px;
-}
-.support-card button{
-    border:none;
-    background:white;
-    color:#2563eb;
-    padding:10px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
 /* =========================
    HEADER
 ========================= */
@@ -144,25 +103,6 @@ a{
     gap:20px;
 }
 
-.notification{
-    position:relative;
-    font-size:22px;
-    color:#475569;
-}
-.notification span{
-    position:absolute;
-    top:-8px;
-    right:-8px;
-    width:18px;
-    height:18px;
-    background:#ef4444;
-    color:white;
-    border-radius:50%;
-    font-size:11px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
 
 .profile-menu{
     display:flex;
@@ -192,17 +132,6 @@ a{
     font-size:36px;
     margin-bottom:10px;
     color:#0f172a;
-}
-
-.breadcrumb{
-    display:flex;
-    gap:10px;
-    align-items:center;
-    margin-bottom:25px;
-}
-.breadcrumb a{
-    color:#2563eb;
-    text-decoration:none;
 }
 
 /* =========================
@@ -245,22 +174,6 @@ a{
     width:22px;
     color:#2563eb;
 }
-
-.edit-profile-btn{
-    border:1px solid #2563eb;
-    background:#fff;
-    color:#2563eb;
-    padding:14px 22px;
-    border-radius:12px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
-}
-.edit-profile-btn:hover{
-    background:#2563eb;
-    color:white;
-}
-
 
 
 /* =========================
@@ -346,4 +259,43 @@ a{
     background:#fee2e2;
     color:#991b1b;
     border:1px solid #fca5a5;
+}
+
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .profile-left {
+        flex-direction: column;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }

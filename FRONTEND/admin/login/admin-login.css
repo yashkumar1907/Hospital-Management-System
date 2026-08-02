@@ -297,6 +297,13 @@ body{
     .left-panel{
         min-height:500px;
     }
+    .left-panel{
+        padding:40px;
+    }
+    
+    .right-panel{
+        padding:40px;
+    }
 }
 
 
@@ -316,5 +323,16 @@ body{
 
     .logo img{
         width:150px;
+    }
+    .left-panel{
+        padding:30px;
+    }
+    
+    .features-list{
+        margin-left:0;
+    }
+    
+    .left-content{
+        max-width:100%;
     }
 }

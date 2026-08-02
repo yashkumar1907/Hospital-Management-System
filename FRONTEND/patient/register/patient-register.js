@@ -40,16 +40,6 @@ function showMessage(message, type){
     }, 3000);
 }
 
-function convertToBase64(file){
-    return new Promise((resolve,reject)=>{
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
-
-
 // ==============================
 // INITIAL SETUP
 // ==============================
@@ -131,19 +121,25 @@ patientRegisterForm.addEventListener("submit", async (e) => {
         registerBtn.disabled = true;
         registerBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...`;
 
-        let photo = "";
-        if(patientPhotoFile){
-            photo = await convertToBase64(patientPhotoFile);
+        const formData = new FormData();
+
+        formData.append("name", fullName);
+        formData.append("dob", dob);
+        formData.append("gender", gender);
+        formData.append("bloodGroup", bloodGroup);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("password", password);
+
+        if (patientPhotoFile) {
+            formData.append("photo", patientPhotoFile);
         }
 
         const response = await fetch(
             `${CONFIG.API_BASE_URL}/api/patients/register`,
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({name: fullName, dob, gender, bloodGroup, email, phone, photo, password})
+                body: formData
             }
         );
 
@@ -217,6 +213,13 @@ patientRegisterForm.addEventListener("keydown",(e)=>{
 });
 
 
+patientRegisterForm.addEventListener("input", () => {
+    messageBox.className = "";
+    messageBox.textContent = "";
+    messageBox.style.display = "none";
+});
+
+
 // ==============================
 // PHOTO PREVIEW
 // ==============================
@@ -228,12 +231,14 @@ patientPhoto.addEventListener("change",(e)=>{
     if(!file.type.startsWith("image/")){
         showMessage("Please select a valid image.", "error");
         patientPhoto.value = "";
+        photoPreview.src = "../../assets/default-patient.jpg";
         return;
     }
 
     if(file.size > 2 * 1024 * 1024){
         showMessage("Image size should be less than 2 MB.", "error");
         patientPhoto.value = "";
+        photoPreview.src = "../../assets/default-patient.jpg";
         return;
     }
 

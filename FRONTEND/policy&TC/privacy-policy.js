@@ -38,7 +38,14 @@ navLinks.forEach(link => {
 // CLOSE MENU WHEN CLICKING OUTSIDE
 // ==============================
 document.addEventListener("click", (e) => {
-    if (!navbar.contains(e.target) && !menuBtn.contains(e.target) && !headerRight.contains(e.target)) {
+    if (
+        navbar &&
+        menuBtn &&
+        headerRight &&
+        !navbar.contains(e.target) &&
+        !menuBtn.contains(e.target) &&
+        !headerRight.contains(e.target)
+    ) {
         navbar.classList.remove("active");
         headerRight.classList.remove("active");
     }
