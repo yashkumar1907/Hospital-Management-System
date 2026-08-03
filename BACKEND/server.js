@@ -1,7 +1,8 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const cors = require("cors");
-
-const dotenv = require("dotenv");
 
 const connectDB = require("./config/db");
 
@@ -11,7 +12,7 @@ const contactRoutes = require("./routes/contactRoutes");
 const doctorSlotRoutes = require("./routes/doctorSlotRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
-dotenv.config();
+
 
 if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is missing in .env");
