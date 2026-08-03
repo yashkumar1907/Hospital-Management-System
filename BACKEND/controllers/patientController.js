@@ -54,11 +54,11 @@ exports.registerPatient = async (req, res) => {
             message: "Patient registered successfully"
         });
     } catch (error) {
-        console.error("Register Patient Error:", error);    
+        console.error("Register Patient Error:", error);
+
         res.status(500).json({
             success: false,
-            message: error.message,
-            stack: process.env.NODE_ENV === "development" ? error.stack : undefined
+            message: "Internal server error"
         });
     }
 };
@@ -114,9 +114,11 @@ exports.loginPatient = async (req, res) => {
         });
     }
     catch (error) {
+        console.error("Login Patient Error:", error);
+    
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -221,10 +223,12 @@ exports.bookAppointment = async (req, res) => {
             message: "Appointment booked successfully"
         });
     }
-    catch(error){
+    catch (error) {
+        console.error("Book Appointment Error:", error);
+    
         res.status(500).json({
-            success:false,
-            message:error.message
+            success: false,
+            message: "Internal server error"
         });
     }
 };
@@ -244,9 +248,11 @@ exports.getPatientAppointments = async (req, res) => {
         });
     }
     catch (error) {
+        console.error("Get Patient Appointments Error:", error);
+    
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -302,9 +308,11 @@ exports.updateProfile = async (req, res) => {
         });
     }
     catch (error) {
+        console.error("Update Profile Error:", error);
+    
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -357,9 +365,11 @@ exports.deletePatient = async (req, res) => {
         });
     }
     catch (error) {
+        console.error("Delete Patient Error:", error);
+    
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };

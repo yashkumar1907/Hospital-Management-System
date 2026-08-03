@@ -40,8 +40,7 @@ const patientSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     emergencyContact: {
         type: String,
@@ -63,5 +62,8 @@ const patientSchema = new mongoose.Schema({
         timestamps:true
     }
 );
+
+patientSchema.index({ email: 1 });
+patientSchema.index({ phone: 1 });
 
 module.exports = mongoose.model("Patient", patientSchema);

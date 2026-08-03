@@ -8,10 +8,6 @@ const roleMiddleware = require("../middlewares/roleMiddleware");
 const uploadImage = require("../middlewares/uploadImage");
 
 
-router.get("/test", (req,res)=>{
-    res.send("Patient Route Working");
-});
-
 
 router.post("/register", uploadImage.single("photo"), registerPatient);
 router.post("/login", loginPatient);
