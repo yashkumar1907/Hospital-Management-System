@@ -9,10 +9,6 @@ const bcrypt = require("bcryptjs");
 
 
 exports.registerPatient = async (req, res) => {
-    console.log("===== REGISTER START =====");
-    console.log("Body:", req.body);
-    console.log("File:", req.file);
-
     try {
         const name = req.body.name?.trim();
         const email = req.body.email?.trim().toLowerCase();
@@ -26,16 +22,12 @@ exports.registerPatient = async (req, res) => {
             ? req.file.path
             : "";
         
-        console.log("Step 1");
-
         if (!name || !dob || !gender || !bloodGroup || !email || !phone || !password) {
             return res.status(400).json({
                 success: false,
                 message: "Please fill all required fields."
             });
         }
-
-        console.log("Step 2");
 
         const existingPatient = await Patient.findOne({
             $or: [
@@ -51,28 +43,18 @@ exports.registerPatient = async (req, res) => {
             });
         }
 
-        console.log("Step 3");
-
         const hashedPassword = await bcrypt.hash(password, 10);
-
-        console.log("Step 4");
 
         const patient = new Patient({name, dob, gender, bloodGroup, email, phone, photo, password: hashedPassword, emergencyContact, allergies, medicalHistory});
 
-        console.log("Step 5");
-
         await patient.save();
-
-        console.log("Step 6");
 
         res.status(201).json({
             success: true,
             message: "Patient registered successfully"
         });
     } catch (error) {
-        console.error("Register Patient Error:");
-        console.error(error);
-    
+        console.error("Register Patient Error:", error);    
         res.status(500).json({
             success: false,
             message: error.message,

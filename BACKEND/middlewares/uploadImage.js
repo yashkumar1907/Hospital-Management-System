@@ -7,7 +7,9 @@ const storage = new CloudinaryStorage({
     params: async (req, file) => ({
         folder: "citycare-hospital/patients",
         allowed_formats: ["jpg", "jpeg", "png", "webp"],
-        resource_type: "image"
+        resource_type: "image",
+        unique_filename: true,
+        overwrite: false
     })
 });
 
