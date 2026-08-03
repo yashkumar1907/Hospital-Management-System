@@ -54,6 +54,15 @@ app.use((req, res) => {
     });
 });
 
+app.use((err, req, res, next) => {
+    console.error("Global Error Handler:");
+    console.error(err);
+
+    res.status(500).json({
+        success: false,
+        message: err.message || "Internal Server Error"
+    });
+});
 
 
 const PORT = process.env.PORT || 5000;
