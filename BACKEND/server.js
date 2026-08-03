@@ -5,8 +5,6 @@ const dotenv = require("dotenv");
 
 const connectDB = require("./config/db");
 
-const path = require("path");
-
 const patientRoutes = require("./routes/patientRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const contactRoutes = require("./routes/contactRoutes");
@@ -43,8 +41,6 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/doctor-slots", doctorSlotRoutes);
 app.use("/api/admin", adminRoutes);
 
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
     res.send("HMS Backend Running");

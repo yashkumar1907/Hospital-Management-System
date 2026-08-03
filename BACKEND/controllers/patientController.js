@@ -16,7 +16,11 @@ exports.registerPatient = async (req, res) => {
         const gender = req.body.gender?.trim();
         const bloodGroup = req.body.bloodGroup?.trim();
 
-        const {dob, photo, password, emergencyContact, allergies, medicalHistory} = req.body;
+        const { dob, password, emergencyContact, allergies, medicalHistory } = req.body;
+
+        const photo = req.file
+            ? req.file.path
+            : "";
 
         if (!name || !dob || !gender || !bloodGroup || !email || !phone || !password) {
             return res.status(400).json({
@@ -256,7 +260,7 @@ exports.updateProfile = async (req, res) => {
         const { dob, emergencyContact, allergies, medicalHistory } = req.body;
 
         const photo = req.file
-            ? `/uploads/patients/${req.file.filename}`
+            ? req.file.path
             : undefined;
 
         const existingPatient = await Patient.findOne({
