@@ -7,7 +7,6 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
 const uploadImage = require("../middlewares/uploadImage");
 
-const upload = multer({ storage });
 
 router.get("/test", (req,res)=>{
     res.send("Patient Route Working");
