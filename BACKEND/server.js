@@ -61,3 +61,17 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
 });
+
+
+
+const cloudinary = require("./config/cloudinary");
+
+app.get("/test-cloudinary", async (req, res) => {
+    try {
+        const result = await cloudinary.api.ping();
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(error);
+    }
+});
