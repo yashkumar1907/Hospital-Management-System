@@ -13,7 +13,7 @@ router.get("/test", (req,res)=>{
 });
 
 
-router.post("/register", uploadImage.single("photo"), registerPatient);
+router.post("/register", registerPatient);
 router.post("/login", loginPatient);
 router.post("/book-appointment",authMiddleware,roleMiddleware("patient"), bookAppointment);
 router.get("/appointments", authMiddleware,roleMiddleware("patient"), getPatientAppointments);
