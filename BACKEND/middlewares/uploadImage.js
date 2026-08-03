@@ -2,6 +2,8 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 
+console.log("uploadImage middleware loaded");
+
 const storage = new CloudinaryStorage({
     cloudinary,
     params: async (req, file) => ({
