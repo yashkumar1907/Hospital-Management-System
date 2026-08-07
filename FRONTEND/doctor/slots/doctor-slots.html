@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Appointments | CityCare Hospital</title>
-    <link rel="stylesheet" href="doctor-appointments.css">
+    <title>Manage Slots | CityCare Hospital</title>
+
+    <link rel="stylesheet" href="doctor-slots.css">
     <link rel="stylesheet" href="../../confirm-toast/confirm.css">
     <link rel="stylesheet" href="../../confirm-toast/toast.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="../../assets/favicon.jpg">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="icon" href="../../assets/favicon.jpg">
 </head>
+
 <body>
+
     <div class="dashboard-container">
+
         <!-- Sidebar -->
+
         <aside class="sidebar">
-            
-            <!-- Logo -->
+
             <div class="sidebar-logo">
                 <a href="../../homepage/homepage.html">
-                    <img src="../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital">
+                    <img src="../../assets/Hospital-logo-without-bcg.jpg" alt="">
                 </a>
-                
             </div>
 
-            <!-- Navigation -->
             <nav class="sidebar-menu">
 
                 <a href="../dashboard/doctor-dashboard.html" class="menu-item">
@@ -36,22 +42,20 @@
                     <span>My Profile</span>
                 </a>
 
-                <a href="../appointments/doctor-appointments.html" class="menu-item active">
+                <a href="../appointments/doctor-appointments.html" class="menu-item">
                     <i class="fa-regular fa-calendar-plus"></i>
                     <span>Appointments</span>
                 </a>
 
-                <a href="../slots/doctor-slots.html" class="menu-item">
+                <a href="doctor-slots.html" class="menu-item active">
                     <i class="fa-regular fa-clock"></i>
                     <span>Manage Slots</span>
                 </a>
 
             </nav>
 
-            <!-- Divider -->
             <div class="sidebar-divider"></div>
 
-            <!-- Logout -->
             <div class="sidebar-logout">
                 <a href="#" id="logoutBtn" class="menu-item">
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -61,35 +65,71 @@
 
         </aside>
 
-        <main class="main-content">
-            <header class="dashboard-header">
+        <!-- Main -->
 
-                <div class="profile-breadcrumb">
-                    <h1>MY APPOINTMENTS</h1>
-                    <div id="messageBox"></div>
-                    <p id="appointmentCount"></p>
+        <main class="main-content">
+
+            <header class="page-header">
+
+                <div>
+                    <h1>Manage Slots</h1>
+                    <p>Create and manage your appointment slots.</p>
                 </div>
-            
-                <div class="header-right">
-                    <div class="profile-menu">
-                        <div class="profile-avatar" id="profileAvatar"></div>
-                        <span id="doctorName"></span>
-                    </div>
-            
+
+                <div class="doctor-name" id="doctorName">
+                    Doctor
                 </div>
-            
+
             </header>
 
-            <section class="appointments-card">
-                <div class="appointment-table" id="appointmentsTable"></div>
+            <!-- Generate -->
+
+            <section class="generate-card">
+
+                <div class="generate-row">
+
+                    <input
+                        type="date"
+                        id="slotDate">
+
+                    <button id="generateBtn">
+                        <i class="fa-solid fa-plus"></i>
+                        Generate Slots
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- Slots -->
+
+            <section class="slots-card">
+
+                <div class="section-header">
+                    <h2>Slots</h2>
+                </div>
+
+                <div id="slotsContainer">
+
+                    <div class="empty-state">
+                        Select a date to view slots.
+                    </div>
+
+                </div>
+
             </section>
 
         </main>
+
     </div>
 
     <script src="../../config.js"></script>
+
     <script src="../../confirm-toast/confirm.js"></script>
     <script src="../../confirm-toast/toast.js"></script>
-    <script src="doctor-appointments.js"></script>
+
+    <script src="doctor-slots.js"></script>
+
 </body>
+
 </html>

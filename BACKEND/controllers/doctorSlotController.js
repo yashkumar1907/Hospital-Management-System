@@ -115,6 +115,40 @@ exports.getAvailableSlots = async (req, res) => {
 };
 
 
+
+exports.getMySlots = async (req, res) => {
+    try {
+
+        const selectedDate = new Date(req.params.date);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        const slots = await DoctorSlot.find({
+            doctorId: req.user.id,
+            date: selectedDate,
+            isActive: true
+        }).sort({
+            startTime: 1
+        });
+
+        res.status(200).json({
+            success: true,
+            slots
+        });
+
+    }
+    catch (error) {
+
+        console.error("Get My Slots Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+
+    }
+};
+
+
 exports.blockSlot = async (req, res) => {
     try {
         const slot = await DoctorSlot.findOneAndUpdate(

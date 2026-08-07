@@ -1,0 +1,271 @@
+/* ===========================
+   PAGE
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+
+/* ===========================
+   LAYOUT
+=========================== */
+
+.dashboard-container{
+    display:flex;
+}
+
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.sidebar{
+    width:260px;
+    min-height:100vh;
+    background:#1e293b;
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar-logo{
+    padding:22px;
+    text-align:center;
+}
+
+.sidebar-logo img{
+    width:130px;
+}
+
+.sidebar-menu{
+    display:flex;
+    flex-direction:column;
+}
+
+.menu-item{
+    color:#fff;
+    text-decoration:none;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    transition:.25s;
+}
+
+.menu-item:hover,
+.menu-item.active{
+    background:#334155;
+}
+
+.sidebar-divider{
+    flex:1;
+}
+
+.sidebar-logout{
+    margin-bottom:25px;
+}
+
+
+/* ===========================
+   MAIN
+=========================== */
+
+.main-content{
+    flex:1;
+    padding:35px;
+}
+
+
+/* ===========================
+   HEADER
+=========================== */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    font-size:30px;
+    color:#1e293b;
+}
+
+.page-header p{
+    color:#64748b;
+    margin-top:6px;
+}
+
+.doctor-name{
+    font-weight:600;
+    color:#2563eb;
+}
+
+
+/* ===========================
+   CARD
+=========================== */
+
+.generate-card,
+.slots-card{
+    background:#fff;
+    border-radius:14px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+    margin-bottom:25px;
+}
+
+
+/* ===========================
+   GENERATE
+=========================== */
+
+.generate-row{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.generate-row input{
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.generate-row button{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.25s;
+}
+
+.generate-row button:hover{
+    background:#1d4ed8;
+}
+
+
+/* ===========================
+   SECTION
+=========================== */
+
+.section-header{
+    margin-bottom:18px;
+}
+
+.section-header h2{
+    color:#1e293b;
+}
+
+
+/* ===========================
+   SLOT CARD
+=========================== */
+
+.slot-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.slot-time{
+    font-weight:600;
+    color:#1e293b;
+}
+
+.slot-status{
+    font-size:14px;
+    font-weight:600;
+}
+
+.available{
+    color:#16a34a;
+}
+
+.booked{
+    color:#2563eb;
+}
+
+.blocked{
+    color:#dc2626;
+}
+
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.slot-btn{
+    border:none;
+    padding:8px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    color:#fff;
+    font-weight:600;
+}
+
+.block-btn{
+    background:#dc2626;
+}
+
+.unblock-btn{
+    background:#16a34a;
+}
+
+
+/* ===========================
+   EMPTY
+=========================== */
+
+.empty-state{
+    text-align:center;
+    color:#64748b;
+    padding:50px;
+}
+
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+    .dashboard-container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+        min-height:auto;
+    }
+
+    .page-header,
+    .generate-row,
+    .slot-item{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .generate-row button,
+    .generate-row input{
+        width:100%;
+    }
+
+}
