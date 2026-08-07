@@ -129,13 +129,13 @@ async function loadDashboardData(){
                 a.status==="Confirmed"
                 ) || appointments[0];
 
-            const doctorPhoto = latest.doctorPhoto ?
-                (latest.doctorPhoto.startsWith("http") ? latest.doctorPhoto
-                :
-                `${CONFIG.API_BASE_URL}${latest.doctorPhoto}`
+            const doctorPhoto = latest.doctorId?.photo
+                ? (
+                    latest.doctorId.photo.startsWith("http")
+                        ? latest.doctorId.photo
+                        : `${CONFIG.API_BASE_URL}${latest.doctorId.photo}`
                 )
-                :
-                "../../assets/default-doctor.jpg";
+                : "../../assets/default-doctor.jpg";
 
             let statusClass = "";
 
