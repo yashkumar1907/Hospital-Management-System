@@ -123,21 +123,17 @@ async function loadAppointments(){
 
                 const notes = appointment.notes ? appointment.notes.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "-";
 
+                const doctorPhoto = appointment.doctorId?.photo
+                    ? (
+                        appointment.doctorId.photo.startsWith("http")
+                            ? appointment.doctorId.photo
+                            : `${CONFIG.API_BASE_URL}${appointment.doctorId.photo}`
+                    )
+                    : "../../assets/default-doctor.jpg";
+
                 appointmentCard.innerHTML += `
                         <div class="doctor-info">
-                            <img src="${
-                                appointment.doctorPhoto
-                                ?
-                                (
-                                appointment.doctorPhoto.startsWith("http")
-                                ?
-                                appointment.doctorPhoto
-                                :
-                                `${CONFIG.API_BASE_URL}${appointment.doctorPhoto}`
-                                )
-                                :
-                                '../../assets/default-doctor.jpg'
-                                }">
+                            <img src="${doctorPhoto}">
                             <div>
                                 <h3>${appointment.doctorName}</h3>
                                 <p>${appointment.department}</p>
