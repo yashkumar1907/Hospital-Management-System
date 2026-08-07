@@ -1,13 +1,11 @@
 const Admin = require("../models/Admin");
-
 const bcrypt = require("bcryptjs");
-
 const generateToken = require("../utils/generateToken");
 
 exports.loginAdmin = async (req, res) => {
     try{
         const email = req.body.email?.trim().toLowerCase();
-        const { password } = req.body;
+        const {password} = req.body;
 
         if(!email || !password){
             return res.status(400).json({
@@ -16,8 +14,8 @@ exports.loginAdmin = async (req, res) => {
             });
         }
 
-        const admin = await Admin.findOne({ email });
-
+        const admin = await Admin.findOne({ email }).select("+password");
+        
         if(!admin){
             return res.status(404).json({
                 success:false,
@@ -31,7 +29,7 @@ exports.loginAdmin = async (req, res) => {
         );
 
         if(!isPasswordCorrect){
-            return res.status(400).json({
+            return res.status(401).json({
                 success:false,
                 message:"Invalid password"
             });
@@ -54,9 +52,11 @@ exports.loginAdmin = async (req, res) => {
     }
 
     catch(error){
-        res.status(500).json({
-            success:false,
-            message:error.message
+        console.error("Admin Login Error:", error);
+    
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
         });
     }
 };

@@ -24,7 +24,8 @@ const appointmentSchema = new mongoose.Schema({
     department:{
         type:String,
         enum:["Cardiology", "Neurology", "Orthopedics", "Dermatology", "Pediatrics", "General Medicine"],
-        required:true
+        required:true,
+        trim: true
     },
     doctorName: {
         type: String,
@@ -56,5 +57,10 @@ const appointmentSchema = new mongoose.Schema({
         timestamps: true
     }
 );
+
+appointmentSchema.index({
+    doctorId: 1,
+    appointmentDate: 1
+});
 
 module.exports = mongoose.model("Appointment", appointmentSchema);

@@ -12,11 +12,14 @@ const adminSchema = new mongoose.Schema(
             required: true,
             unique: true,
             trim: true,
-            lowercase: true
+            lowercase: true,
+            match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address."]
         },
         password: {
             type: String,
-            required: true
+            required: true,
+            minlength: 8,
+            select: false
         }
     },
     {

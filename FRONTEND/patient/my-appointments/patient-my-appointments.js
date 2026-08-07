@@ -136,7 +136,7 @@ async function loadAppointments(){
                                 `${CONFIG.API_BASE_URL}${appointment.doctorPhoto}`
                                 )
                                 :
-                                '../../assets/default-patient.jpg'
+                                '../../assets/default-doctor.jpg'
                                 }">
                             <div>
                                 <h3>${appointment.doctorName}</h3>

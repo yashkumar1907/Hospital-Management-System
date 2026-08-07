@@ -188,13 +188,23 @@ async function loadDoctors(){
                     : `${CONFIG.API_BASE_URL}${doctor.photo}`)
                 : "../assets/default-doctor.png";
 
+            const doctorName = (doctor.name || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+            
+            const specialization = (doctor.specialization || "-")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
 
             doctorsContainer.innerHTML += `
                 <div class="doctor-card">
         
                     <img src="${doctorPhoto}" alt="${doctor.name}" loading="lazy">
-                    <h4>${doctor.name}</h4>
-                    <span>${doctor.specialization}</span>
+                    <h4>${doctorName}</h4>
+                    <span>${specialization}</span>
                     <p>${doctor.experience} Years Exp.</p>
                     <p style="font-weight:600;color:#16a34a;">₹${doctor.consultationFee}</p>
                     <p style="color:${doctor.availability?'#16a34a':'#dc2626'}; font-weight:600;">

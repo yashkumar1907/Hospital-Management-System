@@ -11,7 +11,7 @@ exports.addDoctor = async (req, res) => {
 
         const name = req.body.name?.trim();
         const email = req.body.email?.trim().toLowerCase();
-        const photo = req.file ? `/uploads/doctors/${req.file.filename}` : "";
+        const photo = req.file ? req.file.path : "";
 
         if (!name || !email || !phone || !specialization || !password) {
             return res.status(400).json({
@@ -65,11 +65,13 @@ exports.loginDoctor = async (req, res) => {
             });
         }
 
-        const doctor = await Doctor.findOne({ email });
+        const doctor = await Doctor.findOne({ email })
+            .select("+password");
+
         if (!doctor) {
             return res.status(404).json({
                 success: false,
-                message: "Doctor not found"
+                message: "Invalid email or password"
             });
         }
 
@@ -88,7 +90,12 @@ exports.loginDoctor = async (req, res) => {
             specialization: doctor.specialization,
             email: doctor.email,
             phone: doctor.phone,
-            photo: doctor.photo
+            photo: doctor.photo,
+            qualification: doctor.qualification,
+            experience: doctor.experience,
+            about: doctor.about,
+            availability: doctor.availability,
+            consultationFee: doctor.consultationFee
         };
 
         const token = generateToken(doctor._id, "doctor");
@@ -162,11 +169,24 @@ exports.updateAppointmentStatus = async (req, res) => {
             });
         }
 
-        const appointment = await Appointment.findByIdAndUpdate(
-            req.params.id,
-            { status },
-            { new: true }
-        );
+        let appointment;
+
+        if (req.user.role === "admin") {
+            appointment = await Appointment.findByIdAndUpdate(
+                req.params.id,
+                { status },
+                { new: true }
+            );
+        } else {
+            appointment = await Appointment.findOneAndUpdate(
+                {
+                    _id: req.params.id,
+                    doctorId: req.user.id
+                },
+                { status },
+                { new: true }
+            );
+        }
 
         if (!appointment) {
             return res.status(404).json({
@@ -207,7 +227,7 @@ exports.updateDoctor = async (req, res) => {
         const phone = req.body.phone?.trim();
         const qualification = req.body.qualification?.trim();
         const about = req.body.about?.trim();
-        const photo = req.file ? `/uploads/doctors/${req.file.filename}` : undefined;
+        const photo = req.file ? req.file.path : undefined;
 
         let {password, experience, availability, consultationFee} = req.body;
 
@@ -253,7 +273,7 @@ exports.updateDoctor = async (req, res) => {
         if (!doctor) {
             return res.status(404).json({
                 success: false,
-                message: "Doctor not found"
+                message: "Invalid email or password"
             });
         }
         res.status(200).json({
@@ -284,7 +304,7 @@ exports.deleteDoctor = async (req, res) => {
         if(!doctor){
             return res.status(404).json({
                 success:false,
-                message: "Doctor not found"
+                message: "Invalid email or password"
             });
         }
         res.status(200).json({

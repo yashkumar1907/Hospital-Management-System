@@ -2,12 +2,10 @@ const multer = require("multer");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 
-console.log("uploadImage middleware loaded");
-
 const storage = new CloudinaryStorage({
     cloudinary,
     params: async (req, file) => ({
-        folder: "citycare-hospital/patients",
+        folder: "citycare-hospital",
         allowed_formats: ["jpg", "jpeg", "png", "webp"],
         resource_type: "image",
         unique_filename: true,

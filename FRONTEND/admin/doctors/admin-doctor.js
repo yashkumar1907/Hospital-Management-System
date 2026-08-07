@@ -85,7 +85,7 @@ async function loadDoctors() {
                         ? doctor.photo
                         : `${CONFIG.API_BASE_URL}${doctor.photo}`
                 )
-                : "../../assets/default-patient.jpg";
+                : "../../assets/default-doctor.jpg";
 
             const doctorName = (doctor.name || "-")
                 .replace(/&/g, "&amp;")
@@ -360,28 +360,41 @@ document.getElementById("updateDoctorBtn").addEventListener("click",updateDoctor
 
 async function updateDoctor(){
     try{
-        const response =
-            await fetch(
-                `${CONFIG.API_BASE_URL}/api/doctors/${selectedDoctorId}`,
-                {
-                    method:"PUT",
-                    headers:{
-                        "Content-Type": "application/json",
-                        Authorization:`Bearer ${token}`
-                    },
-                    body:JSON.stringify({
-                        name: document.getElementById("editDoctorName").value.trim(),
-                        specialization: document.getElementById("editDoctorSpecialization").value.trim(),
-                        email: document.getElementById("editDoctorEmail").value.trim(),
-                        phone: document.getElementById("editDoctorPhone").value.trim(),
-                        password: document.getElementById("editDoctorPassword").value.trim(),
-                        qualification: document.getElementById("editDoctorQualification").value.trim(),
-                        experience: document.getElementById("editDoctorExperience").value,
-                        about: document.getElementById("editDoctorAbout").value.trim(),
-                        consultationFee: document.getElementById("editDoctorConsultationFee").value,
-                        availability: document.getElementById("editDoctorAvailability").value==="true",
-                    })
-                }
+        const formData = new FormData();
+
+        formData.append("name", document.getElementById("editDoctorName").value.trim());
+        formData.append("specialization", document.getElementById("editDoctorSpecialization").value.trim());
+        formData.append("email", document.getElementById("editDoctorEmail").value.trim());
+        formData.append("phone", document.getElementById("editDoctorPhone").value.trim());
+
+        const password = document.getElementById("editDoctorPassword").value.trim();
+        if (password) {
+            formData.append("password", password);
+        }
+
+        formData.append("qualification", document.getElementById("editDoctorQualification").value.trim());
+        formData.append("experience", document.getElementById("editDoctorExperience").value);
+        formData.append("about", document.getElementById("editDoctorAbout").value.trim());
+        formData.append("consultationFee", document.getElementById("editDoctorConsultationFee").value);
+        formData.append(
+            "availability",
+            document.getElementById("editDoctorAvailability").value
+        );
+
+        const photo = document.getElementById("editDoctorPhoto").files[0];
+        if (photo) {
+            formData.append("photo", photo);
+        }
+
+        const response = await fetch(
+            `${CONFIG.API_BASE_URL}/api/doctors/${selectedDoctorId}`,
+            {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                body: formData
+            }
         );
 
         if(response.status===401){

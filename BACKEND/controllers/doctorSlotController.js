@@ -38,7 +38,7 @@ exports.generateSlots = async (req, res) => {
 
         const existingSlots = await DoctorSlot.find({
             doctorId,
-            date: new Date(date)
+            date: selectedDate
         });
 
         if (existingSlots.length > 0) {
@@ -69,7 +69,7 @@ exports.generateSlots = async (req, res) => {
 
             slots.push({
                 doctorId,
-                date: new Date(date),
+                date: selectedDate,
                 startTime: `${String(startHour).padStart(2, "0")}:${String(startMinute).padStart(2, "0")}`,
                 endTime: `${String(endHour).padStart(2, "0")}:${String(endMinute).padStart(2, "0")}`
             });

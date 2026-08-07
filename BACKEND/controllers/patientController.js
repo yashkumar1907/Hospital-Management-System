@@ -75,7 +75,7 @@ exports.loginPatient = async (req, res) => {
             });
         }
 
-        const patient = await Patient.findOne({ email });
+        const patient = await Patient.findOne({ email }).select("+password");
 
         if (!patient) {
             return res.status(404).json({

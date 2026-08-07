@@ -121,6 +121,11 @@ async function loadAppointments() {
                         .replace(/</g, "&lt;")
                         .replace(/>/g, "&gt;")
                     : "-";
+                 
+                const patientName = appointment.patientName
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
 
                 html += `
                 <div class="appointment-row">
@@ -134,11 +139,11 @@ async function loadAppointments() {
 
                     <div class="patient-info">
                         <div class="patient-avatar">
-                        ${appointment.patientName.split(" ").map(word=>word[0]).slice(0,2).join("").toUpperCase()}
+                            ${patientName.split(" ").map(word => word[0]).slice(0, 2).join("").toUpperCase()}
                         </div>
 
                         <div>
-                            <strong>${appointment.patientName}</strong>
+                            <strong>${patientName}</strong>
                         </div>
                     </div>
 

@@ -1,4 +1,5 @@
 let confirmResolve = null;
+let previousKeydownHandler = null;
 
 function showConfirm({
     title = "Confirm",
@@ -59,6 +60,8 @@ function showConfirm({
             }
         };
 
+        previousKeydownHandler = document.onkeydown;
+
         document.onkeydown = (event) => {
             if (event.key === "Escape") {
                 closeConfirm(false);
@@ -74,7 +77,8 @@ function closeConfirm(result) {
         overlay.style.display = "none";
     }
 
-    document.onkeydown = null;
+    document.onkeydown = previousKeydownHandler;
+    previousKeydownHandler = null;
 
     if (confirmResolve) {
         confirmResolve(result);

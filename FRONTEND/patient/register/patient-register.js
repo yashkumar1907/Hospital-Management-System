@@ -143,20 +143,15 @@ patientRegisterForm.addEventListener("submit", async (e) => {
             }
         );
 
+        const data = await response.json();
+
         if (!response.ok) {
-            const errorText = await response.text();
-        
-            console.error("Backend Response:");
-            console.error(errorText);
-        
             registerBtn.disabled = false;
             registerBtn.innerHTML = "Create Account";
-        
-            showMessage("Registration failed. Check browser console.", "error");
+
+            showMessage(data.message || "Registration failed.", "error");
             return;
         }
-
-        const data = await response.json();
 
         showMessage("Registration successful. Redirecting to login...", "success");
         patientRegisterForm.reset();

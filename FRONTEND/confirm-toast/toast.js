@@ -40,10 +40,15 @@ function showToast(type, message) {
     const toast = document.createElement("div");
     toast.className = `toast ${type}`;
 
-    toast.innerHTML = `
-        <span>${icon} ${message}</span>
-        <span class="toast-close">&times;</span>
-    `;
+    const messageSpan = document.createElement("span");
+    messageSpan.innerText = `${icon} ${message}`;
+
+    const closeSpan = document.createElement("span");
+    closeSpan.className = "toast-close";
+    closeSpan.innerHTML = "&times;";
+
+    toast.appendChild(messageSpan);
+    toast.appendChild(closeSpan);
 
     container.appendChild(toast);
 

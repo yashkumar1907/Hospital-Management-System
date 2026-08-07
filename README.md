@@ -105,7 +105,7 @@ A full-stack **Hospital Management System** developed using **HTML, CSS, JavaScr
 
 ### Other Tools
 - Multer
-- Nodemailer
+- Cloudinary
 - CORS
 - dotenv
 

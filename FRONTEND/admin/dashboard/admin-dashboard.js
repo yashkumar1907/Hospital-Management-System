@@ -210,6 +210,11 @@ function loadRecentAppointments(appointments){
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
+        
+        const status = (appointment.status || "-")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
 
         return `
             <div class="appointment-row">
@@ -228,7 +233,7 @@ function loadRecentAppointments(appointments){
                 </div>
 
                 <span class="status ${statusClass}">
-                    ${appointment.status}
+                    ${status}
                 </span>
 
             </div>

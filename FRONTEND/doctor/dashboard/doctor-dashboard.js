@@ -205,7 +205,7 @@ function loadTodayAppointments(appointments){
                     <p>${appointment.appointmentTime}</p>
                 </div>
 
-                <span class="status ${statusClass}">
+                <span class="${statusClass}">
                     ${appointment.status}
                 </span>
 

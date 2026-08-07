@@ -75,7 +75,13 @@ doctorLoginForm.addEventListener("submit", async (e) => {
             return;
         }
 
-        localStorage.setItem("doctor", JSON.stringify(data.doctor));
+        localStorage.setItem(
+            "doctor",
+            JSON.stringify({
+                ...data.doctor,
+                role: "doctor"
+            })
+        );
         localStorage.setItem("token", data.token);
         showMessage("Login Successful. Redirecting...", "success");
         loginBtn.disabled = true;

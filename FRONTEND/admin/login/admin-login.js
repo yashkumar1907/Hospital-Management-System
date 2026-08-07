@@ -81,7 +81,13 @@ adminLoginForm.addEventListener("submit", async (e) => {
             return;
         }
     
-        localStorage.setItem("admin", JSON.stringify(data.admin));
+        localStorage.setItem(
+            "admin",
+            JSON.stringify({
+                ...data.admin,
+                role: "admin"
+            })
+        );
     
         localStorage.setItem("token", data.token);
     

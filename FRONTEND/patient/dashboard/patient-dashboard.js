@@ -135,7 +135,7 @@ async function loadDashboardData(){
                 `${CONFIG.API_BASE_URL}${latest.doctorPhoto}`
                 )
                 :
-                "../../assets/default-patient.jpg";
+                "../../assets/default-doctor.jpg";
 
             let statusClass = "";
 

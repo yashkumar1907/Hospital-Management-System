@@ -136,6 +136,11 @@ saveProfileBtn.addEventListener("click", async () => {
             return;
         }
 
+        if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(name)) {
+            showMessage("Name should contain only letters.", "error");
+            return;
+        }
+
         saveProfileBtn.disabled = true;
         saveProfileBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
 
@@ -203,7 +208,13 @@ saveProfileBtn.addEventListener("click", async () => {
         saveProfileBtn.innerHTML = "Save Changes";
 
         setTimeout(() => {
-            localStorage.setItem("patient", JSON.stringify(data.patient));
+            localStorage.setItem(
+                "patient",
+                JSON.stringify({
+                    ...data.patient,
+                    role: "patient"
+                })
+            );
             location.reload();
         }, 1200);
     }

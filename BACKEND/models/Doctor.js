@@ -16,18 +16,21 @@ const doctorSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
-        lowercase: true
+        lowercase: true,
+        match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address."]
     },
-    phone:{
-        type:String,
-        required:true,
-        unique:true,
-        trim: true
+    phone: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        match: [/^[6-9]\d{9}$/, "Please enter a valid 10-digit phone number."]
     },
     password: {
         type: String,
         required: true,
-        trim: true
+        minlength: 8,
+        select: false
     },
     photo: {
         type: String,
@@ -62,5 +65,8 @@ const doctorSchema = new mongoose.Schema({
         timestamps:true
     }
 );
+
+
+doctorSchema.index({ specialization: 1 });
 
 module.exports = mongoose.model("Doctor", doctorSchema);

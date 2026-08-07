@@ -89,7 +89,14 @@ patientLoginForm.addEventListener("submit", async (e) => {
             return;
         }
 
-        localStorage.setItem("patient", JSON.stringify(data.patient));
+        localStorage.setItem(
+            "patient",
+            JSON.stringify({
+                ...data.patient,
+                role: "patient"
+            })
+        );
+        
         localStorage.setItem("token", data.token);
         
         showMessage("Login Successful. Redirecting...", "success");
