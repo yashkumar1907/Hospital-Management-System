@@ -475,7 +475,7 @@ contactForm.addEventListener("submit", async (e) => {
     const message = document.getElementById("contactMessage").value.trim();
 
     const submitButton = contactForm.querySelector("button");
-    
+
     submitButton.disabled = true;
     submitButton.innerHTML = `Sending... <i class="fas fa-spinner fa-spin"></i>`;
 
@@ -485,36 +485,44 @@ contactForm.addEventListener("submit", async (e) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({name, email, phone, category, subject, message})
+            body: JSON.stringify({
+                name,
+                email,
+                phone,
+                category,
+                subject,
+                message
+            })
         });
-
-        if (!response.ok) {
-            throw new Error("Failed to fetch contact forms.");
-        }
 
         const data = await response.json();
 
-        if (data.success) {
-            showMessage("Message sent successfully!", "success");
-            contactForm.reset();
+        if (!response.ok) {
+            showMessage(data.message || "Something went wrong.", "error");
 
-            setTimeout(() => {
-                messageBox.style.display = "none";
-                messageBox.textContent = "";
-                messageBox.className = "";
-            
-                submitButton.disabled = false;
-                submitButton.innerHTML = `Send Message <i class="fas fa-paper-plane"></i>`;
-            }, 3000);
-
-        } else {
-            showMessage(data.message, "error");
             submitButton.disabled = false;
             submitButton.innerHTML = `Send Message <i class="fas fa-paper-plane"></i>`;
+
+            return;
         }
+
+        showMessage("Message sent successfully!", "success");
+        contactForm.reset();
+
+        setTimeout(() => {
+            messageBox.style.display = "none";
+            messageBox.textContent = "";
+            messageBox.className = "";
+
+            submitButton.disabled = false;
+            submitButton.innerHTML = `Send Message <i class="fas fa-paper-plane"></i>`;
+        }, 3000);
+
     } catch (error) {
         console.error(error);
+
         showMessage("Unable to connect to server", "error");
+
         submitButton.disabled = false;
         submitButton.innerHTML = `Send Message <i class="fas fa-paper-plane"></i>`;
     }
