@@ -1126,13 +1126,13 @@ This project was independently designed and developed as a full-stack applicatio
 
 # 📬 Contact
 
-📧 **Email:** your-email@example.com
+📧 **Email:** yashkumar9926@gmail.com
 
 💼 **GitHub:** https://github.com/yashkumar1907
 
-🔗 **LinkedIn:** https://www.linkedin.com/in/your-linkedin-profile
+🔗 **LinkedIn:** https://www.linkedin.com/in/yash-kumar-2a69972a7/
 
-🌐 **Portfolio:** https://your-portfolio-link
+🌐 **Portfolio:** https://portfolio-frontend-jg03.onrender.com
 
 > **Note:** Replace the placeholders above with your actual email, LinkedIn, and portfolio links.
 
