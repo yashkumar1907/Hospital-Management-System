@@ -84,6 +84,6 @@ const profilePhoto = doctor.photo
             ? doctor.photo
             : `${CONFIG.API_BASE_URL}${doctor.photo}`
       )
-    : "../../assets/default-doctor.png";
+    : "../../assets/default-doctor.jpg";
 
 document.getElementById("doctorProfileImage").src = profilePhoto;
