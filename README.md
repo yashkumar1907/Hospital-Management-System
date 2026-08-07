@@ -1134,8 +1134,6 @@ This project was independently designed and developed as a full-stack applicatio
 
 🌐 **Portfolio:** https://portfolio-frontend-jg03.onrender.com
 
-> **Note:** Replace the placeholders above with your actual email, LinkedIn, and portfolio links.
-
 ---
 
 # 🤝 Contributing
