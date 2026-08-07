@@ -186,7 +186,7 @@ async function loadDoctors(){
                 ? (doctor.photo.startsWith("http")
                     ? doctor.photo
                     : `${CONFIG.API_BASE_URL}${doctor.photo}`)
-                : "../assets/default-doctor.png";
+                : "../assets/default-doctor.jpg";
 
             const doctorName = (doctor.name || "-")
                 .replace(/&/g, "&amp;")
@@ -258,7 +258,7 @@ function openDoctorModal(index){
     ? (doctor.photo.startsWith("http")
         ? doctor.photo
         : `${CONFIG.API_BASE_URL}${doctor.photo}`)
-    : "../assets/default-doctor.png";
+    : "../assets/default-doctor.jpg";
 
 
     document.getElementById("modalDoctorPhoto").src = doctorPhoto;
