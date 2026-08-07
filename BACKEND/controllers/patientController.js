@@ -101,7 +101,10 @@ exports.loginPatient = async (req, res) => {
             bloodGroup: patient.bloodGroup,
             email: patient.email,
             phone: patient.phone,
-            photo: patient.photo
+            photo: patient.photo,
+            emergencyContact: patient.emergencyContact,
+            allergies: patient.allergies,
+            medicalHistory: patient.medicalHistory
         };
 
         const token = generateToken(patient._id, "patient");
