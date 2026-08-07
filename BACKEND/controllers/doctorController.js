@@ -290,6 +290,86 @@ exports.updateDoctor = async (req, res) => {
     }
 };
 
+exports.updateDoctorByAdmin = async (req, res) => {
+    try {
+        const name = req.body.name?.trim();
+        const specialization = req.body.specialization?.trim();
+        const email = req.body.email?.trim().toLowerCase();
+        const phone = req.body.phone?.trim();
+        const qualification = req.body.qualification?.trim();
+        const about = req.body.about?.trim();
+
+        const photo = req.file ? req.file.path : undefined;
+
+        let {
+            password,
+            experience,
+            availability,
+            consultationFee
+        } = req.body;
+
+        const existingDoctor = await Doctor.findOne({
+            _id: { $ne: req.params.id },
+            $or: [
+                { email },
+                { phone }
+            ]
+        });
+
+        if (existingDoctor) {
+            return res.status(400).json({
+                success: false,
+                message: "Doctor with this email or phone already exists."
+            });
+        }
+
+        if (password) {
+            password = await bcrypt.hash(password, 10);
+        }
+
+        const doctor = await Doctor.findByIdAndUpdate(
+            req.params.id,
+            {
+                name,
+                specialization,
+                email,
+                phone,
+                ...(password && { password }),
+                ...(photo && { photo }),
+                qualification,
+                experience,
+                about,
+                availability,
+                consultationFee
+            },
+            {
+                new: true
+            }
+        ).select("-password");
+
+        if (!doctor) {
+            return res.status(404).json({
+                success: false,
+                message: "Doctor not found."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Doctor updated successfully.",
+            doctor
+        });
+    }
+    catch (error) {
+        console.error("Update Doctor By Admin Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+};
+
 exports.deleteDoctor = async (req, res) => {
     try {
         const appointmentExists = await Appointment.findOne({doctorId:req.params.id});
