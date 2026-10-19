@@ -1,4 +1,4 @@
-const patient = JSON.parse(localStorage.getItem("patient"));
+const patient = JSON.parse(localStorage.getItem("patient") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!patient || !token || patient.role !== "patient") {

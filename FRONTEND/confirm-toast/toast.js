@@ -3,6 +3,8 @@
 // ===============================
 function showToast(type, message) {
     const validTypes = ["success", "error", "warning", "info"];
+    const patientNotification = window.location.pathname.includes("/patient/");
+    const doctorNotification = window.location.pathname.includes("/doctor/");
 
     if(!validTypes.includes(type)){
         type = "info";
@@ -15,6 +17,12 @@ function showToast(type, message) {
         container.id = "toastContainer";
 
         document.body.appendChild(container);
+    }
+
+    if (patientNotification) {
+        container.classList.add("patient-toast-container");
+    } else if (doctorNotification) {
+        container.classList.add("doctor-toast-container");
     }
 
     let icon = "";
@@ -41,13 +49,29 @@ function showToast(type, message) {
     toast.className = `toast ${type}`;
 
     const messageSpan = document.createElement("span");
-    messageSpan.innerText = `${icon} ${message}`;
+
+    if (patientNotification || doctorNotification) {
+        const content = document.createElement("span");
+        content.className = "toast-content";
+
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "toast-icon";
+        iconSpan.setAttribute("aria-hidden", "true");
+        iconSpan.textContent = { success: "✓", error: "×", warning: "!", info: "i" }[type];
+
+        messageSpan.className = "toast-message";
+        messageSpan.innerText = message;
+        content.append(iconSpan, messageSpan);
+        toast.appendChild(content);
+    } else {
+        messageSpan.innerText = `${icon} ${message}`;
+        toast.appendChild(messageSpan);
+    }
 
     const closeSpan = document.createElement("span");
     closeSpan.className = "toast-close";
     closeSpan.innerHTML = "&times;";
 
-    toast.appendChild(messageSpan);
     toast.appendChild(closeSpan);
 
     container.appendChild(toast);

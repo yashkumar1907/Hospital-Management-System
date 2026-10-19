@@ -1,0 +1,242 @@
+/* Admin-only visual system and responsive shell. Loaded after page styles. */
+.admin-portal {
+    --admin-blue: #2563eb;
+    --admin-blue-dark: #1d4ed8;
+    --admin-ink: #0f172a;
+    --admin-muted: #64748b;
+    --admin-line: #e2e8f0;
+    --admin-page: #f5f8fc;
+    --admin-surface: #ffffff;
+    overflow-x: hidden;
+    background: var(--admin-page);
+    color: var(--admin-ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.admin-portal .dashboard-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 0;
+    min-height: 100vh;
+    background: var(--admin-page);
+}
+
+.admin-portal .sidebar {
+    width: 256px;
+    flex: 0 0 256px;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 22px 18px;
+    background: var(--admin-surface);
+    border-right: 1px solid var(--admin-line);
+    box-shadow: 2px 0 12px rgba(15, 23, 42, .025);
+    transition: width .22s ease, flex-basis .22s ease, padding .22s ease, transform .22s ease;
+}
+
+.admin-portal .sidebar-logo { margin: 0 4px 26px; }
+.admin-portal .sidebar-logo img { display: block; width: 154px; max-width: 100%; }
+.admin-portal .sidebar-menu { gap: 7px; }
+.admin-portal .menu-item {
+    min-height: 46px;
+    gap: 13px;
+    padding: 10px 13px;
+    border-radius: 11px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 550;
+    transition: background-color .18s ease, color .18s ease;
+}
+.admin-portal .menu-item i { width: 20px; flex: 0 0 20px; text-align: center; color: #64748b; }
+.admin-portal .menu-item:hover,
+.admin-portal .menu-item.active { background: #edf4ff; color: var(--admin-blue-dark); }
+.admin-portal .menu-item:hover i,
+.admin-portal .menu-item.active i { color: var(--admin-blue); }
+.admin-portal .sidebar-divider { margin: 20px 0; border-color: var(--admin-line); }
+.admin-portal .sidebar-logout { margin: auto 0 0; }
+
+.admin-portal .main-content {
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
+    flex: 1 1 0%;
+    padding: 30px clamp(22px, 3vw, 40px);
+}
+.admin-portal .dashboard-header {
+    min-width: 0;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+.admin-portal .admin-heading-group { display: flex; min-width: 0; align-items: flex-start; gap: 14px; }
+.admin-portal .profile-breadcrumb { min-width: 0; }
+.admin-portal .profile-breadcrumb h1 {
+    margin: 0 0 7px;
+    color: var(--admin-ink);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    overflow-wrap: anywhere;
+}
+.admin-portal .profile-breadcrumb p { color: var(--admin-muted); line-height: 1.5; }
+.admin-portal .header-right { flex: 0 0 auto; }
+.admin-portal .profile-menu { color: #334155; font-size: 14px; font-weight: 550; }
+.admin-portal .profile-avatar { background: #dbeafe; color: var(--admin-blue-dark); }
+
+.admin-portal .admin-menu-toggle {
+    display: inline-flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid #dbe5f2;
+    border-radius: 11px;
+    background: #fff;
+    color: var(--admin-blue);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .04);
+    font-size: 17px;
+    cursor: pointer;
+}
+.admin-portal .admin-menu-toggle:hover { background: #edf4ff; }
+.admin-portal .admin-menu-toggle:focus-visible,
+.admin-portal .sidebar a:focus-visible,
+.admin-portal button:focus-visible,
+.admin-portal input:focus-visible,
+.admin-portal select:focus-visible,
+.admin-portal textarea:focus-visible { outline: 3px solid rgba(37, 99, 235, .3); outline-offset: 2px; }
+
+.admin-portal .stat-card,
+.admin-portal .recent-appointments-card,
+.admin-portal .appointments-overview-card,
+.admin-portal .doctor-management,
+.admin-portal .appointment-management,
+.admin-portal .doctor-table-card {
+    border: 1px solid var(--admin-line);
+    border-radius: 16px;
+    background: var(--admin-surface);
+    box-shadow: 0 3px 14px rgba(15, 23, 42, .045);
+}
+.admin-portal .stat-card { cursor: default; }
+.admin-portal .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, .08); }
+.admin-portal .section-header h3 { color: var(--admin-ink); font-weight: 600; }
+.admin-portal .doctor-toolbar { gap: 16px; }
+.admin-portal .search-box { min-width: 0; border-color: var(--admin-line); border-radius: 10px; }
+.admin-portal .search-box:focus-within { border-color: var(--admin-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, .12); }
+.admin-portal .search-box input { min-width: 0; }
+.admin-portal .doctor-table-card { overflow-x: auto; }
+.admin-portal .doctor-table th { color: #475569; background: #f8fafc; font-size: 13px; }
+.admin-portal .doctor-table td { color: #334155; font-size: 14px; }
+.admin-portal .doctor-table tbody tr:hover { background: #f8fafc; }
+.admin-portal .doctor-info h4 { font-weight: 600; }
+
+.admin-portal .add-btn,
+.admin-portal .confirm-btn,
+.admin-portal .modal-footer button {
+    border-radius: 10px;
+    background: var(--admin-blue);
+    color: #fff;
+    font-weight: 600;
+    transition: background-color .18s ease, box-shadow .18s ease;
+}
+.admin-portal .add-btn:hover,
+.admin-portal .confirm-btn:hover,
+.admin-portal .modal-footer button:hover { background: var(--admin-blue-dark); }
+.admin-portal .edit-btn,
+.admin-portal .delete-btn { border-radius: 10px; }
+.admin-portal input,
+.admin-portal select,
+.admin-portal textarea { border-color: #cbd5e1; border-radius: 9px; }
+.admin-portal input:focus,
+.admin-portal select:focus,
+.admin-portal textarea:focus { border-color: var(--admin-blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, .14); outline: 0; }
+
+.admin-portal .status { display: inline-flex; align-items: center; white-space: nowrap; border-radius: 999px; font-weight: 600; }
+.admin-portal .status.confirmed { background: #dbeafe; color: #1d4ed8; }
+.admin-portal .status.pending { background: #fff7ed; color: #c2410c; }
+.admin-portal .status.completed { background: #dcfce7; color: #166534; }
+.admin-portal .status.cancelled { background: #fee2e2; color: #b91c1c; }
+
+.admin-portal .modal-overlay { padding: 16px; background: rgba(15, 23, 42, .38); backdrop-filter: blur(2px); }
+.admin-portal .modal {
+    width: min(500px, 100%);
+    max-width: 100%;
+    border: 1px solid var(--admin-line);
+    border-radius: 16px;
+    box-shadow: 0 18px 48px rgba(15, 23, 42, .18);
+}
+.admin-portal .modal-header h2 { color: var(--admin-ink); font-size: 22px; font-weight: 600; }
+.admin-portal .modal-header button { color: #64748b; }
+
+/* Admin-scoped shared confirmation modal and toast styling. */
+.admin-portal #confirmOverlay { padding: 18px; background: rgba(15, 23, 42, .38); backdrop-filter: blur(2px); }
+.admin-portal #confirmOverlay .confirm-box { width: min(420px, 100%); max-width: 100%; border: 1px solid var(--admin-line); border-radius: 16px; box-shadow: 0 18px 48px rgba(15, 23, 42, .18); }
+.admin-portal #confirmOverlay .confirm-box h2 { color: var(--admin-ink); font-size: 22px; font-weight: 600; }
+.admin-portal #confirmOverlay .confirm-box p { color: #475569; }
+.admin-portal #confirmOverlay .confirm-cancel-btn { border: 1px solid #dbe5f2; background: #f1f5f9; color: #334155; }
+.admin-portal #confirmOverlay .confirm-cancel-btn:hover { background: #e7eef7; }
+.admin-portal #confirmOverlay .confirm-ok-btn { background: var(--admin-blue); }
+.admin-portal #confirmOverlay .confirm-ok-btn:hover { background: var(--admin-blue-dark); }
+.admin-portal #toastContainer { width: min(420px, calc(100vw - 40px)); gap: 10px; }
+.admin-portal #toastContainer .toast { min-width: 0; width: 100%; max-width: 420px; border: 1px solid transparent; border-radius: 12px; color: #1e293b; font-size: 14px; line-height: 1.5; box-shadow: 0 5px 18px rgba(15, 23, 42, .09); }
+.admin-portal #toastContainer .toast.success { background: #eff6ff; border-color: #bfdbfe; color: #1e3a8a; }
+.admin-portal #toastContainer .toast.error { background: #fff1f2; border-color: #fecdd3; color: #9f1239; }
+.admin-portal #toastContainer .toast.warning { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.admin-portal #toastContainer .toast.info { background: #f0f7ff; border-color: #dbeafe; color: #1e40af; }
+.admin-portal #toastContainer .toast-close { color: inherit; }
+
+.admin-portal .admin-sidebar-backdrop { display: none; }
+
+@media (min-width: 768px) {
+    .admin-portal .admin-sidebar-collapsed .sidebar { width: 0; flex-basis: 0; padding: 0; border-right-width: 0; box-shadow: none; pointer-events: none; }
+}
+@media (max-width: 1024px) {
+    .admin-portal .profile-breadcrumb h1 { font-size: 29px; }
+    .admin-portal .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .admin-portal .dashboard-content { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 767px) {
+    .admin-portal .main-content { padding: 20px 16px; }
+    .admin-portal .dashboard-header { align-items: flex-start; flex-wrap: wrap; }
+    .admin-portal .admin-heading-group { gap: 10px; }
+    .admin-portal .profile-breadcrumb h1 { font-size: 25px; }
+    .admin-portal .header-right { width: 100%; }
+    .admin-portal .doctor-toolbar { align-items: stretch; flex-direction: column; }
+    .admin-portal .search-box { width: 100%; }
+    .admin-portal .stats-grid { grid-template-columns: minmax(0, 1fr); }
+    .admin-portal .doctor-table-card { overflow-x: auto; }
+    .admin-portal .admin-sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: block;
+        border: 0;
+        background: rgba(15, 23, 42, .36);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s ease;
+    }
+    .admin-portal .admin-sidebar-open .admin-sidebar-backdrop { opacity: 1; pointer-events: auto; }
+    .admin-portal .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 10001;
+        width: min(290px, 86vw);
+        height: 100dvh;
+        min-height: 0;
+        padding: 22px 18px;
+        transform: translateX(-105%);
+        box-shadow: 8px 0 28px rgba(15, 23, 42, .14);
+    }
+    .admin-portal .admin-sidebar-open .sidebar { transform: translateX(0); }
+    .admin-portal #toastContainer { top: 12px; right: 12px; left: 12px; width: auto; }
+    .admin-portal #toastContainer .toast { max-width: none; padding: 12px 13px; font-size: 13px; }
+    .admin-portal .doctor-table { min-width: 760px; }
+    .admin-portal .appointment-management .doctor-table { min-width: 880px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .admin-portal *, .admin-portal *::before, .admin-portal *::after { transition-duration: .01ms !important; }
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Appointments | CityCare Hospital</title>
     <link rel="stylesheet" href="doctor-appointments.css">
+    <link rel="stylesheet" href="../doctor-shell.css">
     <link rel="stylesheet" href="../../confirm-toast/confirm.css">
     <link rel="stylesheet" href="../../confirm-toast/toast.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -64,10 +65,15 @@
         <main class="main-content">
             <header class="dashboard-header">
 
-                <div class="profile-breadcrumb">
-                    <h1>MY APPOINTMENTS</h1>
-                    <div id="messageBox"></div>
-                    <p id="appointmentCount"></p>
+                <div class="doctor-heading">
+                    <button type="button" class="menu-toggle doctor-menu-toggle" aria-label="Toggle sidebar" aria-expanded="true">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+                    <div class="profile-breadcrumb">
+                        <h1>MY APPOINTMENTS</h1>
+                        <div id="messageBox"></div>
+                        <p id="appointmentCount"></p>
+                    </div>
                 </div>
             
                 <div class="header-right">
@@ -88,8 +94,10 @@
     </div>
 
     <script src="../../config.js"></script>
+    <script src="../../utils/html.js"></script>
     <script src="../../confirm-toast/confirm.js"></script>
     <script src="../../confirm-toast/toast.js"></script>
+    <script src="../doctor-shell.js"></script>
     <script src="doctor-appointments.js"></script>
 </body>
 </html>

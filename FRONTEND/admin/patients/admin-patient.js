@@ -1,4 +1,4 @@
-const admin = JSON.parse(localStorage.getItem("admin"));
+const admin = window.getAdminSession();
 const token = localStorage.getItem("token");
 
 if (!admin || !token || admin.role !== "admin") {
@@ -76,39 +76,24 @@ async function loadPatients(){
                         ? patient.photo
                         : `${CONFIG.API_BASE_URL}${patient.photo}`
                 )
-                : "../../assets/default-patient.png";
+                : "../../assets/default-patient.jpg";
 
-            const patientName = (patient.name || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const patientName = escapeHtml(patient.name || "-");
             
-            const gender = (patient.gender || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const gender = escapeHtml(patient.gender || "-");
             
-            const bloodGroup = (patient.bloodGroup || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const bloodGroup = escapeHtml(patient.bloodGroup || "-");
             
-            const phone = (patient.phone || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const phone = escapeHtml(patient.phone || "-");
             
-            const email = (patient.email || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const email = escapeHtml(patient.email || "-");
 
             const row = document.createElement("tr");
             row.innerHTML = `
                     <td>
                         <div class="doctor-info">
                             <div class="profile-avatar">
-                                <img src="${patientPhoto}" alt="${patientName}" class="patient-photo" onerror="this.src='../../assets/default-patient.png'">
+                                <img src="${escapeHtml(patientPhoto)}" alt="${patientName}" class="patient-photo" onerror="this.src='../../assets/default-patient.jpg'">
                             </div>
                             <div>
                                 <h4>${patientName}</h4>

@@ -1,0 +1,304 @@
+:root{
+    --patient-blue:#2563eb;
+    --patient-blue-dark:#1d4ed8;
+    --patient-ink:#0f172a;
+    --patient-muted:#64748b;
+    --patient-line:#e2e8f0;
+    --patient-page:#f5f8fc;
+    --patient-surface:#fff;
+    --patient-shadow:0 3px 14px rgba(15,23,42,.045);
+}
+
+html{min-width:320px;}
+body{
+    min-width:320px;
+    background:var(--patient-page);
+    color:var(--patient-ink);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+}
+.dashboard-container{
+    display:flex;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    min-height:100vh;
+    background:var(--patient-page);
+}
+.sidebar{
+    position:relative;
+    z-index:20;
+    width:256px;
+    flex:0 0 256px;
+    padding:22px 18px;
+    background:var(--patient-surface);
+    border-right:1px solid var(--patient-line);
+    box-shadow:2px 0 12px rgba(15,23,42,.025);
+    box-sizing:border-box;
+    min-width:0;
+    overflow:hidden;
+    transition:width .24s ease,flex-basis .24s ease,padding .24s ease,border-color .24s ease,transform .24s ease;
+}
+.sidebar-logo{margin:0 4px 26px;}
+.sidebar-logo img{display:block;width:154px;max-width:100%;}
+.sidebar-menu{gap:7px;}
+.menu-item{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    min-height:46px;
+    padding:10px 13px;
+    border-radius:11px;
+    color:#334155;
+    font-size:14px;
+    font-weight:550;
+    transition:background-color .18s ease,color .18s ease,transform .18s ease;
+}
+.menu-item i{
+    width:20px;
+    flex:0 0 20px;
+    text-align:center;
+    font-size:16px;
+    color:#64748b;
+}
+.menu-item:hover{background:#f3f7fd;color:#1e40af;}
+.menu-item:hover i{color:var(--patient-blue);}
+.menu-item.active{background:#edf4ff;color:var(--patient-blue-dark);font-weight:650;}
+.menu-item.active i{color:var(--patient-blue);}
+.sidebar-divider{margin:20px 0;border-color:var(--patient-line);}
+.sidebar-logout{margin-top:0;}
+
+.main-content{
+    min-width:0;
+    width:auto;
+    max-width:100%;
+    flex:1 1 0%;
+    padding:30px clamp(22px,3vw,40px);
+}
+.dashboard-header{
+    min-width:0;
+    align-items:center;
+    gap:18px;
+    margin-bottom:25px;
+}
+.profile-breadcrumb h1{
+    color:var(--patient-ink);
+    font-size:32px;
+    line-height:1.2;
+    letter-spacing:-.02em;
+    font-weight:600;
+    margin-bottom:6px;
+}
+.profile-breadcrumb{min-width:0;}
+.header-right{margin-left:auto;}
+.profile-menu{
+    gap:10px;
+    max-width:100%;
+    padding:6px 12px 6px 6px;
+    border:1px solid var(--patient-line);
+    border-radius:999px;
+    background:#fff;
+    color:#334155;
+    font-size:13px;
+    font-weight:600;
+}
+.profile-avatar-img{width:38px;height:38px;}
+
+.menu-toggle{
+    display:inline-flex;
+    flex:0 0 42px;
+    align-items:center;
+    justify-content:center;
+    width:42px;
+    height:42px;
+    padding:0;
+    border:1px solid #dbe5f2;
+    border-radius:11px;
+    background:#fff;
+    color:var(--patient-blue);
+    box-shadow:0 2px 6px rgba(15,23,42,.04);
+    font-size:17px;
+    cursor:pointer;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.menu-toggle:hover{background:#edf4ff;border-color:#c5d7f4;color:var(--patient-blue-dark);}
+.menu-toggle:focus-visible,.menu-item:focus-visible,.header-right a:focus-visible{
+    outline:3px solid rgba(37,99,235,.32);
+    outline-offset:3px;
+}
+
+.dashboard-container #messageBox.success-message,
+#editProfileModal #messageBox.success-message{
+    display:block !important;
+    padding:12px 14px;
+    border:1px solid #bfdbfe;
+    border-radius:10px;
+    background:#eff6ff;
+    color:#1e3a8a;
+    box-shadow:0 2px 8px rgba(37,99,235,.06);
+    line-height:1.5;
+}
+.dashboard-container #messageBox.success-message::before,
+#editProfileModal #messageBox.success-message::before{
+    content:"✓";
+    display:inline-flex;
+    width:19px;
+    height:19px;
+    align-items:center;
+    justify-content:center;
+    margin-right:8px;
+    border-radius:50%;
+    background:#dbeafe;
+    color:#2563eb;
+    font-size:12px;
+    font-weight:700;
+    line-height:1;
+    vertical-align:middle;
+}
+
+.patient-sidebar-backdrop{display:none;}
+
+@media(min-width:769px) and (max-width:1279px){
+    .profile-breadcrumb h1{font-size:29px;}
+}
+
+@media(min-width:769px){
+    .dashboard-container.patient-sidebar-collapsed .sidebar{
+        width:0;
+        flex:0 0 0;
+        padding:0;
+        border-right-width:0;
+        box-shadow:none;
+        pointer-events:none;
+    }
+}
+
+/* The shared logout prompt uses the existing confirmation component. These
+   rules apply only while a patient logout confirmation is open. */
+#confirmOverlay.patient-logout-confirm{
+    padding:18px;
+    background:rgba(15,23,42,.38);
+    backdrop-filter:blur(2px);
+}
+#confirmOverlay.patient-logout-confirm .confirm-box{
+    width:min(420px,100%);
+    max-width:100%;
+    padding:28px;
+    border:1px solid #e2e8f0;
+    border-radius:16px;
+    background:#fff;
+    box-shadow:0 18px 48px rgba(15,23,42,.18);
+}
+#confirmOverlay.patient-logout-confirm .confirm-box h2{
+    margin-bottom:12px;
+    color:#0f172a;
+    font-size:22px;
+}
+#confirmOverlay.patient-logout-confirm .confirm-box p{
+    color:#475569;
+}
+#confirmOverlay.patient-logout-confirm .confirm-buttons{
+    gap:12px;
+    margin-top:24px;
+}
+#confirmOverlay.patient-logout-confirm .confirm-cancel-btn,
+#confirmOverlay.patient-logout-confirm .confirm-ok-btn{
+    min-height:42px;
+    padding:10px 22px;
+    border:1px solid transparent;
+    border-radius:9px;
+    font:600 14px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease;
+}
+#confirmOverlay.patient-logout-confirm .confirm-cancel-btn{
+    border-color:#dbe5f2;
+    background:#f1f5f9;
+    color:#334155;
+}
+#confirmOverlay.patient-logout-confirm .confirm-cancel-btn:hover{
+    background:#e7eef7;
+    border-color:#cbd8e8;
+}
+#confirmOverlay.patient-logout-confirm .confirm-ok-btn{
+    background:var(--patient-blue);
+    color:#fff;
+}
+#confirmOverlay.patient-logout-confirm .confirm-ok-btn:hover{
+    background:var(--patient-blue-dark);
+}
+#confirmOverlay.patient-logout-confirm .confirm-cancel-btn:focus-visible,
+#confirmOverlay.patient-logout-confirm .confirm-ok-btn:focus-visible{
+    outline:3px solid rgba(37,99,235,.28);
+    outline-offset:2px;
+    box-shadow:0 0 0 2px #fff;
+}
+
+@media(max-width:768px){
+    .dashboard-container{display:block;}
+    .sidebar{
+        position:fixed;
+        inset:0 auto 0 0;
+        width:min(286px,86vw);
+        height:100vh;
+        height:100dvh;
+        min-height:0;
+        overflow-y:auto;
+        padding:22px 18px;
+        border:0;
+        border-right:1px solid var(--patient-line);
+        box-shadow:12px 0 36px rgba(15,23,42,.12);
+        transform:translateX(-105%);
+        transition:transform .24s ease;
+    }
+    .sidebar-logo{margin-bottom:24px;}
+    .sidebar-logo img{width:154px;}
+    .sidebar-menu{display:flex;flex-direction:column;gap:7px;}
+    .menu-item{min-height:46px;padding:10px 13px;font-size:14px;}
+    .sidebar-divider{display:block;margin:20px 0;}
+    .sidebar-logout{margin-top:0;}
+    .main-content{width:100%;padding:23px 22px 30px;}
+    .dashboard-header{
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 42px;
+        align-items:center;
+        gap:12px;
+        margin-bottom:22px;
+    }
+    .profile-breadcrumb{min-width:0;}
+    .profile-breadcrumb h1{font-size:25px;}
+    .menu-toggle{grid-column:2;grid-row:1;}
+    .header-right{grid-column:1 / -1;grid-row:2;width:auto;margin:0;}
+    .dashboard-container.patient-drawer-open .sidebar{transform:translateX(0);}
+    .patient-sidebar-backdrop{
+        display:block;
+        position:fixed;
+        z-index:19;
+        inset:0;
+        background:rgba(15,23,42,.42);
+        opacity:0;
+        visibility:hidden;
+        pointer-events:none;
+        transition:opacity .2s ease,visibility .2s ease;
+    }
+    .dashboard-container.patient-drawer-open .patient-sidebar-backdrop{
+        opacity:1;
+        visibility:visible;
+        pointer-events:auto;
+    }
+    body.patient-drawer-open{overflow:hidden;}
+}
+
+@media(max-width:480px){
+    .main-content{padding:18px 15px 24px;}
+    .dashboard-header{margin-bottom:19px;}
+    .profile-menu{gap:8px;padding-right:10px;font-size:12px;}
+    .profile-avatar-img{width:35px;height:35px;}
+    #confirmOverlay.patient-logout-confirm .confirm-box{padding:24px 20px;}
+    #confirmOverlay.patient-logout-confirm .confirm-buttons{gap:9px;}
+    #confirmOverlay.patient-logout-confirm .confirm-cancel-btn,
+    #confirmOverlay.patient-logout-confirm .confirm-ok-btn{padding-inline:17px;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .sidebar,.menu-item,.menu-toggle,.patient-sidebar-backdrop{transition:none;}
+}

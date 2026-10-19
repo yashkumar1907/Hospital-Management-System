@@ -52,7 +52,7 @@ exports.loginAdmin = async (req, res) => {
     }
 
     catch(error){
-        console.error("Admin Login Error:", error);
+        console.error("Admin Login Error");
     
         return res.status(500).json({
             success: false,

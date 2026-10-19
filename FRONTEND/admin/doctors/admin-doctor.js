@@ -1,7 +1,7 @@
 // =====================
 // Logged In Admin
 // =====================
-const admin = JSON.parse(localStorage.getItem("admin"));
+const admin = window.getAdminSession();
 const token = localStorage.getItem("token");
 
 if (!admin || !token || admin.role !== "admin") {
@@ -87,37 +87,22 @@ async function loadDoctors() {
                 )
                 : "../../assets/default-doctor.jpg";
 
-            const doctorName = (doctor.name || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const doctorName = escapeHtml(doctor.name || "-");
 
-            const doctorEmail = (doctor.email || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const doctorEmail = escapeHtml(doctor.email || "-");
             
-            const specialization = (doctor.specialization || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const specialization = escapeHtml(doctor.specialization || "-");
             
-            const qualification = (doctor.qualification || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const qualification = escapeHtml(doctor.qualification || "-");
             
-            const phone = (doctor.phone || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const phone = escapeHtml(doctor.phone || "-");
                 
             const row = document.createElement("tr");
             
             row.innerHTML = `
                     <td>
                         <div class="doctor-info">
-                            <img src="${doctorPhoto}" alt="${doctorName}">
+                            <img src="${escapeHtml(doctorPhoto)}" alt="${doctorName}">
                             <div>
                                 <h4>${doctorName}</h4>
                                 <p>${doctorEmail}</p>

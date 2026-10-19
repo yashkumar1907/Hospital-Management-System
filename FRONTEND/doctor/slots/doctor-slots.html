@@ -7,6 +7,7 @@
     <title>Manage Slots | CityCare Hospital</title>
 
     <link rel="stylesheet" href="doctor-slots.css">
+    <link rel="stylesheet" href="../doctor-shell.css">
     <link rel="stylesheet" href="../../confirm-toast/confirm.css">
     <link rel="stylesheet" href="../../confirm-toast/toast.css">
 
@@ -71,9 +72,14 @@
 
             <header class="page-header">
 
-                <div>
-                    <h1>Manage Slots</h1>
-                    <p>Create and manage your appointment slots.</p>
+                <div class="doctor-heading">
+                    <button type="button" class="menu-toggle doctor-menu-toggle" aria-label="Toggle sidebar" aria-expanded="true">
+                        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                    </button>
+                    <div>
+                        <h1>Manage Slots</h1>
+                        <p>Create and manage your appointment slots.</p>
+                    </div>
                 </div>
 
                 <div class="doctor-name" id="doctorName">
@@ -124,9 +130,11 @@
     </div>
 
     <script src="../../config.js"></script>
+    <script src="../../utils/html.js"></script>
 
     <script src="../../confirm-toast/confirm.js"></script>
     <script src="../../confirm-toast/toast.js"></script>
+    <script src="../doctor-shell.js"></script>
 
     <script src="doctor-slots.js"></script>
 

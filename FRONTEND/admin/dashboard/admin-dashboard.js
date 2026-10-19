@@ -1,7 +1,7 @@
 // =====================
 // Logged In Admin
 // =====================
-const admin = JSON.parse(localStorage.getItem("admin"));
+const admin = window.getAdminSession();
 const token = localStorage.getItem("token");
 
 if (!admin || !token || admin.role !== "admin") {
@@ -201,25 +201,17 @@ function loadRecentAppointments(appointments){
             )
             : "../../assets/default-patient.jpg";
 
-        const patientName = (appointment.patientName || "-")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        const patientName = escapeHtml(appointment.patientName || "-");
         
-        const department = (appointment.department || "-")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        const department = escapeHtml(appointment.department || "-");
         
-        const status = (appointment.status || "-")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        const status = escapeHtml(appointment.status || "-");
+        const appointmentTime = escapeHtml(appointment.appointmentTime || "-");
 
         return `
             <div class="appointment-row">
                 <div class="appointment-user">
-                    <img src="${patientPhoto}" alt="${patientName}">
+                    <img src="${escapeHtml(patientPhoto)}" alt="${patientName}">
 
                     <div>
                         <h4>${patientName}</h4>
@@ -229,7 +221,7 @@ function loadRecentAppointments(appointments){
 
                 <div class="appointment-date">
                     <p>${new Date(appointment.appointmentDate).toLocaleDateString("en-GB")}</p>
-                    <span>${appointment.appointmentTime}</span>
+                    <span>${appointmentTime}</span>
                 </div>
 
                 <span class="status ${statusClass}">
@@ -244,10 +236,13 @@ function loadRecentAppointments(appointments){
 
 function renderAppointmentsChart(appointments){
     const monthlyCounts = Array(12).fill(0);
+    const currentYear = new Date().getUTCFullYear();
 
     appointments.forEach(appointment => {
-        const month = new Date(appointment.appointmentDate).getMonth();
-        monthlyCounts[month]++;
+        const appointmentDate = new Date(appointment.appointmentDate);
+        if (!Number.isNaN(appointmentDate.getTime()) && appointmentDate.getUTCFullYear() === currentYear) {
+            monthlyCounts[appointmentDate.getUTCMonth()]++;
+        }
     });
 
     const ctx = document.getElementById("appointmentsChart").getContext("2d");

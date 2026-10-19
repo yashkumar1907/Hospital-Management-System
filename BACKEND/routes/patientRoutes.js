@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {registerPatient, loginPatient, bookAppointment, getPatientAppointments, updateProfile, getAllPatients, deletePatient, getAllAppointments} = require("../controllers/patientController");
+const {registerPatient, loginPatient, bookAppointment, getPatientAppointments, cancelAppointment, updateProfile, getAllPatients, deletePatient, getAllAppointments} = require("../controllers/patientController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 const roleMiddleware = require("../middlewares/roleMiddleware");
@@ -13,6 +13,7 @@ router.post("/register", uploadImage.single("photo"), registerPatient);
 router.post("/login", loginPatient);
 router.post("/book-appointment",authMiddleware,roleMiddleware("patient"), bookAppointment);
 router.get("/appointments", authMiddleware,roleMiddleware("patient"), getPatientAppointments);
+router.patch("/appointments/:id/cancel", authMiddleware, roleMiddleware("patient"), cancelAppointment);
 router.put("/profile", authMiddleware, roleMiddleware("patient"), uploadImage.single("photo"), updateProfile);
 router.get("/all",authMiddleware, roleMiddleware("admin"), getAllPatients);
 router.delete("/:id",authMiddleware, roleMiddleware("admin"), deletePatient);

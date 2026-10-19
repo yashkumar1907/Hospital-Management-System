@@ -6,17 +6,20 @@ const DoctorSlot = require("../models/DoctorSlot");
 const generateToken = require("../utils/generateToken");
 
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
+const parseDateOnly = require("../utils/dateOnly");
 
 
 exports.registerPatient = async (req, res) => {
     try {
-        const name = req.body.name?.trim();
-        const email = req.body.email?.trim().toLowerCase();
-        const phone = req.body.phone?.trim();
-        const gender = req.body.gender?.trim();
-        const bloodGroup = req.body.bloodGroup?.trim();
+        const body = req.body || {};
+        const name = typeof body.name === "string" ? body.name.trim() : "";
+        const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+        const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+        const gender = typeof body.gender === "string" ? body.gender.trim() : "";
+        const bloodGroup = typeof body.bloodGroup === "string" ? body.bloodGroup.trim() : "";
 
-        const { dob, password, emergencyContact, allergies, medicalHistory } = req.body;
+        const { dob, password, emergencyContact, allergies, medicalHistory } = body;
 
         const photo = req.file
             ? req.file.path
@@ -27,6 +30,19 @@ exports.registerPatient = async (req, res) => {
                 success: false,
                 message: "Please fill all required fields."
             });
+        }
+
+        if (!/^\S+@\S+\.\S+$/.test(email) || !/^[6-9]\d{9}$/.test(phone)) {
+            return res.status(400).json({ success: false, message: "Please provide a valid email and phone number." });
+        }
+
+        if (typeof password !== "string" || password.length < 8) {
+            return res.status(400).json({ success: false, message: "Password must be at least 8 characters long." });
+        }
+
+        const birthDate = parseDateOnly(dob);
+        if (!birthDate || birthDate > new Date(new Date().toISOString().slice(0, 10) + "T00:00:00.000Z")) {
+            return res.status(400).json({ success: false, message: "Please provide a valid date of birth." });
         }
 
         const existingPatient = await Patient.findOne({
@@ -54,7 +70,14 @@ exports.registerPatient = async (req, res) => {
             message: "Patient registered successfully"
         });
     } catch (error) {
-        console.error("Register Patient Error:", error);
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ success: false, message: "Please check the patient information." });
+        }
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: "Patient with this email or phone already exists." });
+        }
+
+        console.error("Register Patient Error");
 
         res.status(500).json({
             success: false,
@@ -117,7 +140,7 @@ exports.loginPatient = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Login Patient Error:", error);
+        console.error("Login Patient Error");
     
         res.status(500).json({
             success: false,
@@ -128,20 +151,20 @@ exports.loginPatient = async (req, res) => {
 
 exports.bookAppointment = async (req, res) => {
     try{
-        const patientName = req.body.patientName?.trim();
-        const doctorName = req.body.doctorName?.trim();
-        const department = req.body.department?.trim();
-        const appointmentTime = req.body.appointmentTime?.trim();
         const notes = req.body.notes?.trim();
         const {doctorId, appointmentDate, slotId} = req.body;
 
         const patientId = req.user.id;
 
-        if (!patientId || !doctorId || !slotId || !patientName || !doctorName || !department || !appointmentDate || !appointmentTime) {
+        if (!patientId || !doctorId || !slotId || !appointmentDate) {
             return res.status(400).json({
                 success: false,
                 message: "All required fields must be provided."
             });
+        }
+
+        if (!mongoose.isValidObjectId(doctorId) || !mongoose.isValidObjectId(slotId)) {
+            return res.status(400).json({ success: false, message: "Invalid doctor or slot ID." });
         }
 
         const patient = await Patient.findById(patientId);
@@ -167,11 +190,13 @@ exports.bookAppointment = async (req, res) => {
             });
         }
 
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        const selectedDate = parseDateOnly(appointmentDate);
+        if (!selectedDate) {
+            return res.status(400).json({ success: false, message: "Please provide a valid appointment date." });
+        }
 
-        const selectedDate = new Date(appointmentDate);
-        selectedDate.setHours(0, 0, 0, 0);
+        const today = new Date();
+        today.setUTCHours(0, 0, 0, 0);
 
         if (selectedDate < today) {
             return res.status(400).json({
@@ -180,9 +205,16 @@ exports.bookAppointment = async (req, res) => {
             });
         }
 
-        const slot = await DoctorSlot.findOne({
+        const slot = await DoctorSlot.findOneAndUpdate({
             _id: slotId,
-            doctorId
+            doctorId,
+            date: selectedDate,
+            status: "Available",
+            isActive: true
+        }, {
+            $set: { status: "Booked" }
+        }, {
+            returnDocument: "after"
         });
         
         if (!slot) {
@@ -192,34 +224,31 @@ exports.bookAppointment = async (req, res) => {
             });
         }
 
-        if (slot.status !== "Available") {
-            return res.status(400).json({
-                success: false,
-                message: "Selected slot is not available."
-            });
-        }
-
         const appointment = new Appointment({
             patientId,
             doctorId,
             slotId,
-            patientName,
-            department,
-            doctorName,
-            appointmentDate,
-            appointmentTime,
+            patientName: patient.name,
+            department: doctor.specialization,
+            doctorName: doctor.name,
+            appointmentDate: selectedDate,
+            appointmentTime: `${slot.startTime} - ${slot.endTime}`,
             notes
         });
         
-        await appointment.save();
-
-        await DoctorSlot.findByIdAndUpdate(
-            slotId,
-            {
-                status: "Booked",
-                appointmentId: appointment._id
-            }
-        );
+        try {
+            await appointment.save();
+            await DoctorSlot.findOneAndUpdate(
+                { _id: slotId, status: "Booked", appointmentId: null },
+                { $set: { appointmentId: appointment._id } }
+            );
+        } catch (error) {
+            await DoctorSlot.findOneAndUpdate(
+                { _id: slotId, status: "Booked", appointmentId: null },
+                { $set: { status: "Available" } }
+            );
+            throw error;
+        }
         
         res.status(201).json({
             success:true,
@@ -227,7 +256,7 @@ exports.bookAppointment = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Book Appointment Error:", error);
+        console.error("Book Appointment Error");
     
         res.status(500).json({
             success: false,
@@ -255,12 +284,84 @@ exports.getPatientAppointments = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Get Patient Appointments Error:", error);
+        console.error("Get Patient Appointments Error");
     
         res.status(500).json({
             success: false,
             message: "Internal server error"
         });
+    }
+};
+
+exports.cancelAppointment = async (req, res) => {
+    try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ success: false, message: "Invalid appointment ID." });
+        }
+
+        // A conditional update enforces ownership and allows only active appointments.
+        const appointment = await Appointment.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                patientId: req.user.id,
+                status: { $in: ["Pending", "Confirmed"] }
+            },
+            { $set: { status: "Cancelled" } },
+            { returnDocument: "before", runValidators: true }
+        );
+
+        if (!appointment) {
+            return res.status(409).json({
+                success: false,
+                message: "Appointment cannot be cancelled. It may not belong to you or is no longer active."
+            });
+        }
+
+        if (appointment.slotId) {
+            let releasedSlot;
+            try {
+                releasedSlot = await DoctorSlot.findOneAndUpdate(
+                    {
+                        _id: appointment.slotId,
+                        appointmentId: appointment._id,
+                        status: "Booked"
+                    },
+                    { $set: { status: "Available", appointmentId: null } },
+                    { returnDocument: "after" }
+                );
+            } catch (error) {
+                await Appointment.findOneAndUpdate(
+                    { _id: appointment._id, patientId: req.user.id, status: "Cancelled" },
+                    { $set: { status: appointment.status } },
+                    { runValidators: true }
+                );
+                throw error;
+            }
+
+            if (!releasedSlot) {
+                // Keep appointment and schedule consistent if its linked slot is missing or stale.
+                await Appointment.findOneAndUpdate(
+                    { _id: appointment._id, patientId: req.user.id, status: "Cancelled" },
+                    { $set: { status: appointment.status } },
+                    { runValidators: true }
+                );
+                return res.status(409).json({
+                    success: false,
+                    message: "The appointment slot could not be released. Please contact the hospital."
+                });
+            }
+        }
+
+        appointment.status = "Cancelled";
+
+        return res.status(200).json({
+            success: true,
+            message: "Appointment cancelled successfully.",
+            appointment
+        });
+    } catch (error) {
+        console.error("Cancel Appointment Error");
+        return res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
 
@@ -297,7 +398,8 @@ exports.updateProfile = async (req, res) => {
             req.user.id,
             {name, dob, gender, bloodGroup, email, phone, ...(photo && { photo }), emergencyContact, allergies, medicalHistory},
             {
-                new: true
+                returnDocument: "after",
+                runValidators: true
             }
         ).select("-password");
 
@@ -315,7 +417,14 @@ exports.updateProfile = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Update Profile Error:", error);
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ success: false, message: "Please check the patient information." });
+        }
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: "Email or phone already exists." });
+        }
+
+        console.error("Update Profile Error");
     
         res.status(500).json({
             success: false,
@@ -340,13 +449,17 @@ exports.getAllPatients = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
 
 exports.deletePatient = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ success: false, message: "Invalid patient ID." });
+        }
+
         const appointmentExists = await Appointment.findOne({
             patientId: req.params.id
         });
@@ -372,7 +485,7 @@ exports.deletePatient = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Delete Patient Error:", error);
+        console.error("Delete Patient Error");
     
         res.status(500).json({
             success: false,
@@ -395,7 +508,7 @@ exports.getAllAppointments = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };

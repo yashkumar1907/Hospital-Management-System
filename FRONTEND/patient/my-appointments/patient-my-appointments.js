@@ -1,4 +1,4 @@
-const patient = JSON.parse(localStorage.getItem("patient"));
+const patient = JSON.parse(localStorage.getItem("patient") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!patient || !token || patient.role !== "patient") {
@@ -119,9 +119,14 @@ async function loadAppointments(){
 
                 const appointmentCard = document.createElement("div");
                 appointmentCard.className = "appointment-item";
+                const canCancel = ["Pending", "Confirmed"].includes(appointment.status);
 
 
-                const notes = appointment.notes ? appointment.notes.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "-";
+                const notes = escapeHtml(appointment.notes || "-");
+                const doctorName = escapeHtml(appointment.doctorName || "-");
+                const department = escapeHtml(appointment.department || "-");
+                const appointmentTime = escapeHtml(appointment.appointmentTime || "-");
+                const appointmentStatus = escapeHtml(appointment.status || "-");
 
                 const doctorPhoto = appointment.doctorId?.photo
                     ? (
@@ -133,10 +138,10 @@ async function loadAppointments(){
 
                 appointmentCard.innerHTML += `
                         <div class="doctor-info">
-                            <img src="${doctorPhoto}">
+                            <img src="${escapeHtml(doctorPhoto)}">
                             <div>
-                                <h3>${appointment.doctorName}</h3>
-                                <p>${appointment.department}</p>
+                                <h3>${doctorName}</h3>
+                                <p>${department}</p>
                                 <span class="hospital">
                                     <i class="fa-solid fa-location-dot"></i>
                                     CityCare Hospital
@@ -157,7 +162,7 @@ async function loadAppointments(){
                                 <i class="fa-regular fa-clock"></i>
                                 <div>
                                     <span>Time</span>
-                                    <p>${appointment.appointmentTime}</p>
+                                    <p>${appointmentTime}</p>
                                 </div>
                             </div>
                             <div class="detail-row">
@@ -171,8 +176,11 @@ async function loadAppointments(){
                             </div>
                         </div>
 
-                        <div class="status-badge ${statusClass}">
-                            ${appointment.status}
+                        <div class="appointment-actions">
+                            <div class="status-badge ${statusClass}">
+                                ${appointmentStatus}
+                            </div>
+                            ${canCancel ? `<button type="button" class="cancel-appointment-btn" data-appointment-id="${escapeHtml(appointment._id)}">Cancel Appointment</button>` : ""}
                         </div>
                 `;
 
@@ -193,6 +201,37 @@ async function loadAppointments(){
         `;
     }
 }
+
+document.getElementById("appointmentList").addEventListener("click", async (event) => {
+    const button = event.target.closest(".cancel-appointment-btn");
+    if (!button || button.disabled) return;
+
+    const confirmed = await showConfirm({
+        title: "Cancel Appointment",
+        message: "Are you sure you want to cancel this appointment?",
+        confirmText: "Cancel Appointment",
+        cancelText: "Keep Appointment"
+    });
+    if (!confirmed) return;
+
+    button.disabled = true;
+    try {
+        const response = await fetch(
+            `${CONFIG.API_BASE_URL}/api/patients/appointments/${encodeURIComponent(button.dataset.appointmentId)}/cancel`,
+            {
+                method: "PATCH",
+                headers: { Authorization: `Bearer ${token}` }
+            }
+        );
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || "Unable to cancel appointment.");
+        showToast("success", data.message);
+        await loadAppointments();
+    } catch (error) {
+        showToast("error", error.message || "Unable to connect to server.");
+        button.disabled = false;
+    }
+});
 
 loadAppointments();
 

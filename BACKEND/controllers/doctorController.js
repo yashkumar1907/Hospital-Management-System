@@ -1,6 +1,7 @@
 const Doctor = require("../models/Doctor");
 const Appointment = require("../models/Appointment");
 const DoctorSlot = require("../models/DoctorSlot");
+const mongoose = require("mongoose");
 
 const bcrypt = require("bcryptjs");
 const generateToken = require("../utils/generateToken");
@@ -46,9 +47,16 @@ exports.addDoctor = async (req, res) => {
         });
     }
     catch (error) {
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ success: false, message: "Please check the doctor information." });
+        }
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: "Doctor with this email or phone already exists." });
+        }
+
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -110,7 +118,7 @@ exports.loginDoctor = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -118,9 +126,11 @@ exports.loginDoctor = async (req, res) => {
 
 exports.getAllDoctors = async (req, res) => {
     try {
-        const doctors = await Doctor.find(
-            {},
-            { password: 0 }
+        // This endpoint serves the public doctor directory. Explicitly project
+        // only fields currently used by public pages instead of returning the
+        // entire doctor document with only the password removed.
+        const doctors = await Doctor.find({}).select(
+            "name specialization email phone photo qualification experience about availability consultationFee"
         );
         res.status(200).json({
             success: true,
@@ -130,7 +140,7 @@ exports.getAllDoctors = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -151,40 +161,47 @@ exports.getDoctorAppointments = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
 
 exports.updateAppointmentStatus = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ success: false, message: "Invalid appointment ID." });
+        }
+
         const { status } = req.body;
 
-        const allowedStatus = ["Pending", "Confirmed", "Completed", "Cancelled"];
+        const allowedStatus = req.user.role === "admin"
+            ? ["Confirmed", "Cancelled"]
+            : ["Completed"];
 
         if (!allowedStatus.includes(status)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid appointment status"
+                message: "Invalid appointment status transition"
             });
         }
 
         let appointment;
 
         if (req.user.role === "admin") {
-            appointment = await Appointment.findByIdAndUpdate(
-                req.params.id,
+            appointment = await Appointment.findOneAndUpdate(
+                { _id: req.params.id, status: "Pending" },
                 { status },
-                { new: true }
+                { returnDocument: "after", runValidators: true }
             );
         } else {
             appointment = await Appointment.findOneAndUpdate(
                 {
                     _id: req.params.id,
-                    doctorId: req.user.id
+                    doctorId: req.user.id,
+                    status: "Confirmed"
                 },
                 { status },
-                { new: true }
+                { returnDocument: "after", runValidators: true }
             );
         }
 
@@ -214,7 +231,7 @@ exports.updateAppointmentStatus = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -266,7 +283,8 @@ exports.updateDoctor = async (req, res) => {
                 consultationFee
             },
             {
-                new: true
+                returnDocument: "after",
+                runValidators: true
             }
         ).select("-password");
 
@@ -283,15 +301,26 @@ exports.updateDoctor = async (req, res) => {
         });
     }
     catch (error) {
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ success: false, message: "Please check the doctor information." });
+        }
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: "Doctor with this email or phone already exists." });
+        }
+
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
 
 exports.updateDoctorByAdmin = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ success: false, message: "Invalid doctor ID." });
+        }
+
         const name = req.body.name?.trim();
         const specialization = req.body.specialization?.trim();
         const email = req.body.email?.trim().toLowerCase();
@@ -343,7 +372,8 @@ exports.updateDoctorByAdmin = async (req, res) => {
                 consultationFee
             },
             {
-                new: true
+                returnDocument: "after",
+                runValidators: true
             }
         ).select("-password");
 
@@ -361,7 +391,14 @@ exports.updateDoctorByAdmin = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Update Doctor By Admin Error:", error);
+        if (error.name === "ValidationError") {
+            return res.status(400).json({ success: false, message: "Please check the doctor information." });
+        }
+        if (error.code === 11000) {
+            return res.status(409).json({ success: false, message: "Doctor with this email or phone already exists." });
+        }
+
+        console.error("Update Doctor By Admin Error");
 
         res.status(500).json({
             success: false,
@@ -372,6 +409,10 @@ exports.updateDoctorByAdmin = async (req, res) => {
 
 exports.deleteDoctor = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).json({ success: false, message: "Invalid doctor ID." });
+        }
+
         const appointmentExists = await Appointment.findOne({doctorId:req.params.id});
         if(appointmentExists){
             return res.status(400).json({
@@ -395,7 +436,7 @@ exports.deleteDoctor = async (req, res) => {
     catch(error){
         res.status(500).json({
             success:false,
-            message:error.message
+            message: "Internal server error"
         });
     }
 }

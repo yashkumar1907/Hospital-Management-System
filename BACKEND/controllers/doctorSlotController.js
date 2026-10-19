@@ -1,5 +1,7 @@
 const Doctor = require("../models/Doctor");
 const DoctorSlot = require("../models/DoctorSlot");
+const mongoose = require("mongoose");
+const parseDateOnly = require("../utils/dateOnly");
 
 exports.generateSlots = async (req, res) => {
     try {
@@ -14,11 +16,13 @@ exports.generateSlots = async (req, res) => {
             });
         }
 
-        const selectedDate = new Date(date);
-        selectedDate.setHours(0, 0, 0, 0);
+        const selectedDate = parseDateOnly(date);
+        if (!selectedDate) {
+            return res.status(400).json({ success: false, message: "Please provide a valid date." });
+        }
 
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
+        today.setUTCHours(0, 0, 0, 0);
 
         if (selectedDate < today) {
             return res.status(400).json({
@@ -75,7 +79,14 @@ exports.generateSlots = async (req, res) => {
             });
         }
 
-        await DoctorSlot.insertMany(slots);
+        try {
+            await DoctorSlot.insertMany(slots);
+        } catch (error) {
+            if (error.code === 11000) {
+                return res.status(409).json({ success: false, message: "Slots already generated for this date." });
+            }
+            throw error;
+        }
 
         res.status(201).json({
             success: true,
@@ -85,16 +96,25 @@ exports.generateSlots = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
 
 exports.getAvailableSlots = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.doctorId)) {
+            return res.status(400).json({ success: false, message: "Invalid doctor ID." });
+        }
+
+        const date = parseDateOnly(req.params.date);
+        if (!date) {
+            return res.status(400).json({ success: false, message: "Please provide a valid date." });
+        }
+
         const slots = await DoctorSlot.find({
             doctorId: req.params.doctorId,
-            date: new Date(req.params.date),
+            date,
             status: "Available",
             isActive: true
         }).sort({
@@ -109,7 +129,7 @@ exports.getAvailableSlots = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -119,8 +139,10 @@ exports.getAvailableSlots = async (req, res) => {
 exports.getMySlots = async (req, res) => {
     try {
 
-        const selectedDate = new Date(req.params.date);
-        selectedDate.setHours(0, 0, 0, 0);
+        const selectedDate = parseDateOnly(req.params.date);
+        if (!selectedDate) {
+            return res.status(400).json({ success: false, message: "Please provide a valid date." });
+        }
 
         const slots = await DoctorSlot.find({
             doctorId: req.user.id,
@@ -138,7 +160,7 @@ exports.getMySlots = async (req, res) => {
     }
     catch (error) {
 
-        console.error("Get My Slots Error:", error);
+        console.error("Get My Slots Error");
 
         res.status(500).json({
             success: false,
@@ -151,16 +173,22 @@ exports.getMySlots = async (req, res) => {
 
 exports.blockSlot = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.slotId)) {
+            return res.status(400).json({ success: false, message: "Invalid slot ID." });
+        }
+
         const slot = await DoctorSlot.findOneAndUpdate(
             {
                 _id: req.params.slotId,
-                doctorId: req.user.id
+                doctorId: req.user.id,
+                status: "Available",
+                isActive: true
             },
             {
                 status: "Blocked"
             },
             {
-                new: true
+                returnDocument: "after"
             }
         );
 
@@ -180,7 +208,7 @@ exports.blockSlot = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };
@@ -188,16 +216,22 @@ exports.blockSlot = async (req, res) => {
 
 exports.unblockSlot = async (req, res) => {
     try {
+        if (!mongoose.isValidObjectId(req.params.slotId)) {
+            return res.status(400).json({ success: false, message: "Invalid slot ID." });
+        }
+
         const slot = await DoctorSlot.findOneAndUpdate(
             {
                 _id: req.params.slotId,
-                doctorId: req.user.id
+                doctorId: req.user.id,
+                status: "Blocked",
+                isActive: true
             },
             {
                 status: "Available"
             },
             {
-                new: true
+                returnDocument: "after"
             }
         );
 
@@ -217,7 +251,7 @@ exports.unblockSlot = async (req, res) => {
     catch (error) {
         res.status(500).json({
             success: false,
-            message: error.message
+            message: "Internal server error"
         });
     }
 };

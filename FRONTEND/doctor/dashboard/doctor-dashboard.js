@@ -1,4 +1,4 @@
-const doctor = JSON.parse(localStorage.getItem("doctor"));
+const doctor = JSON.parse(localStorage.getItem("doctor") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!doctor || !token || doctor.role !== "doctor") {
@@ -173,10 +173,9 @@ function loadTodayAppointments(appointments){
 
         let statusClass = "";
 
-        const patientName = appointment.patientName
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        const patientName = escapeHtml(appointment.patientName || "-");
+        const appointmentTime = escapeHtml(appointment.appointmentTime || "-");
+        const status = escapeHtml(appointment.status || "-");
 
         switch(appointment.status){
 
@@ -202,11 +201,11 @@ function loadTodayAppointments(appointments){
 
                 <div class="patient-info">
                     <h4>${patientName}</h4>
-                    <p>${appointment.appointmentTime}</p>
+                    <p>${appointmentTime}</p>
                 </div>
 
                 <span class="${statusClass}">
-                    ${appointment.status}
+                    ${status}
                 </span>
 
             </div>

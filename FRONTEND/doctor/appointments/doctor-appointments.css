@@ -125,8 +125,11 @@ a{
 ========================= */
 
 .profile-breadcrumb h1{
-    font-size:36px;
-    margin-bottom:10px;
+    font-size:32px;
+    font-weight:600;
+    line-height:1.2;
+    letter-spacing:-.02em;
+    margin-bottom:7px;
     color:#0f172a;
 }
 
@@ -281,7 +284,7 @@ a{
 .complete-btn{
     border:none;
 
-    background:#16a34a;
+    background:#2563eb;
     color:white;
 
     padding:8px 14px;
@@ -293,8 +296,14 @@ a{
 }
 
 .complete-btn:hover{
-    background:#15803d;
+    background:#1d4ed8;
     transition:.3s;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .table-header { display:none; }
+    .appointment-row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; padding:20px; }
+    .appointment-notes { width:auto; overflow-wrap:anywhere; }
 }
 
 #appointmentCount{

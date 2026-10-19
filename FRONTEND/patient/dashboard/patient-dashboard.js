@@ -7,7 +7,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 /* =========================
    AUTH CHECK
 ========================= */
-const patient = JSON.parse(localStorage.getItem("patient"));
+const patient = JSON.parse(localStorage.getItem("patient") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!patient || !token || patient.role !== "patient") {
@@ -136,6 +136,10 @@ async function loadDashboardData(){
                         : `${CONFIG.API_BASE_URL}${latest.doctorId.photo}`
                 )
                 : "../../assets/default-doctor.jpg";
+            const doctorName = escapeHtml(latest.doctorName || "-");
+            const department = escapeHtml(latest.department || "-");
+            const appointmentTime = escapeHtml(latest.appointmentTime || "-");
+            const appointmentStatus = escapeHtml(latest.status || "-");
 
             let statusClass = "";
 
@@ -163,10 +167,10 @@ async function loadDashboardData(){
             latestAppointmentDiv.innerHTML = `
                 <div class="doctor-info">
                     <div class="doctor-left">
-                        <img src="${doctorPhoto}" alt="Doctor Profile">
+                        <img src="${escapeHtml(doctorPhoto)}" alt="Doctor Profile">
                         <div class="doctor-details">
-                            <h4>${latest.doctorName}</h4>
-                            <p class="speciality">${latest.department}</p>
+                            <h4>${doctorName}</h4>
+                            <p class="speciality">${department}</p>
                             <div class="hospital">
                                 <i class="fa-solid fa-hospital"></i>
                                 <span>CityCare Hospital</span>
@@ -174,7 +178,7 @@ async function loadDashboardData(){
                         </div>
                     </div>
                     <span class="status ${statusClass}">
-                        ${latest.status}
+                        ${appointmentStatus}
                     </span>
                 </div>
 
@@ -197,7 +201,7 @@ async function loadDashboardData(){
 
                         <div class="detail-content">
                             <span>Time</span>
-                            <h5>${latest.appointmentTime}</h5>
+                            <h5>${appointmentTime}</h5>
                         </div>
                     </div>
 

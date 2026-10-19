@@ -1,4 +1,4 @@
-const doctor = JSON.parse(localStorage.getItem("doctor"));
+const doctor = JSON.parse(localStorage.getItem("doctor") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!doctor || !token || doctor.role !== "doctor") {
@@ -94,8 +94,7 @@ async function loadSlots() {
 
         if (!response.ok) {
 
-            slotsContainer.innerHTML =
-                `<div class="empty-state">${data.message}</div>`;
+            slotsContainer.textContent = data.message || "Unable to load slots.";
 
             return;
         }
@@ -114,7 +113,15 @@ async function loadSlots() {
 
         data.slots.forEach(slot => {
 
-            let statusClass = slot.status.toLowerCase();
+            let statusClass = {
+                Available: "available",
+                Booked: "booked",
+                Blocked: "blocked",
+                Cancelled: "cancelled"
+            }[slot.status] || "unknown";
+            const slotTime = `${escapeHtml(slot.startTime)} - ${escapeHtml(slot.endTime)}`;
+            const slotStatus = escapeHtml(slot.status);
+            const slotId = escapeHtml(slot._id);
 
             let button = "";
 
@@ -123,7 +130,7 @@ async function loadSlots() {
                 button = `
                     <button
                         class="slot-btn block-btn"
-                        onclick="blockSlot('${slot._id}')">
+                        onclick="blockSlot('${slotId}')">
                         Block
                     </button>
                 `;
@@ -135,7 +142,7 @@ async function loadSlots() {
                 button = `
                     <button
                         class="slot-btn unblock-btn"
-                        onclick="unblockSlot('${slot._id}')">
+                        onclick="unblockSlot('${slotId}')">
                         Unblock
                     </button>
                 `;
@@ -148,11 +155,11 @@ async function loadSlots() {
                     <div>
 
                         <div class="slot-time">
-                            ${slot.startTime} - ${slot.endTime}
+                            ${slotTime}
                         </div>
 
                         <div class="slot-status ${statusClass}">
-                            ${slot.status}
+                            ${slotStatus}
                         </div>
 
                     </div>

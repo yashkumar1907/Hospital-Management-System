@@ -188,21 +188,15 @@ async function loadDoctors(){
                     : `${CONFIG.API_BASE_URL}${doctor.photo}`)
                 : "../assets/default-doctor.jpg";
 
-            const doctorName = (doctor.name || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const doctorName = escapeHtml(doctor.name || "-");
             
-            const specialization = (doctor.specialization || "-")
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
+            const specialization = escapeHtml(doctor.specialization || "-");
 
 
             doctorsContainer.innerHTML += `
                 <div class="doctor-card">
         
-                    <img src="${doctorPhoto}" alt="${doctor.name}" loading="lazy">
+                    <img src="${doctorPhoto}" alt="${doctorName}" loading="lazy">
                     <h4>${doctorName}</h4>
                     <span>${specialization}</span>
                     <p>${doctor.experience} Years Exp.</p>
@@ -386,42 +380,65 @@ closeDoctorModal.addEventListener("click", () => {
 
 // Statistics + Back To Top
 window.addEventListener("scroll", () => {
-    if(window.scrollY > 300){
+
+    // 1. Back-to-top button
+    if (window.scrollY > 300) {
         backToTop.classList.add("show");
-    }
-    else{
+    } else {
         backToTop.classList.remove("show");
     }
 
-    if(statsAnimated){
-        return;
+    // 2. Animate statistics only once.
+    // Do not return from the entire scroll handler.
+    if (!statsAnimated && statsSection) {
+        const statsTop = statsSection.getBoundingClientRect().top;
+
+        if (statsTop <= window.innerHeight - 100) {
+            animateCounters();
+        }
     }
 
-    const statsTop = statsSection.getBoundingClientRect().top;
+    // 3. Update active navbar link while scrolling
+    const headerHeight = document.querySelector(".header")
+        ?.getBoundingClientRect().height || 80;
 
-    if(statsTop <= window.innerHeight - 100){
-        animateCounters();
-    }
+    const scrollPosition = window.scrollY + headerHeight + 100;
 
-    let currentSection = "";
+    const navSections = Array.from(navLinks)
+        .map(link => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 150;
-        const sectionHeight = section.offsetHeight / 2;
+    let currentSection = navSections[0];
 
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-            currentSection = section.getAttribute("id");
+    navSections.forEach(section => {
+        if (section.offsetTop <= scrollPosition) {
+            currentSection = section;
         }
     });
 
-    navLinks.forEach(link => {
-        link.classList.remove("active");
+    // Keep the final navbar item active at the bottom of the page
+    if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 5
+    ) {
+        currentSection = navSections[navSections.length - 1];
+    }
 
-        if (link.getAttribute("href") === "#" + currentSection) {
-            link.classList.add("active");
+    navLinks.forEach(link => {
+        const isActive =
+            currentSection &&
+            link.getAttribute("href") === `#${currentSection.id}`;
+
+        link.classList.toggle("active", Boolean(isActive));
+
+        if (isActive) {
+            link.setAttribute("aria-current", "location");
+        } else {
+            link.removeAttribute("aria-current");
         }
     });
 });
+
 
 
 backToTop.addEventListener("click", () => {

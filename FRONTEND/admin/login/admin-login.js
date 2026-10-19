@@ -1,4 +1,4 @@
-const admin = JSON.parse(localStorage.getItem("admin"));
+const admin = window.getAdminSession();
 const token = localStorage.getItem("token");
 
 if (admin && token && admin.role === "admin") {

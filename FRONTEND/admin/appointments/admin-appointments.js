@@ -2,7 +2,7 @@
 // Logged In Admin
 // =====================
 
-const admin = JSON.parse(localStorage.getItem("admin"));
+const admin = window.getAdminSession();
 const token = localStorage.getItem("token");
 
 if (!admin || !token || admin.role !== "admin") {
@@ -90,20 +90,13 @@ async function loadAppointments(){
                 const appointmentDate = new Date(appointment.appointmentDate);
 
 
-                const patientName = (appointment.patientName || "-")
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
+                const patientName = escapeHtml(appointment.patientName || "-");
 
-                const doctorName = (appointment.doctorName || "-")
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
+                const doctorName = escapeHtml(appointment.doctorName || "-");
 
-                const department = (appointment.department || "-")
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
+                const department = escapeHtml(appointment.department || "-");
+                const appointmentTime = escapeHtml(appointment.appointmentTime || "-");
+                const status = escapeHtml(appointment.status || "-");
 
                 const row = document.createElement("tr");
                 row.innerHTML = `
@@ -111,9 +104,9 @@ async function loadAppointments(){
                     <td>${doctorName}</td>
                     <td>${department}</td>
                     <td>${appointmentDate.toLocaleDateString("en-GB")}</td>
-                    <td>${appointment.appointmentTime}</td>
+                    <td>${appointmentTime}</td>
                     <td>
-                        <span class="status ${appointment.status.toLowerCase()}">${appointment.status}</span>
+                        <span class="status ${status.toLowerCase()}">${status}</span>
                     </td>
                     <td>
                         ${appointment.status === "Pending"
@@ -123,7 +116,7 @@ async function loadAppointments(){
                             </button>`
                             :
                             `<span style="font-weight:600;">
-                                ${appointment.status}
+                                ${status}
                             </span>`
                         }
                     </td>

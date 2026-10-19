@@ -42,8 +42,7 @@ exports.saveContactMessage = async (req, res) => {
         });
     }
     catch (error) {
-        console.error("Contact Route Error:");
-        console.error(error);
+        console.error("Contact Route Error");
         res.status(500).json({
             success: false,
             message: "Internal Server Error"

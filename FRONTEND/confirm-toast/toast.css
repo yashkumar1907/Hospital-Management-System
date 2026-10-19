@@ -84,6 +84,201 @@
     font-weight: bold;
 }
 
+/* Patient-only toast theme. Other portals keep the existing global colors. */
+#toastContainer.patient-toast-container {
+    width:min(420px,calc(100vw - 40px));
+}
+
+#toastContainer.patient-toast-container .toast {
+    width:100%;
+    min-width:0;
+    max-width:420px;
+    gap:12px;
+    padding:14px 15px;
+    border:1px solid transparent;
+    border-left-width:4px;
+    border-radius:12px;
+    color:#1e293b;
+    font-size:14px;
+    line-height:1.5;
+    font-weight:500;
+    box-shadow:0 5px 18px rgba(15,23,42,.09);
+}
+
+/* Doctor-only theme; the base styles used by admin and other portals stay intact. */
+#toastContainer.doctor-toast-container {
+    width: min(420px, calc(100vw - 40px));
+}
+#toastContainer.doctor-toast-container .toast {
+    width: 100%;
+    min-width: 0;
+    max-width: 420px;
+    gap: 12px;
+    padding: 14px 15px;
+    border: 1px solid transparent;
+    border-left-width: 4px;
+    border-radius: 12px;
+    color: #1e293b;
+    font-size: 14px;
+    line-height: 1.5;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, .09);
+}
+#toastContainer.doctor-toast-container .toast.success {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    border-left-color: #2563eb;
+    color: #1e3a8a;
+}
+#toastContainer.doctor-toast-container .toast-content { display:flex; flex:1 1 auto; min-width:0; align-items:flex-start; gap:10px; }
+#toastContainer.doctor-toast-container .toast-icon {
+    display:inline-flex;
+    flex:0 0 22px;
+    width:22px;
+    height:22px;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,255,255,.75);
+    font-size:14px;
+    font-weight:700;
+    line-height:1;
+}
+#toastContainer.doctor-toast-container .toast-message { min-width:0; overflow-wrap:anywhere; }
+#toastContainer.doctor-toast-container .toast.success .toast-icon { color:#2563eb; }
+#toastContainer.doctor-toast-container .toast.error {
+    background: #fff1f2;
+    border-color: #fecdd3;
+    border-left-color: #e11d48;
+    color: #9f1239;
+}
+#toastContainer.doctor-toast-container .toast.error .toast-icon { color:#be123c; }
+#toastContainer.doctor-toast-container .toast.warning {
+    background: #fffbeb;
+    border-color: #fde68a;
+    border-left-color: #d97706;
+    color: #92400e;
+}
+#toastContainer.doctor-toast-container .toast.warning .toast-icon { color:#b45309; }
+#toastContainer.doctor-toast-container .toast.info {
+    background: #f0f7ff;
+    border-color: #dbeafe;
+    border-left-color: #60a5fa;
+    color: #1e40af;
+}
+#toastContainer.doctor-toast-container .toast.info .toast-icon { color:#2563eb; }
+#toastContainer.doctor-toast-container .toast-close {
+    flex: 0 0 auto;
+    margin: 0 0 0 10px;
+    color: inherit;
+}
+
+#toastContainer.patient-toast-container .toast-content {
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    align-items:flex-start;
+    gap:10px;
+}
+
+#toastContainer.patient-toast-container .toast-icon {
+    display:inline-flex;
+    flex:0 0 22px;
+    width:22px;
+    height:22px;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,255,255,.75);
+    font-size:14px;
+    font-weight:700;
+    line-height:1;
+}
+
+#toastContainer.patient-toast-container .toast-message {
+    min-width:0;
+    overflow-wrap:anywhere;
+}
+
+#toastContainer.patient-toast-container .toast.success {
+    background:#eff6ff;
+    border-color:#bfdbfe;
+    border-left-color:#2563eb;
+    color:#1e3a8a;
+}
+#toastContainer.patient-toast-container .toast.success .toast-icon {color:#2563eb;}
+
+#toastContainer.patient-toast-container .toast.error {
+    background:#fff1f2;
+    border-color:#fecdd3;
+    border-left-color:#e11d48;
+    color:#9f1239;
+}
+#toastContainer.patient-toast-container .toast.error .toast-icon {color:#be123c;}
+
+#toastContainer.patient-toast-container .toast.warning {
+    background:#fffbeb;
+    border-color:#fde68a;
+    border-left-color:#d97706;
+    color:#92400e;
+}
+#toastContainer.patient-toast-container .toast.warning .toast-icon {color:#b45309;}
+
+#toastContainer.patient-toast-container .toast.info {
+    background:#f0f7ff;
+    border-color:#dbeafe;
+    border-left-color:#60a5fa;
+    color:#1e40af;
+}
+#toastContainer.patient-toast-container .toast.info .toast-icon {color:#2563eb;}
+
+#toastContainer.patient-toast-container .toast-close {
+    display:inline-flex;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    margin:0;
+    border-radius:6px;
+    color:inherit;
+    font-size:19px;
+    line-height:1;
+    opacity:.72;
+}
+#toastContainer.patient-toast-container .toast-close:hover {
+    background:rgba(15,23,42,.06);
+    opacity:1;
+}
+
+@media(max-width:480px) {
+    #toastContainer.doctor-toast-container {
+        top: 12px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        gap: 8px;
+    }
+    #toastContainer.doctor-toast-container .toast {
+        max-width: none;
+        padding: 12px 13px;
+        font-size: 13px;
+    }
+
+    #toastContainer.patient-toast-container {
+        top:12px;
+        right:12px;
+        left:12px;
+        width:auto;
+        gap:8px;
+    }
+
+    #toastContainer.patient-toast-container .toast {
+        max-width:none;
+        padding:12px 13px;
+        font-size:13px;
+    }
+}
+
 /* ===============================
    ANIMATIONS
 =============================== */

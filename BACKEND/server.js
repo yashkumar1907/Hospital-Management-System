@@ -35,13 +35,18 @@ connectDB();
 const allowedOrigins = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
+    "http://localhost:5501",
+    "http://127.0.0.1:5501",
     "https://hospital-management-system-frontend-5ayy.onrender.com"
 ];
 
 
 app.use(cors({
     origin: allowedOrigins,
-    credentials:true
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 204
 }));
 
 
@@ -80,8 +85,7 @@ app.use((req, res) => {
 const multer = require("multer");
 
 app.use((err, req, res, next) => {
-    console.error("Global Error Handler:");
-    console.error(err);
+    console.error("Request failed in global error handler.");
 
     if (err instanceof multer.MulterError) {
         if (err.code === "LIMIT_FILE_SIZE") {
@@ -95,13 +99,13 @@ app.use((err, req, res, next) => {
     if (err.message === "Only JPG, JPEG, PNG and WEBP images are allowed.") {
         return res.status(400).json({
             success: false,
-            message: err.message
+                message: "Only JPG, JPEG, PNG and WEBP images are allowed."
         });
     }
 
     res.status(500).json({
         success: false,
-        message: err.message || "Internal Server Error"
+        message: "Internal Server Error"
     });
 });
 

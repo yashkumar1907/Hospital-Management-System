@@ -1,4 +1,4 @@
-const doctor = JSON.parse(localStorage.getItem("doctor"));
+const doctor = JSON.parse(localStorage.getItem("doctor") || "{}") || {};
 const token = localStorage.getItem("token");
 
 if (!doctor || !token || doctor.role !== "doctor") {
@@ -115,17 +115,11 @@ async function loadAppointments() {
             appointment => {
                 let statusClass = appointment.status.toLowerCase();
 
-                const notes = appointment.notes
-                    ? appointment.notes
-                        .replace(/&/g, "&amp;")
-                        .replace(/</g, "&lt;")
-                        .replace(/>/g, "&gt;")
-                    : "-";
+                const notes = escapeHtml(appointment.notes || "-");
                  
-                const patientName = appointment.patientName
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
+                const patientName = escapeHtml(appointment.patientName || "-");
+                const appointmentTime = escapeHtml(appointment.appointmentTime || "-");
+                const status = escapeHtml(appointment.status || "-");
 
                 html += `
                 <div class="appointment-row">
@@ -133,7 +127,7 @@ async function loadAppointments() {
                         <i class="fa-regular fa-calendar"></i>
                         <div>
                             <strong>${new Date(appointment.appointmentDate).toLocaleDateString("en-GB")}</strong>
-                            <span>${appointment.appointmentTime}</span>
+                            <span>${appointmentTime}</span>
                         </div>
                     </div>
 
@@ -151,7 +145,7 @@ async function loadAppointments() {
 
                     <div>
                         <span class="status-badge ${statusClass}">
-                            ${appointment.status}
+                            ${status}
                         </span>
                     </div>
 
@@ -253,10 +247,10 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 
 
 
-const initials = doctor.name.split(" ").map(word => word[0]).join("").toUpperCase();
+const initials = (doctor.name || "Doctor").split(" ").map(word => word[0]).join("").toUpperCase();
 
 document.getElementById("profileAvatar").textContent = initials;
-document.getElementById("doctorName").textContent = doctor.name;
+document.getElementById("doctorName").textContent = doctor.name || "Doctor";
 
 
 window.addEventListener("pageshow", loadAppointments);

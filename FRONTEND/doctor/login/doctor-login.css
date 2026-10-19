@@ -6,6 +6,7 @@
 }
 body{
     background:#f5f8ff;
+    color:#0f172a;
 }
 
 /* BODY */
@@ -50,9 +51,9 @@ body{
     overflow: hidden;
 }
 .left-content h1{
-    font-size: 42px;
+    font-size: 38px;
     line-height: 1.2;
-    font-weight: 700;
+    font-weight: 600;
     color: #0f172a;
     margin-bottom: 8px;
 }
@@ -116,7 +117,7 @@ body{
 
 .feature-text h3{
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     color: #0f172a;
 
     margin-bottom: 2px;
@@ -153,8 +154,8 @@ body{
     margin-bottom: 18px;
 }
 .login-header h2{
-    font-size: 30px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 600;
     color: #0f172a;
     margin-bottom: 10px;
 }
@@ -187,7 +188,7 @@ body{
 .form-group input{
     width: 100%;
     height: 52px;
-    border: 1px solid #dbe4f0;
+    border: 1px solid #cbd5e1;
     border-radius: 10px;
     padding: 0 16px;
     font-size: 15px;
@@ -266,9 +267,9 @@ body{
 
 .success-message{
     display:block !important;
-    background:#dcfce7;
-    color:#166534;
-    border:1px solid #86efac;
+    background:#eff6ff;
+    color:#1e3a8a;
+    border:1px solid #bfdbfe;
 }
 
 .error-message{
@@ -277,6 +278,9 @@ body{
     color:#991b1b;
     border:1px solid #fca5a5;
 }
+
+.login-btn:focus-visible,
+#togglePassword:focus-visible { outline:3px solid rgba(37,99,235,.3); outline-offset:3px; }
 
 
 

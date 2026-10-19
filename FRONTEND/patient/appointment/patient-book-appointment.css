@@ -122,12 +122,6 @@ a{
    PROFILE BREADCRUMB
 ========================= */
 
-.profile-breadcrumb h1{
-    font-size:36px;
-    margin-bottom:10px;
-    color:#0f172a;
-}
-
 .breadcrumb{
     display:flex;
     gap:10px;
@@ -297,13 +291,6 @@ a{
     font-weight:500;
 }
 
-.success-message{
-    display:block !important;
-    background:#dcfce7;
-    color:#166534;
-    border:1px solid #86efac;
-}
-
 .error-message{
     display:block !important;
     background:#fee2e2;
@@ -365,4 +352,123 @@ a{
         width: 100%;
         justify-content: center;
     }
+}
+
+/* Patient portal visual refinement */
+.appointment-card{
+    max-width:1060px;
+    margin:0 auto;
+    padding:25px 28px 28px;
+    border:1px solid var(--patient-line,#e2e8f0);
+    border-radius:16px;
+    box-shadow:var(--patient-shadow,0 3px 14px rgba(15,23,42,.045));
+}
+.appointment-status-info{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin:0 0 24px;
+    padding:13px 15px;
+    border:1px solid #dbe8fb;
+    border-radius:11px;
+    background:#f2f7ff;
+    color:#315ba8;
+    font-size:13px;
+    line-height:1.55;
+}
+.appointment-status-info > i{flex:0 0 auto;margin-top:2px;}
+.appointment-header{gap:15px;}
+.appointment-icon{
+    width:54px;
+    height:54px;
+    border-radius:14px;
+    background:#edf4ff;
+}
+.appointment-icon i{font-size:24px;}
+.appointment-header-text h2{
+    margin-bottom:5px;
+    font-size:21px;
+    line-height:1.3;
+    font-weight:650;
+    letter-spacing:-.02em;
+    color:var(--patient-ink,#0f172a);
+}
+.appointment-header-text p{font-size:14px;line-height:1.55;}
+.appointment-divider{margin:20px 0;border-color:#edf1f6;}
+.appointment-form{gap:21px;}
+.form-grid{gap:19px 22px;}
+.form-group{gap:8px;min-width:0;}
+.form-group label{font-size:13px;font-weight:650;color:#334155;}
+.input-box{
+    height:48px;
+    gap:11px;
+    padding:0 13px;
+    border:1px solid #d8e1ed;
+    border-radius:10px;
+    background:#fff;
+    transition:border-color .18s ease,box-shadow .18s ease;
+}
+.input-box:focus-within{
+    border-color:#78a5f6;
+    box-shadow:0 0 0 3px rgba(37,99,235,.11);
+}
+.input-box i{font-size:16px;color:#6485bd;}
+.input-box select,.input-box input{
+    min-width:0;
+    height:100%;
+    font:inherit;
+    font-size:14px;
+}
+.notes-group textarea{
+    min-height:100px;
+    height:100px;
+    padding:12px 13px;
+    border:1px solid #d8e1ed;
+    border-radius:10px;
+    resize:vertical;
+    font:inherit;
+    font-size:14px;
+    line-height:1.5;
+    transition:border-color .18s ease,box-shadow .18s ease;
+}
+.notes-group textarea:focus{
+    border-color:#78a5f6;
+    box-shadow:0 0 0 3px rgba(37,99,235,.11);
+}
+.appointment-btn-container{padding-top:2px;}
+.book-btn{
+    min-height:46px;
+    padding:11px 19px;
+    border-radius:10px;
+    background:var(--patient-blue,#2563eb);
+    box-shadow:0 4px 10px rgba(37,99,235,.13);
+    font:inherit;
+    font-size:14px;
+    font-weight:650;
+    transition:background-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+.book-btn:hover{
+    background:var(--patient-blue-dark,#1d4ed8);
+    box-shadow:0 7px 14px rgba(37,99,235,.2);
+    transform:translateY(-1px);
+}
+.book-btn:disabled{transform:none;box-shadow:none;}
+#doctorAvailability{font-size:13px;}
+#messageBox{line-height:1.5;}
+
+@media(max-width:768px){
+    .main-content{padding:23px 22px 30px;}
+    .appointment-card{padding:21px;}
+    .form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .appointment-header{text-align:left;}
+    .appointment-icon{margin:0;}
+}
+@media(max-width:640px){
+    .appointment-card{padding:17px;}
+    .form-grid{grid-template-columns:1fr;}
+    .appointment-status-info{font-size:12px;}
+    .appointment-header{align-items:flex-start;}
+    .appointment-header-text h2{font-size:19px;}
+    .appointment-btn-container,.book-btn{width:100%;}
+    .book-btn{justify-content:center;}
 }
