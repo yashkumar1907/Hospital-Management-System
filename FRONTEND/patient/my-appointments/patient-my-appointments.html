@@ -80,6 +80,22 @@
             <section class="appointments-card">
                 <div class="appointment-list" id="appointmentList"></div>
             </section>
+            <div class="reschedule-overlay" id="rescheduleModal" aria-hidden="true">
+                <section class="reschedule-dialog" role="dialog" aria-modal="true" aria-labelledby="rescheduleTitle">
+                    <button type="button" class="reschedule-close" id="closeReschedule" aria-label="Close">&times;</button>
+                    <h2 id="rescheduleTitle">Reschedule Appointment</h2>
+                    <p id="rescheduleDoctor" class="reschedule-doctor"></p>
+                    <p id="rescheduleCurrent" class="reschedule-current"></p>
+                    <label for="rescheduleDate">New appointment date</label>
+                    <input type="date" id="rescheduleDate">
+                    <p id="rescheduleMessage" class="reschedule-message" aria-live="polite">Choose a date to view available slots.</p>
+                    <div id="rescheduleSlots" class="reschedule-slots"></div>
+                    <div class="reschedule-buttons">
+                        <button type="button" class="reschedule-cancel" id="cancelReschedule">Close</button>
+                        <button type="button" class="reschedule-confirm" id="confirmReschedule" disabled>Confirm Reschedule</button>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
 

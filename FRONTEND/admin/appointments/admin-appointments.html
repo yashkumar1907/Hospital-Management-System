@@ -45,7 +45,10 @@
                     <i class="fa-regular fa-calendar-check"></i>
                     <span>Appointments</span>
                 </a>
-
+                <a href="../queue/admin-patient-queue.html" class="menu-item">
+                    <i class="fa-solid fa-list-ol"></i>
+                    <span>Patient Queue</span>
+                </a>
             </nav>
 
             <!-- Divider -->
@@ -81,16 +84,36 @@
 
             <section class="appointment-management">
 
-                <div class="doctor-toolbar">
-            
+                <div class="appointment-filters">
                     <div class="search-box">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="searchAppointment" placeholder="Search Appointment...">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input type="search" id="searchAppointment" placeholder="Search patient or doctor" aria-label="Search by patient or doctor">
                     </div>
-            
-                    <div class="toolbar-actions">
-                    </div>
-            
+                    <label class="appointment-filter" for="appointmentStatusFilter">
+                        <span>Status</span>
+                        <select id="appointmentStatusFilter">
+                            <option value="all">All statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </label>
+                    <label class="appointment-filter" for="appointmentDateFilter">
+                        <span>Date</span>
+                        <input type="date" id="appointmentDateFilter">
+                    </label>
+                    <label class="appointment-filter" for="appointmentSort">
+                        <span>Sort by date &amp; time</span>
+                        <select id="appointmentSort">
+                            <option value="asc">Earliest first</option>
+                            <option value="desc">Latest first</option>
+                        </select>
+                    </label>
+                    <button type="button" class="clear-filters-btn" id="clearAppointmentFilters">
+                        <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+                        Clear Filters
+                    </button>
                 </div>
             
                 <div class="doctor-table-card">

@@ -45,7 +45,10 @@
                     <i class="fa-regular fa-calendar-check"></i>
                     <span>Appointments</span>
                 </a>
-
+                <a href="../queue/admin-patient-queue.html" class="menu-item">
+                    <i class="fa-solid fa-list-ol"></i>
+                    <span>Patient Queue</span>
+                </a>
             </nav>
 
             <!-- Divider -->
@@ -130,6 +133,43 @@
                     </div>
                 </div>
             
+            </section>
+
+            <section class="analytics-section" id="analytics">
+                <div class="analytics-heading">
+                    <div><h2>Analytics</h2><p>Appointment activity and doctor workload</p></div>
+                    <div class="analytics-filters">
+                        <label for="analyticsRange">Reporting period</label>
+                        <select id="analyticsRange">
+                            <option value="today">Today</option>
+                            <option value="7" selected>Last 7 days</option>
+                            <option value="30">Last 30 days</option>
+                            <option value="custom">Custom range</option>
+                        </select>
+                        <div id="customRange" class="custom-range" hidden>
+                            <input type="date" id="analyticsStart" aria-label="Start date">
+                            <span>to</span>
+                            <input type="date" id="analyticsEnd" aria-label="End date">
+                            <button type="button" id="applyAnalyticsRange">Apply</button>
+                        </div>
+                    </div>
+                </div>
+                <p id="analyticsMessage" class="analytics-message" aria-live="polite">Loading analytics…</p>
+                <div class="analytics-kpis">
+                    <article class="analytics-kpi"><span>Registered Patients</span><strong id="analyticsPatients">—</strong><small>All registered patients</small></article>
+                    <article class="analytics-kpi"><span>Total Appointments</span><strong id="analyticsAppointments">—</strong><small>Selected period</small></article>
+                    <article class="analytics-kpi"><span>Completed Appointments</span><strong id="analyticsCompleted">—</strong><small>Selected period</small></article>
+                    <article class="analytics-kpi"><span>Cancellation Rate</span><strong id="analyticsCancellation">—</strong><small>Cancelled ÷ total appointments</small></article>
+                </div>
+                <div class="analytics-charts">
+                    <article class="analytics-panel trend-panel"><h3>Appointment Trends</h3><div class="analytics-chart-wrap"><canvas id="analyticsTrendChart"></canvas></div></article>
+                    <article class="analytics-panel"><h3>Appointment Status</h3><div class="analytics-chart-wrap"><canvas id="analyticsStatusChart"></canvas></div></article>
+                    <article class="analytics-panel workload-panel"><h3>Doctor Workload</h3><div class="analytics-chart-wrap"><canvas id="analyticsWorkloadChart"></canvas></div></article>
+                </div>
+                <article class="analytics-panel analytics-recent">
+                    <h3>Recent Appointments</h3>
+                    <div class="analytics-table-scroll"><table><thead><tr><th>Patient</th><th>Doctor</th><th>Date &amp; time</th><th>Status</th></tr></thead><tbody id="analyticsRecentRows"></tbody></table></div>
+                </article>
             </section>
 
             <section class="dashboard-content">

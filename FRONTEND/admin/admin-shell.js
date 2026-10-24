@@ -22,6 +22,30 @@
     }
 
     const toggle = headingGroup.querySelector(".admin-menu-toggle");
+    const navigationLinks = [...sidebar.querySelectorAll(".sidebar-menu a[href]")];
+    const updateActiveNavigation = () => {
+        const targets = navigationLinks.map((link) => ({
+            link,
+            url: new URL(link.href, window.location.href)
+        }));
+        const currentPath = window.location.pathname;
+        const exactTarget = targets.find(({ url }) =>
+            url.pathname === currentPath && url.hash && url.hash === window.location.hash
+        );
+        const pageTarget = exactTarget || targets.find(({ url }) =>
+            url.pathname === currentPath && !url.hash
+        );
+
+        navigationLinks.forEach((link) => {
+            const isCurrent = pageTarget?.link === link;
+            link.classList.toggle("active", isCurrent);
+            if (isCurrent) link.setAttribute("aria-current", "page");
+            else link.removeAttribute("aria-current");
+        });
+    };
+    updateActiveNavigation();
+    window.addEventListener("hashchange", updateActiveNavigation);
+
     let backdrop = container.querySelector(".admin-sidebar-backdrop");
     if (!backdrop) {
         backdrop = document.createElement("button");

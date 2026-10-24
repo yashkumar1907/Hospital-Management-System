@@ -400,6 +400,27 @@ a{
 }
 .cancel-appointment-btn:hover{background:#feecee;border-color:#e9aeb5;transform:translateY(-1px);}
 .cancel-appointment-btn:disabled{transform:none;}
+.reschedule-appointment-btn{min-height:38px;padding:8px 12px;border:1px solid #c9d9f7;border-radius:9px;background:#f3f7ff;color:#1d4ed8;font:inherit;font-size:12px;font-weight:600;cursor:pointer;}
+.reschedule-appointment-btn:hover{background:#e8f0ff;}
+.reschedule-appointment-btn:disabled{opacity:.6;cursor:wait;}
+.reschedule-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(15,23,42,.48);}
+.reschedule-overlay.open{display:flex;}
+.reschedule-dialog{position:relative;width:min(100%,500px);max-height:90vh;overflow:auto;padding:28px;border-radius:18px;background:#fff;box-shadow:0 24px 70px rgba(15,23,42,.24);}
+.reschedule-dialog h2{margin:0 34px 18px 0;color:#0f172a;font-size:21px;}
+.reschedule-close{position:absolute;right:18px;top:15px;border:0;background:none;color:#64748b;font-size:28px;cursor:pointer;}
+.reschedule-doctor{font-weight:650;color:#1e293b;}
+.reschedule-current{margin:6px 0 20px;color:#64748b;font-size:14px;}
+.reschedule-dialog label{display:block;margin-bottom:7px;font-size:13px;font-weight:600;}
+.reschedule-dialog input{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:9px;font:inherit;}
+.reschedule-message{margin:13px 0;color:#64748b;font-size:13px;}
+.reschedule-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.reschedule-slot{padding:10px 6px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#334155;font:inherit;font-size:12px;cursor:pointer;}
+.reschedule-slot.selected{border-color:#2563eb;background:#eff6ff;color:#1d4ed8;}
+.reschedule-buttons{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;}
+.reschedule-buttons button{padding:10px 14px;border:0;border-radius:9px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;}
+.reschedule-cancel{background:#f1f5f9;color:#334155;}
+.reschedule-confirm{background:#2563eb;color:#fff;}
+.reschedule-confirm:disabled{opacity:.5;cursor:not-allowed;}
 #appointmentCount{margin-top:5px;font-size:13px;color:var(--patient-muted,#64748b);}
 .book-now-btn{border-radius:9px;background:var(--patient-blue,#2563eb);font-weight:600;}
 .book-now-btn:hover{background:var(--patient-blue-dark,#1d4ed8);}

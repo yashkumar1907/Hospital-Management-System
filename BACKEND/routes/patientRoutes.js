@@ -14,6 +14,7 @@ router.post("/login", loginPatient);
 router.post("/book-appointment",authMiddleware,roleMiddleware("patient"), bookAppointment);
 router.get("/appointments", authMiddleware,roleMiddleware("patient"), getPatientAppointments);
 router.patch("/appointments/:id/cancel", authMiddleware, roleMiddleware("patient"), cancelAppointment);
+router.patch("/appointments/:id/reschedule", authMiddleware, roleMiddleware("patient"), require("../controllers/patientController").rescheduleAppointment);
 router.put("/profile", authMiddleware, roleMiddleware("patient"), uploadImage.single("photo"), updateProfile);
 router.get("/all",authMiddleware, roleMiddleware("admin"), getAllPatients);
 router.delete("/:id",authMiddleware, roleMiddleware("admin"), deletePatient);

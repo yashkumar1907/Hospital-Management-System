@@ -365,6 +365,55 @@ exports.cancelAppointment = async (req, res) => {
     }
 };
 
+exports.rescheduleAppointment = async (req, res) => {
+    if (!mongoose.isValidObjectId(req.params.id) || !mongoose.isValidObjectId(req.body?.slotId)) {
+        return res.status(400).json({ success: false, message: "Invalid appointment or slot ID." });
+    }
+    const selectedDate = parseDateOnly(req.body?.appointmentDate);
+    if (!selectedDate) return res.status(400).json({ success: false, message: "Please provide a valid appointment date." });
+    const today = new Date(); today.setUTCHours(0, 0, 0, 0);
+    if (selectedDate < today) return res.status(400).json({ success: false, message: "Appointment date cannot be in the past." });
+
+    const session = await mongoose.startSession();
+    try {
+        let result;
+        await session.withTransaction(async () => {
+            const appointment = await Appointment.findOne({ _id: req.params.id, patientId: req.user.id, status: { $in: ["Pending", "Confirmed"] } }).session(session);
+            if (!appointment) {
+                const exists = await Appointment.exists({ _id: req.params.id }).session(session);
+                const error = new Error(exists ? "Appointment does not belong to you or is no longer eligible for rescheduling." : "Appointment not found.");
+                error.status = exists ? 409 : 404; throw error;
+            }
+            const doctor = await Doctor.findById(appointment.doctorId).session(session);
+            if (!doctor || !doctor.availability) { const error = new Error("Doctor is currently unavailable."); error.status = 409; throw error; }
+            if (!appointment.slotId || String(appointment.slotId) === String(req.body.slotId)) { const error = new Error("Choose a different appointment slot."); error.status = 400; throw error; }
+            const oldSlot = await DoctorSlot.findOne({ _id: appointment.slotId, doctorId: appointment.doctorId, status: "Booked", appointmentId: appointment._id }).session(session);
+            if (!oldSlot) { const error = new Error("The current appointment slot could not be verified."); error.status = 409; throw error; }
+            const newSlot = await DoctorSlot.findOneAndUpdate({
+                _id: req.body.slotId, doctorId: appointment.doctorId, date: selectedDate,
+                status: "Available", isActive: true, appointmentId: null
+            }, { $set: { status: "Booked", appointmentId: appointment._id } }, { new: true, session });
+            if (!newSlot) { const error = new Error("That slot is no longer available. Please choose another time."); error.status = 409; throw error; }
+            const now = new Date();
+            const todayText = now.toISOString().slice(0, 10);
+            const currentTime = String(now.getHours()).padStart(2, "0") + ":" + String(now.getMinutes()).padStart(2, "0");
+            if (selectedDate.toISOString().slice(0, 10) === todayText && newSlot.startTime <= currentTime) { const error = new Error("Choose a future appointment time."); error.status = 400; throw error; }
+            const released = await DoctorSlot.updateOne({ _id: oldSlot._id, status: "Booked", appointmentId: appointment._id }, { $set: { status: "Available", appointmentId: null } }, { session });
+            if (released.modifiedCount !== 1) { const error = new Error("The current appointment slot could not be released."); error.status = 409; throw error; }
+            appointment.slotId = newSlot._id;
+            appointment.appointmentDate = selectedDate;
+            appointment.appointmentTime = newSlot.startTime + " - " + newSlot.endTime;
+            await appointment.save({ session });
+            result = appointment;
+        });
+        return res.status(200).json({ success: true, message: "Appointment rescheduled successfully.", appointment: result });
+    } catch (error) {
+        if (error.status) return res.status(error.status).json({ success: false, message: error.message });
+        console.error("Reschedule Appointment Error");
+        return res.status(500).json({ success: false, message: "Unable to reschedule appointment. Please try again." });
+    } finally { await session.endSession(); }
+};
+
 exports.updateProfile = async (req, res) => {
     try {
         const name = req.body.name?.trim();

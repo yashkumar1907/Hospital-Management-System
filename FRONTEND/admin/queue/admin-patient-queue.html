@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Queue | CityCare Hospital</title>
+    <link rel="stylesheet" href="admin-patient-queue.css">
+    <link rel="stylesheet" href="../admin-shell.css">
+    <link rel="stylesheet" href="../../confirm-toast/confirm.css">
+    <link rel="stylesheet" href="../../confirm-toast/toast.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.jpg">
+</head>
+<body class="admin-portal">
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><a href="../../homepage/homepage.html"><img src="../../assets/Hospital-logo-without-bcg.jpg" alt="CityCare Hospital"></a></div>
+            <nav class="sidebar-menu">
+                <a href="../dashboard/admin-dashboard.html" class="menu-item"><i class="fa-solid fa-table-columns"></i><span>Dashboard</span></a>
+                <a href="../doctors/admin-doctor.html" class="menu-item"><i class="fa-solid fa-user-doctor"></i><span>Doctors</span></a>
+                <a href="../patients/admin-patient.html" class="menu-item"><i class="fa-solid fa-users"></i><span>Patients</span></a>
+                <a href="../appointments/admin-appointments.html" class="menu-item"><i class="fa-regular fa-calendar-check"></i><span>Appointments</span></a>
+                <a href="admin-patient-queue.html" class="menu-item active" aria-current="page"><i class="fa-solid fa-list-ol"></i><span>Patient Queue</span></a>
+            </nav>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-logout"><a href="#" id="logoutBtn" class="menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="profile-breadcrumb"><h1>PATIENT QUEUE</h1><p id="queueDateLabel">Appointments scheduled for today</p></div>
+                <div class="header-right"><div class="profile-menu"><div class="profile-avatar" id="profileAvatar"></div><span id="adminName">Admin User</span></div></div>
+            </header>
+
+            <section class="queue-stats" aria-label="Queue status totals">
+                <article class="queue-stat"><span class="queue-stat-icon waiting-icon"><i class="fa-regular fa-clock"></i></span><div><p>Approved Pending</p><strong id="pendingApprovalCount">0</strong></div></article>
+                <article class="queue-stat"><span class="queue-stat-icon active-icon"><i class="fa-solid fa-user-check"></i></span><div><p>Approved</p><strong id="approvedCount">0</strong></div></article>
+                <article class="queue-stat"><span class="queue-stat-icon completed-icon"><i class="fa-solid fa-check"></i></span><div><p>Completed</p><strong id="completedCount">0</strong></div></article>
+            </section>
+
+            <section class="queue-panel">
+                <div class="queue-toolbar">
+                    <div><h2>Appointments for selected date</h2><p>Appointments are shown in scheduled time order.</p></div>
+                    <div class="queue-filters">
+                        <label for="queueDate">Date</label><input type="date" id="queueDate">
+                        <label for="queueStatusFilter">Status</label>
+                        <select id="queueStatusFilter"><option value="all">All statuses</option><option>Approved Pending</option><option>Approved</option><option>Completed</option></select>
+                        <label class="sr-only" for="queueSearch">Search patient or queue number</label>
+                        <div class="queue-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="queueSearch" placeholder="Patient or queue #"></div>
+                    </div>
+                </div>
+                <p id="queueNotice" class="queue-notice" aria-live="polite">Loading queue…</p>
+                <div class="queue-table-wrap">
+                    <table class="queue-table">
+                        <thead><tr><th>Queue #</th><th>Patient</th><th>Doctor</th><th>Appointment date &amp; time</th><th>Status</th></tr></thead>
+                        <tbody id="queueRows"><tr><td colspan="5" class="queue-empty">Loading queue…</td></tr></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../config.js"></script>
+    <script src="../../utils/html.js"></script>
+    <script src="../../confirm-toast/confirm.js"></script>
+    <script src="../../confirm-toast/toast.js"></script>
+    <script src="../admin-session.js"></script>
+    <script src="../admin-shell.js"></script>
+    <script src="admin-patient-queue.js"></script>
+</body>
+</html>
